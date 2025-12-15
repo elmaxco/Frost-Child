@@ -38,9 +38,10 @@ Domain Path: /languages
 	color: #fff;
 	border: 2px solid #fff;
 	border-radius: 8px;
-	padding: 10px 16px;
+	padding: 200px 200px;
 	text-decoration: none;
 	font-weight: 600;
+    font-size: 2rem;
 }
 
 .dryft-cta:hover {
