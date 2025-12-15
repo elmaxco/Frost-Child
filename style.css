@@ -16,18 +16,61 @@ Domain Path: /languages
 /* Add your custom styles here */
 
 /* Header styling */
-.dryft-header .wp-block-site-title a {
-	color: #fff;
+
+
+/* Footer styling */
+.dryft-footer {
+	color: #f4f4f4;
+}
+
+.dryft-footer a {
+	color: #f4f4f4;
 	text-decoration: none;
+}
+
+.dryft-footer a:hover {
+	text-decoration: underline;
+}
+
+.dryft-footer__logo {
+	font-size: 28px;
 	font-weight: 800;
+	margin: 0;
 }
 
-.dryft-nav .wp-block-navigation__container > li > a,
-.dryft-nav .wp-block-navigation-item__content {
-	color: #fff;
+.dryft-footer__locations {
+	flex-wrap: wrap;
 }
 
-.dryft-header .wp-block-navigation__responsive-container-open,
-.dryft-header .wp-block-navigation__responsive-container-close {
-	color: #fff;
+.dryft-footer__pill {
+	margin: 0;
+	padding: 8px 14px;
+	border: 1px solid #2e3a3f;
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.dryft-footer__text {
+	max-width: 520px;
+	margin: 0;
+	line-height: 1.5;
+}
+
+.dryft-footer__copyright {
+	margin: 0;
+	font-size: 13px;
+	opacity: 0.8;
+}
+
+.dryft-footer__links {
+	align-items: flex-start;
+}
+
+.dryft-footer__col {
+	min-width: 140px;
+}
+
+.dryft-footer__heading {
+	margin: 0;
+	font-weight: 700;
 }
