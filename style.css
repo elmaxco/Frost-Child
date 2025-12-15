@@ -31,19 +31,3 @@ Domain Path: /languages
 .dryft-header .wp-block-navigation__responsive-container-close {
 	color: #fff;
 }
-
-/* CTA button */
-.dryft-cta {
-	display: inline-block;
-	color: #fff;
-	border: 2px solid #fff;
-	border-radius: 8px;
-	padding: 200px 200px;
-	text-decoration: none;
-	font-weight: 600;
-    font-size: 2rem;
-}
-
-.dryft-cta:hover {
-	opacity: 0.9;
-}
