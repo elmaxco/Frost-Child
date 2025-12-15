@@ -1,0 +1,48 @@
+/*
+Theme Name: Frost Child
+Theme URI: 
+Description: A child theme of Frost
+Version: 1.0.0
+Author: Your Name
+Author URI: 
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Parent: frost
+Template: frost
+Text Domain: frost-child
+Domain Path: /languages
+*/
+
+/* Add your custom styles here */
+
+/* Header styling */
+.dryft-header .wp-block-site-title a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 800;
+}
+
+.dryft-nav .wp-block-navigation__container > li > a,
+.dryft-nav .wp-block-navigation-item__content {
+	color: #fff;
+}
+
+.dryft-header .wp-block-navigation__responsive-container-open,
+.dryft-header .wp-block-navigation__responsive-container-close {
+	color: #fff;
+}
+
+/* CTA button */
+.dryft-cta {
+	display: inline-block;
+	color: #fff;
+	border: 2px solid #fff;
+	border-radius: 8px;
+	padding: 10px 16px;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.dryft-cta:hover {
+	opacity: 0.9;
+}
