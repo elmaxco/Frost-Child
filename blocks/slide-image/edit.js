@@ -1,6 +1,7 @@
 ( function ( blocks, element, blockEditor, components, i18n ) {
 	var el = element.createElement;
 	var Fragment = element.Fragment;
+	var useEffect = element.useEffect;
 	var InspectorControls = blockEditor.InspectorControls;
 	var PanelBody = components.PanelBody;
 	var RangeControl = components.RangeControl;
@@ -32,8 +33,13 @@
 		edit: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
-			var visibleCards = props.attributes.visibleCards || 3;
 			var setAttributes = props.setAttributes;
+
+			useEffect( function () {
+				if ( props.attributes.visibleCards !== 3 ) {
+					setAttributes( { visibleCards: 3 } );
+				}
+			}, [] );
 
 			var addReview = function () {
 				var newReview = {
@@ -80,15 +86,6 @@
 				el(
 					PanelBody,
 					{ title: __( 'Carousel Settings', 'frost-child' ), initialOpen: true },
-					el( RangeControl, {
-						label: __( 'Visible Cards', 'frost-child' ),
-						min: 1,
-						max: 5,
-						value: visibleCards,
-						onChange: function ( value ) {
-							setAttributes( { visibleCards: value } );
-						},
-					} ),
 					el( RangeControl, {
 						label: __( 'Duration (seconds)', 'frost-child' ),
 						min: 4,

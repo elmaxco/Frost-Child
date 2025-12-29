@@ -33,8 +33,7 @@
 
 .review-card {
 	flex: 0 0 calc((100% - (var(--visible-cards) - 1) * 20px) / var(--visible-cards));
-	max-width: 400px;
-	min-width: 250px;
+	max-width: calc((100% - (var(--visible-cards) - 1) * 20px) / var(--visible-cards));
 	opacity: 1;
 	background: #fff;
 	padding: 20px;

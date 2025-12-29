@@ -7,7 +7,10 @@
 			var cards = Array.from( carousel.querySelectorAll( '.review-card' ) );
 			var prevBtn = wrapper.querySelector( '.review-nav-prev' );
 			var nextBtn = wrapper.querySelector( '.review-nav-next' );
-			var visibleCards = parseInt( wrapper.dataset.visibleCards ) || 3;
+			// Lock to 3 visible cards (ignore any saved block settings).
+			var visibleCards = 3;
+			wrapper.dataset.visibleCards = '3';
+			wrapper.style.setProperty( '--visible-cards', '3' );
 			
 			if ( cards.length <= visibleCards ) {
 				if ( prevBtn ) prevBtn.style.display = 'none';
