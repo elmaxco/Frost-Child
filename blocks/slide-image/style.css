@@ -125,24 +125,3 @@
 	transform: scale(1.2);
 }
 
-.review-cta {
-	text-align: center;
-	margin-top: 20px;
-	padding-bottom: 20px;
-}
-
-.review-cta-button {
-	display: inline-block;
-	background: #264349;
-	color: #fff;
-	padding: 12px 24px;
-	border-radius: 6px;
-	text-decoration: none;
-	font-weight: 600;
-	transition: background 0.2s ease;
-}
-
-.review-cta-button:hover {
-	background: #1a3d43;
-}
-

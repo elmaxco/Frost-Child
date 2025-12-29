@@ -16,14 +16,6 @@
     "speed": {
       "type": "number",
       "default": 8
-    },
-    "ctaText": {
-      "type": "string",
-      "default": "Se vad fler tycker"
-    },
-    "ctaUrl": {
-      "type": "string",
-      "default": "#"
     }
   },
   "supports": {

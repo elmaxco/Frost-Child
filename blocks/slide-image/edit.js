@@ -26,15 +26,11 @@
 		attributes: {
 			reviews: { type: 'array', default: [] },
 			speed: { type: 'number', default: 8 },
-			ctaText: { type: 'string', default: 'Se vad fler tycker' },
-			ctaUrl: { type: 'string', default: '#' },
 		},
 
 		edit: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
-			var ctaText = props.attributes.ctaText || 'Se vad fler tycker';
-			var ctaUrl = props.attributes.ctaUrl || '#';
 			var setAttributes = props.setAttributes;
 
 			var addReview = function () {
@@ -81,24 +77,6 @@
 						value: speed,
 						onChange: function ( value ) {
 							setAttributes( { speed: value } );
-						},
-					} )
-				),
-				el(
-					PanelBody,
-					{ title: __( 'Call to Action', 'frost-child' ), initialOpen: true },
-					el( TextControl, {
-						label: __( 'Button Text', 'frost-child' ),
-						value: ctaText,
-						onChange: function ( value ) {
-							setAttributes( { ctaText: value } );
-						},
-					} ),
-					el( TextControl, {
-						label: __( 'Button URL', 'frost-child' ),
-						value: ctaUrl,
-						onChange: function ( value ) {
-							setAttributes( { ctaUrl: value } );
 						},
 					} )
 				)
@@ -170,8 +148,6 @@
 		save: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
-			var ctaText = props.attributes.ctaText || 'Se vad fler tycker';
-			var ctaUrl = props.attributes.ctaUrl || '#';
 
 			var renderStars = function ( rating ) {
 				var stars = [];
@@ -199,9 +175,6 @@
 				el( 'div', { className: 'review-controls' },
 					el( 'button', { className: 'review-nav review-nav-prev' }, '<' ),
 					el( 'button', { className: 'review-nav review-nav-next' }, '>' )
-				),
-				el( 'div', { className: 'review-cta' },
-					el( 'a', { href: ctaUrl, className: 'review-cta-button' }, ctaText )
 				)
 			);
 		},
