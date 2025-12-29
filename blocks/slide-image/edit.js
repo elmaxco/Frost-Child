@@ -59,9 +59,17 @@
 			};
 
 			var renderStars = function ( rating ) {
+				var colors = [ '#F9C63C', '#3096D0', '#ED2281', '#C3DA4A', '#F9C63C' ];
 				var stars = [];
 				for ( var i = 0; i < 5; i++ ) {
-					stars.push( el( 'span', { key: i, className: i < rating ? 'star filled' : 'star' }, '●' ) );
+					var color = i < rating ? colors[ i ] : '#e0e0e0';
+					stars.push(
+						el(
+							'svg',
+							{ key: i, className: 'star-svg', width: 16, height: 16, viewBox: '0 0 16 16' },
+							el( 'circle', { cx: 8, cy: 8, r: 6, fill: color } )
+						)
+					);
 				}
 				return stars;
 			};
@@ -156,15 +164,23 @@
 			);
 		},
 
-		save: function ( props ) {
+			save: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
 			var visibleCards = props.attributes.visibleCards || 3;
 
 			var renderStars = function ( rating ) {
+				var colors = [ '#F9C63C', '#3096D0', '#ED2281', '#C3DA4A', '#F9C63C' ];
 				var stars = [];
 				for ( var i = 0; i < 5; i++ ) {
-					stars.push( el( 'span', { key: i, className: i < rating ? 'star filled' : 'star' }, '●' ) );
+					var color = i < rating ? colors[ i ] : '#e0e0e0';
+					stars.push(
+						el(
+							'svg',
+							{ key: i, className: 'star-svg', width: 16, height: 16, viewBox: '0 0 16 16' },
+							el( 'circle', { cx: 8, cy: 8, r: 6, fill: color } )
+						)
+					);
 				}
 				return stars;
 			};
