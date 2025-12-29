@@ -24,9 +24,16 @@
 			cards.forEach( function( card ) {
 				inner.appendChild( card );
 			} );
+			// Clone cards for infinite loop
+			cards.forEach( function( card ) {
+				var clone = card.cloneNode( true );
+				inner.appendChild( clone );
+			} );
 			carousel.appendChild( inner );
 			
 			var currentIndex = 0;
+			var totalCards = cards.length;
+			var isTransitioning = false;
 			var autoRotateInterval;
 			var duration = parseFloat( getComputedStyle( wrapper ).getPropertyValue( '--carousel-duration' ) ) || 8;
 			var autoRotateDelay = duration * 1000;
@@ -38,33 +45,75 @@
 			var prevTranslate = 0;
 			var animationID = 0;
 			
-			function getCardWidth() {
-				return cards[0].offsetWidth + 20; // width + gap
+			function getCardStep() {
+				var first = cards[0];
+				if ( !first ) return 0;
+				var cardWidth = first.getBoundingClientRect().width;
+				var gap = 0;
+				try {
+					var innerStyles = window.getComputedStyle( inner );
+					gap = parseFloat( innerStyles.columnGap || innerStyles.gap ) || 0;
+				} catch ( e ) {
+					gap = 0;
+				}
+				return cardWidth + gap;
 			}
 			
-			function updateCarousel() {
-				var cardWidth = getCardWidth();
-				var offset = -currentIndex * cardWidth;
+			function updateCarousel( noTransition ) {
+				var step = getCardStep();
+				var offset = -currentIndex * step;
+				if ( noTransition ) {
+					inner.style.transition = 'none';
+				}
 				inner.style.transform = 'translateX(' + offset + 'px)';
+				if ( noTransition ) {
+					setTimeout( function() {
+						inner.style.transition = '';
+					}, 50 );
+				}
 			}
 			
 			function next() {
-				if ( currentIndex < cards.length - visibleCards ) {
-					currentIndex++;
-				} else {
-					currentIndex = 0;
-				}
+				if ( isTransitioning ) return;
+				isTransitioning = true;
+				currentIndex++;
 				updateCarousel();
+				
+				if ( currentIndex >= totalCards ) {
+					setTimeout( function() {
+						currentIndex = 0;
+						updateCarousel( true );
+						isTransitioning = false;
+					}, 500 );
+				} else {
+					setTimeout( function() {
+						isTransitioning = false;
+					}, 500 );
+				}
 				resetAutoRotate();
 			}
 			
 			function prev() {
-				if ( currentIndex > 0 ) {
-					currentIndex--;
+				if ( isTransitioning ) return;
+				isTransitioning = true;
+				
+				if ( currentIndex <= 0 ) {
+					currentIndex = totalCards;
+					updateCarousel( true );
+					setTimeout( function() {
+						currentIndex--;
+						updateCarousel();
+						setTimeout( function() {
+							isTransitioning = false;
+						}, 500 );
+					}, 50 );
 				} else {
-					currentIndex = cards.length - visibleCards;
+					currentIndex--;
+					updateCarousel();
+					setTimeout( function() {
+						isTransitioning = false;
+					}, 500 );
 				}
-				updateCarousel();
 				resetAutoRotate();
 			}
 			
@@ -85,8 +134,8 @@
 				if ( !isDragging ) return;
 				var currentPosition = getPositionX( event );
 				currentTranslate = prevTranslate + currentPosition - startPos;
-				var cardWidth = getCardWidth();
-				var offset = -currentIndex * cardWidth;
+				var step = getCardStep();
+				var offset = -currentIndex * step;
 				inner.style.transform = 'translateX(' + ( offset + ( currentPosition - startPos ) ) + 'px)';
 			}
 			
@@ -97,16 +146,17 @@
 				
 				var movedBy = currentTranslate - prevTranslate;
 				
-				if ( movedBy < -100 && currentIndex < cards.length - visibleCards ) {
-					currentIndex++;
-				} else if ( movedBy > 100 && currentIndex > 0 ) {
-					currentIndex--;
+				if ( movedBy < -100 ) {
+					next();
+				} else if ( movedBy > 100 ) {
+					prev();
+				} else {
+					updateCarousel();
+					resetAutoRotate();
 				}
 				
 				currentTranslate = 0;
 				prevTranslate = 0;
-				updateCarousel();
-				resetAutoRotate();
 			}
 			
 			function getPositionX( event ) {
