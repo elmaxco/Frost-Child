@@ -26,11 +26,13 @@
 		attributes: {
 			reviews: { type: 'array', default: [] },
 			speed: { type: 'number', default: 8 },
+			visibleCards: { type: 'number', default: 3 },
 		},
 
 		edit: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
+			var visibleCards = props.attributes.visibleCards || 3;
 			var setAttributes = props.setAttributes;
 
 			var addReview = function () {
@@ -70,6 +72,15 @@
 				el(
 					PanelBody,
 					{ title: __( 'Carousel Settings', 'frost-child' ), initialOpen: true },
+					el( RangeControl, {
+						label: __( 'Visible Cards', 'frost-child' ),
+						min: 1,
+						max: 5,
+						value: visibleCards,
+						onChange: function ( value ) {
+							setAttributes( { visibleCards: value } );
+						},
+					} ),
 					el( RangeControl, {
 						label: __( 'Duration (seconds)', 'frost-child' ),
 						min: 4,
@@ -148,6 +159,7 @@
 		save: function ( props ) {
 			var reviews = props.attributes.reviews || [];
 			var speed = props.attributes.speed || 8;
+			var visibleCards = props.attributes.visibleCards || 3;
 
 			var renderStars = function ( rating ) {
 				var stars = [];
@@ -159,7 +171,7 @@
 
 			return el(
 				'div',
-				{ className: 'review-carousel-wrapper', style: { '--carousel-duration': speed + 's' } },
+				{ className: 'review-carousel-wrapper', style: { '--carousel-duration': speed + 's', '--visible-cards': visibleCards }, 'data-visible-cards': visibleCards },
 				el( 'div', { className: 'review-carousel' },
 					reviews.map( function ( review, idx ) {
 						return el( 'div', { key: review.id, className: 'review-card' },

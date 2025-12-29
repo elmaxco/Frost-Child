@@ -47,6 +47,17 @@ function frost_child_register_review_carousel_block() {
 		filemtime( $block_dir . '/editor.css' )
 	);
 
-	register_block_type( $block_dir );
+	// Register frontend carousel script
+	wp_register_script(
+		'frost-child-review-carousel-script',
+		$block_uri . '/carousel.js',
+		array(),
+		filemtime( $block_dir . '/carousel.js' ),
+		true
+	);
+
+	register_block_type( $block_dir, array(
+		'script' => 'frost-child-review-carousel-script',
+	) );
 }
 add_action( 'init', 'frost_child_register_review_carousel_block' );

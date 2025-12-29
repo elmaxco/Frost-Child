@@ -16,6 +16,10 @@
     "speed": {
       "type": "number",
       "default": 8
+    },
+    "visibleCards": {
+      "type": "number",
+      "default": 3
     }
   },
   "supports": {
