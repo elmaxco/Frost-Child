@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "frost-child/review-carousel",
+  "title": "Review Carousel",
+  "category": "design",
+  "icon": "format-quote",
+  "description": "Display customer reviews in a carousel format.",
+  "keywords": ["review", "testimonial", "carousel"],
+  "textdomain": "frost-child",
+  "attributes": {
+    "reviews": {
+      "type": "array",
+      "default": []
+    },
+    "speed": {
+      "type": "number",
+      "default": 8
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Se vad fler tycker"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": "#"
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "frost-child-review-carousel-editor",
+  "editorStyle": "frost-child-review-carousel-editor",
+  "style": "frost-child-review-carousel"
+}
+
