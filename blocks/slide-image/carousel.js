@@ -7,10 +7,11 @@
 			var cards = Array.from( carousel.querySelectorAll( '.review-card' ) );
 			var prevBtn = wrapper.querySelector( '.review-nav-prev' );
 			var nextBtn = wrapper.querySelector( '.review-nav-next' );
-			// Lock to 3 visible cards (ignore any saved block settings).
-			var visibleCards = 3;
-			wrapper.dataset.visibleCards = '3';
-			wrapper.style.setProperty( '--visible-cards', '3' );
+			// Adjust visible cards based on screen width
+			var isMobile = window.innerWidth <= 768;
+			var visibleCards = isMobile ? 1 : 3;
+			wrapper.dataset.visibleCards = visibleCards.toString();
+			wrapper.style.setProperty( '--visible-cards', visibleCards.toString() );
 			
 			if ( cards.length <= visibleCards ) {
 				if ( prevBtn ) prevBtn.style.display = 'none';
@@ -126,8 +127,12 @@
 			function touchStart( event ) {
 				isDragging = true;
 				startPos = getPositionX( event );
+				prevTranslate = -currentIndex * getCardStep();
 				inner.classList.add( 'dragging' );
 				clearInterval( autoRotateInterval );
+				if ( event.type === 'touchstart' ) {
+					event.preventDefault();
+				}
 			}
 			
 			function touchMove( event ) {
@@ -136,6 +141,7 @@
 				currentTranslate = prevTranslate + currentPosition - startPos;
 				var step = getCardStep();
 				var offset = -currentIndex * step;
+				inner.style.transition = 'none';
 				inner.style.transform = 'translateX(' + ( offset + ( currentPosition - startPos ) ) + 'px)';
 			}
 			
@@ -143,12 +149,14 @@
 				if ( !isDragging ) return;
 				isDragging = false;
 				inner.classList.remove( 'dragging' );
+				inner.style.transition = '';
 				
 				var movedBy = currentTranslate - prevTranslate;
+				var threshold = window.innerWidth <= 768 ? 50 : 100;
 				
-				if ( movedBy < -100 ) {
+				if ( movedBy < -threshold ) {
 					next();
-				} else if ( movedBy > 100 ) {
+				} else if ( movedBy > threshold ) {
 					prev();
 				} else {
 					updateCarousel();
@@ -174,9 +182,24 @@
 			inner.addEventListener( 'mouseleave', touchEnd );
 			
 			// Touch events
-			inner.addEventListener( 'touchstart', touchStart );
-			inner.addEventListener( 'touchmove', touchMove );
+			inner.addEventListener( 'touchstart', touchStart, { passive: false } );
+			inner.addEventListener( 'touchmove', touchMove, { passive: true } );
 			inner.addEventListener( 'touchend', touchEnd );
+			
+			// Handle resize
+			var resizeTimeout;
+			window.addEventListener( 'resize', function() {
+				clearTimeout( resizeTimeout );
+				resizeTimeout = setTimeout( function() {
+					var newIsMobile = window.innerWidth <= 768;
+					var newVisibleCards = newIsMobile ? 1 : 3;
+					if ( newVisibleCards !== visibleCards ) {
+						visibleCards = newVisibleCards;
+						wrapper.style.setProperty( '--visible-cards', visibleCards.toString() );
+						updateCarousel();
+					}
+				}, 250 );
+			} );
 			
 			updateCarousel();
 			autoRotateInterval = setInterval( next, autoRotateDelay );

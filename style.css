@@ -27,6 +27,19 @@ Domain Path: /languages
 	padding: 16px 24px;
 }
 
+@media (max-width: 768px) {
+	.maxco-header__inner {
+		max-width: 100%;
+		padding: 16px;
+	}
+
+	/* Make review slides full width on mobile */
+	.review-slide {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
 .maxco-nav-bar {
 	display: grid;
 	grid-template-columns: auto 1fr auto;
