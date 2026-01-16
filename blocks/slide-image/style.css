@@ -13,8 +13,10 @@
 	overflow: hidden;
 	padding: 40px 20px;
 	min-height: 200px;
-	max-width: 100%;
+	max-width: 1440px;
 	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .review-carousel-inner {
