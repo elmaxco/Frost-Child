@@ -26,6 +26,9 @@
 	cursor: grab;
 	user-select: none;
 	width: 100%;
+	max-width: 1440px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .review-carousel-inner.dragging {
