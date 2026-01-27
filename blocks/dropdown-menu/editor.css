@@ -1,0 +1,30 @@
+/* Editor-specific styles for Dropdown Menu Block */
+.wp-block-frost-child-dropdown-menu {
+    margin: 20px 0;
+}
+
+.wp-block-frost-child-dropdown-menu .dropdown-menu-wrapper {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.wp-block-frost-child-dropdown-menu .dropdown-menu-preview {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Inspector Controls Styling */
+.components-panel__body h3 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.components-panel__body h4 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}

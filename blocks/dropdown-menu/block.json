@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/dropdown-menu",
+  "version": "1.0.0",
+  "title": "Dropdown Menu Button",
+  "category": "widgets",
+  "icon": "menu-alt",
+  "description": "A button with a customizable dropdown menu with services and locations.",
+  "keywords": ["menu", "dropdown", "button", "navigation"],
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "script": "file:./dropdown.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "attributes": {
+    "buttonText": {
+      "type": "string",
+      "default": "Tjänster"
+    },
+    "menuItems": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Renovering",
+          "subtitle": "T.ex. Badrum, kök eller större renovering",
+          "description": "Vid en större renovering, som badrum, kök eller större del av hemmet, är noggrann planering, skickliga hantverkare och rätt stöd avgörande för att göra resan mot ditt drömboende smidig och inspirerande!",
+          "tags": ["Hantverkare", "Material", "Projektledning"],
+          "buttonText": "Läs mer",
+          "buttonLink": "#"
+        },
+        {
+          "title": "Mindre jobb eller småfix",
+          "subtitle": "T.ex. Eluttag eller måla om några rum",
+          "description": "",
+          "tags": [],
+          "buttonText": "",
+          "buttonLink": "#"
+        }
+      ]
+    },
+    "locations": {
+      "type": "array",
+      "default": ["Stockholm", "Göteborg", "Uppsala"]
+    },
+    "popularServices": {
+      "type": "array",
+      "default": [
+        "Badrumsrenovering",
+        "Köksrenovering",
+        "Helrenovering",
+        "Energirenovering",
+        "Källarrenovering",
+        "Fasadrenovering"
+      ]
+    },
+    "popularServicesTitle": {
+      "type": "string",
+      "default": "Populära tjänster i Stockholm:"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  }
+}
