@@ -61,3 +61,46 @@ function frost_child_register_review_carousel_block() {
 	) );
 }
 add_action( 'init', 'frost_child_register_review_carousel_block' );
+
+/**
+ * Register Dropdown Menu block (no build step).
+ */
+function frost_child_register_dropdown_menu_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/dropdown-menu';
+	$block_uri  = get_stylesheet_directory_uri() . '/blocks/dropdown-menu';
+
+	wp_register_script(
+		'frost-child-dropdown-menu-editor',
+		$block_uri . '/edit.js',
+		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
+		filemtime( $block_dir . '/edit.js' ),
+		true
+	);
+
+	wp_register_style(
+		'frost-child-dropdown-menu',
+		$block_uri . '/style.css',
+		array(),
+		filemtime( $block_dir . '/style.css' )
+	);
+
+	wp_register_style(
+		'frost-child-dropdown-menu-editor',
+		$block_uri . '/editor.css',
+		array( 'wp-edit-blocks' ),
+		filemtime( $block_dir . '/editor.css' )
+	);
+
+	wp_register_script(
+		'frost-child-dropdown-menu-script',
+		$block_uri . '/dropdown.js',
+		array(),
+		filemtime( $block_dir . '/dropdown.js' ),
+		true
+	);
+
+	register_block_type( $block_dir, array(
+		'script' => 'frost-child-dropdown-menu-script',
+	) );
+}
+add_action( 'init', 'frost_child_register_dropdown_menu_block' );

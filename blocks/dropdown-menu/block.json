@@ -13,6 +13,7 @@
   "script": "file:./dropdown.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
+  "render": "file:./render.php",
   "attributes": {
     "buttonText": {
       "type": "string",
