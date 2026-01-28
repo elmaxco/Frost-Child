@@ -6,6 +6,45 @@ document.addEventListener('DOMContentLoaded', function() {
         const menu = wrapper.querySelector('.dropdown-menu-content');
         
         if (!menu) return;
+
+        const sidebarItems = menu.querySelectorAll('.menu-sidebar-item');
+        const templates = menu.querySelectorAll('template.menu-item-template');
+        const contentMain = menu.querySelector('.menu-content-main');
+
+        if (!contentMain || sidebarItems.length === 0 || templates.length === 0) return;
+
+        const templateByIndex = new Map();
+        templates.forEach(tpl => {
+            const idx = tpl.getAttribute('data-item-index');
+            if (idx !== null) templateByIndex.set(idx, tpl);
+        });
+
+        function setActive(index) {
+            sidebarItems.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-item-index') === index);
+            });
+
+            const tpl = templateByIndex.get(index);
+            contentMain.innerHTML = tpl ? tpl.innerHTML : '';
+        }
+
+        // Default to first sidebar item
+        const firstIndex = sidebarItems[0].getAttribute('data-item-index');
+        if (firstIndex !== null) setActive(firstIndex);
+
+        sidebarItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const idx = this.getAttribute('data-item-index');
+                if (idx !== null) setActive(idx);
+            });
+
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const idx = this.getAttribute('data-item-index');
+                if (idx !== null) setActive(idx);
+            });
+        });
         
         // Toggle dropdown on button click
         button.addEventListener('click', function(e) {
@@ -45,4 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+    
 });
+

@@ -42,14 +42,15 @@
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    padding: 24px;
-    min-width: 400px;
-    max-width: 800px;
+    padding: 0;
+    min-width: 520px;
+    max-width: min(960px, calc(100vw - 40px));
     display: none;
     z-index: 1000;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
 }
 
 .dropdown-menu-content.active {
@@ -70,55 +71,108 @@
     box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Menu Items Grid */
+/* Two-panel layout */
 .menu-items-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
+    grid-template-columns: 340px 1fr;
+    gap: 0;
+    min-height: 420px;
+}
+
+.menu-sidebar {
+    background: #eef2f3;
+    border-right: 1px solid #d9dee0;
+    padding: 0;
+}
+
+.menu-sidebar-item {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    padding: 28px 24px;
+    cursor: pointer;
+    color: #1a353b;
+    display: block;
+    position: relative;
+}
+
+.menu-sidebar-item + .menu-sidebar-item {
+    border-top: 1px solid #d9dee0;
+}
+
+.menu-sidebar-title {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.menu-sidebar-subtitle {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a353b;
+    opacity: 0.9;
+}
+
+.menu-sidebar-item:hover,
+.menu-sidebar-item.active {
+    background: #e8b673;
+}
+
+/* Little notch pointing into the right panel */
+.menu-sidebar-item:hover::after,
+.menu-sidebar-item.active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 16px solid #e8b673;
+}
+
+.menu-content {
+    background: #eef2f3;
+    padding: 28px 28px 24px;
+}
+
+.menu-content-main {
+    background: transparent;
 }
 
 @media (max-width: 768px) {
     .menu-items-grid {
         grid-template-columns: 1fr;
+        min-height: 0;
     }
     
     .dropdown-menu-content {
         min-width: 300px;
-        max-width: calc(100vw - 40px);
+    }
+
+    .menu-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid #d9dee0;
+    }
+
+    .menu-sidebar-item:hover::after,
+    .menu-sidebar-item.active::after {
+        display: none;
     }
 }
 
-/* Menu Item Card */
-.menu-item-card {
-    background: #f5e6d3;
-    border-radius: 8px;
-    padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.menu-item-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.menu-item-card.no-background {
-    background: transparent;
-    border: 1px solid #e0e0e0;
-}
-
-.menu-item-title {
-    font-size: 18px;
+/* Right panel content styles */
+.menu-content-main .menu-item-title {
+    font-size: 26px;
     font-weight: 700;
-    color: #2c3e50;
-    margin: 0 0 8px 0;
-}
-
-.menu-item-subtitle {
-    font-size: 14px;
-    color: #34495e;
-    margin: 0 0 12px 0;
-    font-weight: 500;
+    color: #1a353b;
+    margin: 0 0 10px 0;
 }
 
 .menu-item-tags {
@@ -126,6 +180,7 @@
     gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 12px;
+    margin-top: 0;
 }
 
 .menu-item-tag {
@@ -134,6 +189,7 @@
     gap: 4px;
     font-size: 14px;
     color: #2c3e50;
+    font-weight: 600;
 }
 
 .menu-item-tag::before {
@@ -144,23 +200,24 @@
 
 .menu-item-description {
     font-size: 14px;
-    color: #34495e;
+    color: #1a353b;
     line-height: 1.6;
-    margin: 12px 0;
+    margin: 16px 0;
 }
 
 .menu-item-button {
     background-color: #e8b673;
-    color: #2c3e50;
+    color: #1a353b;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.2s ease;
+    margin-top: 16px;
 }
 
 .menu-item-button:hover {
@@ -169,7 +226,7 @@
 
 /* Locations Section */
 .locations-section {
-    margin: 20px 0;
+    margin: 22px 0 0;
 }
 
 .locations-buttons {
@@ -199,8 +256,8 @@
 
 /* Popular Services Section */
 .popular-services-section {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 22px;
+    padding-top: 18px;
     border-top: 1px solid #e0e0e0;
 }
 
