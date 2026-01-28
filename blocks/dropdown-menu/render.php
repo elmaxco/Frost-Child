@@ -18,7 +18,7 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wr
 
 <div <?php echo $wrapper_attributes; ?>>
     <button class="dropdown-menu-button" type="button" aria-expanded="false" aria-haspopup="true">
-        <?php echo $button_text; ?> <span class="dropdown-arrow">▼</span>
+        <?php echo $button_text; ?> <span class="dropdown-arrow">⌵</span>
     </button>
     
     <div class="dropdown-menu-content" role="menu">
