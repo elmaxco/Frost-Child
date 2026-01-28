@@ -9,10 +9,6 @@
   "description": "A button with a customizable dropdown menu with services and locations.",
   "keywords": ["menu", "dropdown", "button", "navigation"],
   "textdomain": "frost-child",
-  "editorScript": "file:./edit.js",
-  "script": "file:./dropdown.js",
-  "editorStyle": "file:./editor.css",
-  "style": "file:./style.css",
   "render": "file:./render.php",
   "attributes": {
     "buttonText": {

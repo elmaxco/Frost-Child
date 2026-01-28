@@ -100,7 +100,10 @@ function frost_child_register_dropdown_menu_block() {
 	);
 
 	register_block_type( $block_dir, array(
-		'script' => 'frost-child-dropdown-menu-script',
+		'editor_script' => 'frost-child-dropdown-menu-editor',
+		'editor_style'  => 'frost-child-dropdown-menu-editor',
+		'style'         => 'frost-child-dropdown-menu',
+		'script'        => 'frost-child-dropdown-menu-script',
 	) );
 }
 add_action( 'init', 'frost_child_register_dropdown_menu_block' );
