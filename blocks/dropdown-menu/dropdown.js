@@ -98,8 +98,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.toggle('active', btn.getAttribute('data-item-index') === index);
             });
 
+            const activeBtn = Array.from(sidebarItems).find(
+                (btn) => btn.getAttribute('data-item-index') === index
+            );
+            const activeTitle = activeBtn
+                ? (activeBtn.querySelector('.menu-sidebar-title')?.textContent || activeBtn.textContent)
+                : '';
+            const activeTitleNorm = normalizeText(activeTitle);
+            const isSmallFix = activeTitleNorm.includes('mindre jobb') || activeTitleNorm.includes('småfix');
+            menu.dataset.popularServicesMode = isSmallFix ? 'smallfix' : 'default';
+
             const tpl = templateByIndex.get(index);
             contentMain.innerHTML = tpl ? tpl.innerHTML : '';
+
+            if (menu._dropdownCitySwitcher && typeof menu._dropdownCitySwitcher.refresh === 'function') {
+                menu._dropdownCitySwitcher.refresh();
+            }
         }
 
         // Default to first sidebar item
@@ -129,14 +143,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!locationButtons.length || !servicesSectionEl || !servicesListEl || !cityEl) return;
 
-            const servicesByCity = {
+            const defaultServicesByCity = {
                 Stockholm: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Energirenovering', 'Källarrenovering', 'Fasadrenovering'],
                 Göteborg: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Källarrenovering', 'Fasadrenovering'],
                 Uppsala: ['Badrumsrenovering'],
             };
 
+            // For “Mindre jobb eller småfix”: same services for all cities.
+            const smallFixServices = ['Elektriker', 'Rörmokare', 'Plattsättare', 'Målare', 'Snickare'];
+
+            let currentCityName = null;
+
+            function getMode() {
+                return menu.dataset.popularServicesMode || 'default';
+            }
+
+            function getServices(cityName) {
+                if (getMode() === 'smallfix') return smallFixServices;
+                return defaultServicesByCity[cityName] || defaultServicesByCity.Stockholm;
+            }
+
             function renderServices(cityName) {
-                const list = servicesByCity[cityName] || servicesByCity.Stockholm;
+                const list = getServices(cityName);
+                currentCityName = cityName;
                 cityEl.textContent = cityName;
                 servicesListEl.innerHTML = list
                     .map((svc) => `<a href="#" class="popular-service-button">${svc}</a>`)
@@ -161,6 +190,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Init based on existing active, else first
             const active = menu.querySelector('.location-button.active') || locationButtons[0];
             if (active) setActiveCity(active);
+
+            // Allow sidebar selection to switch which service list is used.
+            menu._dropdownCitySwitcher = {
+                refresh() {
+                    if (currentCityName) {
+                        renderServices(currentCityName);
+                        return;
+                    }
+                    const activeBtn = menu.querySelector('.location-button.active') || locationButtons[0];
+                    if (activeBtn) setActiveCity(activeBtn);
+                },
+            };
         })();
         
         function toggleMenu(e, triggerEl) {

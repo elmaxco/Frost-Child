@@ -35,7 +35,7 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wr
 
                         // Fallback tags to match the intended design for this specific entry.
                         if (empty($item_tags) && stripos($item_title_raw, 'Mindre jobb') !== false) {
-                            $item_tags = ['Elektriker', 'Rörmokare', 'Snickare', 'Målare', 'Plattsättare'];
+                            $item_tags = ['Elektriker', 'Rörmokare', 'Plattsättare', 'Målare', 'Snickare'];
                         }
 
                         // Fallback description to match the intended design for this specific entry.
