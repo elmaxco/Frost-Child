@@ -1,11 +1,85 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownButtons = document.querySelectorAll('.dropdown-menu-button');
+
+    function getBackdrop() {
+        let backdrop = document.querySelector('.dropdown-menu-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'dropdown-menu-backdrop';
+            document.body.appendChild(backdrop);
+        }
+        return backdrop;
+    }
+
+    function positionMenuUnderTrigger(menu, triggerEl) {
+        if (!menu || !triggerEl) return;
+        const rect = triggerEl.getBoundingClientRect();
+        const gap = 12; // 8–16px
+        const top = Math.round(rect.bottom + gap);
+        menu.style.setProperty('--dropdown-top', `${top}px`);
+
+        // Center the whole dropdown on the trigger center (the arrow under “Tjänster”).
+        // Clamp so the card stays within the viewport.
+        const triggerCenterX = rect.left + rect.width / 2;
+
+        // Need menu width; if it isn't measurable yet, bail and let caller retry.
+        const menuWidth = menu.offsetWidth;
+        if (!menuWidth) return;
+
+        const viewportW = window.innerWidth;
+        const margin = 16;
+        const minCenter = margin + menuWidth / 2;
+        const maxCenter = viewportW - margin - menuWidth / 2;
+        const clampedCenter = Math.max(minCenter, Math.min(maxCenter, triggerCenterX));
+
+        menu.style.setProperty('--dropdown-left', `${Math.round(clampedCenter)}px`);
+
+        // Position the small pointer so it points to the real trigger center.
+        // After clamping, the pointer may not be exactly centered.
+        const menuLeft = clampedCenter - menuWidth / 2;
+        let arrowLeft = triggerCenterX - menuLeft;
+        const clampPadding = 28;
+        arrowLeft = Math.max(clampPadding, Math.min(menuWidth - clampPadding, arrowLeft));
+        menu.style.setProperty('--dropdown-arrow-left', `${Math.round(arrowLeft)}px`);
+    }
+
+    function positionArrowToTrigger(menu, triggerEl) {
+        // Kept for backwards compatibility; positioning is now handled in positionMenuUnderTrigger.
+        positionMenuUnderTrigger(menu, triggerEl);
+    }
+
+    function normalizeText(value) {
+        return (value || '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .toLowerCase();
+    }
     
     dropdownButtons.forEach(button => {
         const wrapper = button.closest('.dropdown-menu-wrapper');
         const menu = wrapper.querySelector('.dropdown-menu-content');
         
         if (!menu) return;
+
+        // Store refs so we can portal the menu to <body> without breaking close logic.
+        if (!menu._dropdownPortal) {
+            menu._dropdownPortal = {
+                parent: menu.parentNode,
+                nextSibling: menu.nextSibling,
+                button,
+                triggerEl: button,
+                restore() {
+                    if (this.parent) {
+                        this.parent.insertBefore(menu, this.nextSibling || null);
+                    }
+                },
+                portal() {
+                    if (menu.parentNode !== document.body) {
+                        document.body.appendChild(menu);
+                    }
+                },
+            };
+        }
 
         const sidebarItems = menu.querySelectorAll('.menu-sidebar-item');
         const templates = menu.querySelectorAll('template.menu-item-template');
@@ -46,33 +120,127 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Toggle dropdown on button click
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
+        function toggleMenu(e, triggerEl) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            const willOpen = !menu.classList.contains('active');
+
             // Close all other dropdowns
             document.querySelectorAll('.dropdown-menu-content.active').forEach(otherMenu => {
                 if (otherMenu !== menu) {
                     otherMenu.classList.remove('active');
-                    otherMenu.closest('.dropdown-menu-wrapper').querySelector('.dropdown-menu-button').classList.remove('active');
+                    if (otherMenu._dropdownPortal) {
+                        otherMenu._dropdownPortal.restore();
+                        const otherButton = otherMenu._dropdownPortal.button;
+                        if (otherButton) {
+                            otherButton.classList.remove('active');
+                            otherButton.setAttribute('aria-expanded', 'false');
+                        }
+                    } else {
+                        const otherButton = otherMenu.closest('.dropdown-menu-wrapper')?.querySelector('.dropdown-menu-button');
+                        if (otherButton) {
+                            otherButton.classList.remove('active');
+                            otherButton.setAttribute('aria-expanded', 'false');
+                        }
+                    }
                 }
             });
-            
-            // Toggle current dropdown
-            menu.classList.toggle('active');
-            button.classList.toggle('active');
+
+            if (willOpen) {
+                const backdrop = getBackdrop();
+                menu._dropdownPortal.triggerEl = triggerEl || button;
+                menu._dropdownPortal.portal();
+                menu.classList.add('active');
+                backdrop.classList.add('active');
+
+                // After it becomes display:block, we can measure and align the card + pointer.
+                requestAnimationFrame(function() {
+                    positionMenuUnderTrigger(menu, triggerEl || button);
+                });
+
+                button.classList.add('active');
+                button.setAttribute('aria-expanded', 'true');
+            } else {
+                const backdrop = getBackdrop();
+                menu.classList.remove('active');
+                backdrop.classList.remove('active');
+                if (menu._dropdownPortal) menu._dropdownPortal.restore();
+                button.classList.remove('active');
+                button.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Toggle dropdown on block button click
+        button.addEventListener('click', function(e) {
+            toggleMenu(e, button);
         });
+
+        // Hook into main navigation link that matches this button text
+        const buttonLabel = normalizeText(button.textContent.replace('⌵', ''));
+        const navLinks = document.querySelectorAll('.wp-block-navigation a');
+        navLinks.forEach(link => {
+            if (link.dataset.dropdownBound === '1') return;
+            if (normalizeText(link.textContent) === buttonLabel) {
+                link.dataset.dropdownBound = '1';
+                link.addEventListener('click', function(e) {
+                    toggleMenu(e, link);
+                });
+
+                // Remember the nav link used as a trigger so outside-click logic works.
+                menu._dropdownPortal.triggerEl = link;
+            }
+        });
+
+        // Keep pointer aligned on resize while open
+        window.addEventListener('resize', function() {
+            if (menu.classList.contains('active')) {
+                const activeTrigger = (menu._dropdownPortal && menu._dropdownPortal.triggerEl) ? menu._dropdownPortal.triggerEl : button;
+                positionMenuUnderTrigger(menu, activeTrigger);
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            if (menu.classList.contains('active')) {
+                const activeTrigger = (menu._dropdownPortal && menu._dropdownPortal.triggerEl) ? menu._dropdownPortal.triggerEl : button;
+                positionMenuUnderTrigger(menu, activeTrigger);
+            }
+        }, { passive: true });
     });
     
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown-menu-wrapper')) {
-            document.querySelectorAll('.dropdown-menu-content.active').forEach(menu => {
-                menu.classList.remove('active');
-                menu.closest('.dropdown-menu-wrapper').querySelector('.dropdown-menu-button').classList.remove('active');
-            });
-        }
+        const clickedInsideMenu = !!e.target.closest('.dropdown-menu-content');
+        const clickedTriggerButton = !!e.target.closest('.dropdown-menu-button');
+
+        // If a nav link is the trigger, allow clicks on it too.
+        const activeMenu = document.querySelector('.dropdown-menu-content.active');
+        const clickedTriggerLink = !!(activeMenu && activeMenu._dropdownPortal && activeMenu._dropdownPortal.triggerEl && activeMenu._dropdownPortal.triggerEl.contains(e.target));
+
+        if (clickedInsideMenu || clickedTriggerButton || clickedTriggerLink) return;
+
+        document.querySelectorAll('.dropdown-menu-content.active').forEach(menu => {
+            menu.classList.remove('active');
+            const backdrop = document.querySelector('.dropdown-menu-backdrop');
+            if (backdrop) backdrop.classList.remove('active');
+
+            if (menu._dropdownPortal) {
+                menu._dropdownPortal.restore();
+                const btn = menu._dropdownPortal.button;
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            } else {
+                const btn = menu.closest('.dropdown-menu-wrapper')?.querySelector('.dropdown-menu-button');
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
     });
     
     // Close on Escape key
@@ -80,7 +248,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Escape') {
             document.querySelectorAll('.dropdown-menu-content.active').forEach(menu => {
                 menu.classList.remove('active');
-                menu.closest('.dropdown-menu-wrapper').querySelector('.dropdown-menu-button').classList.remove('active');
+                const backdrop = document.querySelector('.dropdown-menu-backdrop');
+                if (backdrop) backdrop.classList.remove('active');
+                const btn = menu.closest('.dropdown-menu-wrapper').querySelector('.dropdown-menu-button');
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
             });
         }
     });
