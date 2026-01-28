@@ -94,6 +94,8 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wr
                 <div class="menu-content" role="presentation">
                     <div class="menu-content-main" aria-live="polite"></div>
 
+                    <div class="menu-content-divider" aria-hidden="true"></div>
+
                     <?php if (!empty($locations)) : ?>
                         <div class="locations-section">
                             <div class="locations-buttons">
