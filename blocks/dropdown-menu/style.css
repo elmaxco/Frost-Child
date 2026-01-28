@@ -99,6 +99,8 @@
     background: #eef2f3;
     border-right: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-sidebar-item {
@@ -109,8 +111,11 @@
     padding: 28px 24px;
     cursor: pointer;
     color: #1a353b;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
+    flex: 1;
 }
 
 .menu-sidebar-item + .menu-sidebar-item {
