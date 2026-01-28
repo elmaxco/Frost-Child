@@ -119,6 +119,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (idx !== null) setActive(idx);
             });
         });
+
+        // City switcher (locations -> popular services)
+        (function initCitySwitcher() {
+            const locationButtons = menu.querySelectorAll('.location-button');
+            const cityEl = menu.querySelector('.popular-services-city');
+            const servicesListEl = menu.querySelector('.popular-services-list');
+            const servicesSectionEl = menu.querySelector('.popular-services-section');
+
+            if (!locationButtons.length || !servicesSectionEl || !servicesListEl || !cityEl) return;
+
+            const servicesByCity = {
+                Stockholm: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Energirenovering', 'Källarrenovering', 'Fasadrenovering'],
+                Göteborg: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Källarrenovering', 'Fasadrenovering'],
+                Uppsala: ['Badrumsrenovering'],
+            };
+
+            function renderServices(cityName) {
+                const list = servicesByCity[cityName] || servicesByCity.Stockholm;
+                cityEl.textContent = cityName;
+                servicesListEl.innerHTML = list
+                    .map((svc) => `<a href="#" class="popular-service-button">${svc}</a>`)
+                    .join('');
+            }
+
+            function setActiveCity(btn) {
+                locationButtons.forEach((b) => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderServices(btn.textContent.trim());
+            }
+
+            // Bind clicks
+            locationButtons.forEach((btn) => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveCity(this);
+                });
+            });
+
+            // Init based on existing active, else first
+            const active = menu.querySelector('.location-button.active') || locationButtons[0];
+            if (active) setActiveCity(active);
+        })();
         
         function toggleMenu(e, triggerEl) {
             if (e) {

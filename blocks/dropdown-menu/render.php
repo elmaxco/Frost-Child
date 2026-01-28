@@ -108,7 +108,9 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wr
 
                     <?php if (!empty($popular_services)) : ?>
                         <div class="popular-services-section">
-                            <h4 class="popular-services-title"><?php echo $popular_services_title; ?></h4>
+                            <h4 class="popular-services-title">
+                                <span class="popular-services-prefix">Populära tjänster i </span><span class="popular-services-city">Stockholm</span>:
+                            </h4>
                             <div class="popular-services-list">
                                 <?php foreach ($popular_services as $service) : ?>
                                     <a href="#" class="popular-service-button">
