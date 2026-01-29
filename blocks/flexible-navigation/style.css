@@ -82,7 +82,13 @@
 
 .frost-child-flex-nav__quick-link:hover {
     background-color: #5b797c !important;
+    color: #ffffff !important;
     text-decoration: none;
+}
+
+.frost-child-flex-nav__quick-link:focus,
+.frost-child-flex-nav__quick-link:active {
+    color: #ffffff !important;
 }
 
 .frost-child-flex-nav__quick-link:focus-visible {
@@ -226,6 +232,7 @@ body.frost-child-flex-nav-open {
 
     .frost-child-flex-nav__quick-link:hover {
         background-color: #5b797c !important;
+        color: #ffffff !important;
         text-decoration: none;
     }
 
