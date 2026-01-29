@@ -20,6 +20,14 @@
     "breakpoint": {
       "type": "number",
       "default": 960
+    },
+    "quickLinks": {
+      "type": "array",
+      "default": []
+    },
+    "quickLinksMigrated": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

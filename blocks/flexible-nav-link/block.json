@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/flexible-nav-link",
+  "version": "1.0.0",
+  "title": "Flexible Nav Link",
+  "category": "design",
+  "icon": "admin-links",
+  "description": "A styled navigation link/button to use inside Flexible Navigation.",
+  "textdomain": "frost-child",
+  "parent": ["frost-child/flexible-navigation"],
+  "editorScript": "file:./edit.js",
+  "style": "file:./style.css",
+  "attributes": {
+    "label": { "type": "string", "default": "Kontakta oss" },
+    "url": { "type": "string", "default": "#" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  }
+}

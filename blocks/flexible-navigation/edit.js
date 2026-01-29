@@ -8,6 +8,7 @@
 	var PanelBody = components.PanelBody;
 	var TextControl = components.TextControl;
 	var RangeControl = components.RangeControl;
+	var useEffect = element.useEffect;
 
 	blocks.registerBlockType('frost-child/flexible-navigation', {
 		title: __('Flexible Navigation', 'frost-child'),
@@ -22,14 +23,47 @@
 		attributes: {
 			toggleLabel: { type: 'string', default: 'Meny' },
 			breakpoint: { type: 'number', default: 960 },
+			quickLinks: { type: 'array', default: [] },
+			quickLinksMigrated: { type: 'boolean', default: false },
 		},
 
 		edit: function (props) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
+			var quickLinks = attributes.quickLinks || [];
 			var blockProps = useBlockProps({
 				className: 'frost-child-flex-nav',
 			});
+
+			// One-time migration: turn old inspector quick links into real child blocks.
+			useEffect(
+				function () {
+					if (!quickLinks.length) return;
+					if (attributes.quickLinksMigrated) return;
+					if (!window.wp || !window.wp.data || !window.wp.data.select || !window.wp.data.dispatch) return;
+
+					try {
+						var existingInner = window.wp.data.select('core/block-editor').getBlocks(props.clientId);
+						var linkBlocks = quickLinks
+							.filter(function (l) {
+								return l && (l.label || l.url);
+							})
+							.map(function (l) {
+								return blocks.createBlock('frost-child/flexible-nav-link', {
+									label: l.label || '',
+									url: l.url || '#',
+								});
+							});
+
+						var nextInner = linkBlocks.concat(existingInner);
+						window.wp.data.dispatch('core/block-editor').replaceInnerBlocks(props.clientId, nextInner, false);
+						setAttributes({ quickLinks: [], quickLinksMigrated: true });
+					} catch (e) {
+						// Ignore; keep attributes so we can retry later.
+					}
+				},
+				[]
+			);
 
 			return el(
 				Fragment,
