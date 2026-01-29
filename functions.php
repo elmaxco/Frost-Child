@@ -107,3 +107,17 @@ function frost_child_register_dropdown_menu_block() {
 	) );
 }
 add_action( 'init', 'frost_child_register_dropdown_menu_block' );
+
+/**
+ * Register Flexible Navigation block (no build step).
+ */
+function frost_child_register_flexible_navigation_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/flexible-navigation';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_flexible_navigation_block' );

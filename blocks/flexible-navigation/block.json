@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/flexible-navigation",
+  "version": "1.0.0",
+  "title": "Flexible Navigation",
+  "category": "design",
+  "icon": "menu",
+  "description": "A navigation-like container that lets you add any blocks (not limited to navigation links).",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "script": "file:./view.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "toggleLabel": {
+      "type": "string",
+      "default": "Meny"
+    },
+    "breakpoint": {
+      "type": "number",
+      "default": 960
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "anchor": true
+  }
+}
