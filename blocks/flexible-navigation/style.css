@@ -85,7 +85,7 @@ body.frost-child-flex-nav-open {
         transform: translateX(-100%);
         opacity: 0;
         pointer-events: none;
-        transition: transform 0.28s ease, opacity 0.2s ease;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     }
 
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel {
@@ -117,10 +117,19 @@ body.frost-child-flex-nav-open {
         top: 0;
         align-self: flex-start;
         z-index: 1;
+        transition: transform 0.18s ease, background-color 0.2s ease;
     }
 
     .frost-child-flex-nav__close:hover {
         background: rgba(255, 255, 255, 0.08);
+    }
+
+    .frost-child-flex-nav__close:active {
+        transform: scale(0.92);
+    }
+
+    .frost-child-flex-nav__close.is-clicked {
+        animation: frostChildFlexNavClosePop 0.32s ease-out;
     }
 
     /* Make common content look like a menu list */
@@ -133,6 +142,21 @@ body.frost-child-flex-nav-open {
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel .wp-block-navigation__submenu-container {
         flex-direction: column;
         gap: 18px;
+    }
+}
+
+@keyframes frostChildFlexNavClosePop {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    35% {
+        transform: scale(0.86) rotate(-8deg);
+    }
+    70% {
+        transform: scale(1.06) rotate(6deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
     }
 }
 

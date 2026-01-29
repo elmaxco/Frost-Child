@@ -80,7 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			closeBtn.addEventListener('click', function (e) {
 				e.preventDefault();
 				e.stopPropagation();
-				close();
+				// Tiny tap animation on the X, then close.
+				closeBtn.classList.remove('is-clicked');
+				// Force reflow so re-adding the class retriggers the animation.
+				void closeBtn.offsetWidth;
+				closeBtn.classList.add('is-clicked');
+				window.setTimeout(function () {
+					close();
+				}, 110);
 			});
 		}
 
