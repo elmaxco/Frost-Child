@@ -35,6 +35,11 @@
 			backdrop.style.opacity = '1';
 			backdrop.style.pointerEvents = 'auto';
 		} else {
+			backdrop.style.position = '';
+			backdrop.style.inset = '';
+			backdrop.style.background = '';
+			backdrop.style.zIndex = '';
+			backdrop.style.transition = '';
 			backdrop.style.opacity = '';
 			backdrop.style.pointerEvents = '';
 		}

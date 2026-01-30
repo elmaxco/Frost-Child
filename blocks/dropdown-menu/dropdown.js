@@ -11,6 +11,52 @@ document.addEventListener('DOMContentLoaded', function() {
         return backdrop;
     }
 
+    function ensureSingleBackdrop() {
+        const backdrops = document.querySelectorAll('.dropdown-menu-backdrop');
+        if (backdrops.length <= 1) return;
+        // Keep the first, remove any accidental duplicates.
+        for (let i = 1; i < backdrops.length; i++) {
+            backdrops[i].remove();
+        }
+    }
+
+    function isAnySimpleDropdownOpen() {
+        // Wrapper open class (when not portaled) OR panel open class (when portaled).
+        return (
+            !!document.querySelector('.frost-child-simple-dropdown.is-open') ||
+            !!document.querySelector('.frost-child-simple-dropdown__panel.is-open')
+        );
+    }
+
+    function syncBackdrop() {
+        ensureSingleBackdrop();
+        const backdrop = getBackdrop();
+        const anyMegaOpen = !!document.querySelector('.dropdown-menu-content.active');
+        const shouldBeActive = anyMegaOpen || isAnySimpleDropdownOpen();
+        backdrop.classList.toggle('active', shouldBeActive);
+
+        // Inline fallback in case CSS doesn't load or gets overridden.
+        // Also important because another script (simple-dropdown) may have
+        // previously set inline styles on the shared backdrop.
+        if (shouldBeActive) {
+            backdrop.style.position = 'fixed';
+            backdrop.style.inset = '0';
+            backdrop.style.background = 'rgba(0, 0, 0, 0.35)';
+            backdrop.style.zIndex = '1000';
+            backdrop.style.transition = 'opacity 0.25s ease';
+            backdrop.style.opacity = '1';
+            backdrop.style.pointerEvents = 'auto';
+        } else {
+            backdrop.style.position = '';
+            backdrop.style.inset = '';
+            backdrop.style.background = '';
+            backdrop.style.zIndex = '';
+            backdrop.style.transition = '';
+            backdrop.style.opacity = '';
+            backdrop.style.pointerEvents = '';
+        }
+    }
+
     function positionMenuUnderTrigger(menu, triggerEl) {
         if (!menu || !triggerEl) return;
         const rect = triggerEl.getBoundingClientRect();
@@ -238,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 menu._dropdownPortal.triggerEl = triggerEl || button;
                 menu._dropdownPortal.portal();
                 menu.classList.add('active');
-                backdrop.classList.add('active');
+                syncBackdrop();
 
                 // After it becomes display:block, we can measure and align the card + pointer.
                 requestAnimationFrame(function() {
@@ -248,9 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.classList.add('active');
                 button.setAttribute('aria-expanded', 'true');
             } else {
-                const backdrop = getBackdrop();
                 menu.classList.remove('active');
-                backdrop.classList.remove('active');
+                syncBackdrop();
                 if (menu._dropdownPortal) menu._dropdownPortal.restore();
                 button.classList.remove('active');
                 button.setAttribute('aria-expanded', 'false');
@@ -307,8 +352,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.dropdown-menu-content.active').forEach(menu => {
             menu.classList.remove('active');
-            const backdrop = document.querySelector('.dropdown-menu-backdrop');
-            if (backdrop) backdrop.classList.remove('active');
 
             if (menu._dropdownPortal) {
                 menu._dropdownPortal.restore();
@@ -325,6 +368,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
+        // Ensure backdrop is cleared if nothing else needs it.
+        syncBackdrop();
     });
     
     // Close on Escape key
@@ -332,14 +378,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Escape') {
             document.querySelectorAll('.dropdown-menu-content.active').forEach(menu => {
                 menu.classList.remove('active');
-                const backdrop = document.querySelector('.dropdown-menu-backdrop');
-                if (backdrop) backdrop.classList.remove('active');
                 const btn = menu.closest('.dropdown-menu-wrapper').querySelector('.dropdown-menu-button');
                 if (btn) {
                     btn.classList.remove('active');
                     btn.setAttribute('aria-expanded', 'false');
                 }
             });
+
+            syncBackdrop();
         }
     });
     
