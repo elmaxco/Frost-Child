@@ -1,0 +1,8 @@
+/* Simple Dropdown (editor) */
+.frost-child-simple-dropdown.is-open .frost-child-simple-dropdown__panel {
+    display: block;
+}
+
+.frost-child-simple-dropdown__button {
+    cursor: default;
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/simple-dropdown",
+  "version": "1.0.0",
+  "title": "Simple Dropdown",
+  "category": "widgets",
+  "icon": "arrow-down-alt2",
+  "description": "A simple dropdown button with two links.",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "script": "file:./view.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "buttonText": {
+      "type": "string",
+      "default": "Om oss"
+    },
+    "link1Label": {
+      "type": "string",
+      "default": "Läs mer om oss"
+    },
+    "link1Url": {
+      "type": "string",
+      "default": "#"
+    },
+    "link2Label": {
+      "type": "string",
+      "default": "Möt oss på Dryft"
+    },
+    "link2Url": {
+      "type": "string",
+      "default": "#"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  }
+}

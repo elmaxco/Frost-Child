@@ -135,3 +135,17 @@ function frost_child_register_flexible_nav_link_block() {
 	register_block_type( $block_dir );
 }
 add_action( 'init', 'frost_child_register_flexible_nav_link_block' );
+
+/**
+ * Register Simple Dropdown block (no build step).
+ */
+function frost_child_register_simple_dropdown_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/simple-dropdown';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_simple_dropdown_block' );

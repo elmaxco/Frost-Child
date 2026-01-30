@@ -1,0 +1,91 @@
+/* Simple Dropdown (frontend) */
+.frost-child-simple-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.frost-child-simple-dropdown__button {
+    background-color: #2c474d;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.frost-child-simple-dropdown__button:hover,
+.frost-child-simple-dropdown.is-open .frost-child-simple-dropdown__button {
+    background-color: #5b797c;
+    color: #ffffff;
+}
+
+.frost-child-simple-dropdown__arrow {
+    font-size: 16px;
+    display: inline-block;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.frost-child-simple-dropdown.is-open .frost-child-simple-dropdown__arrow {
+    transform: rotate(180deg);
+}
+
+.frost-child-simple-dropdown__panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 240px;
+    background: #e9edef;
+    border-radius: 10px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    z-index: 9999;
+    display: none;
+}
+
+.frost-child-simple-dropdown__panel::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 48px;
+    width: 16px;
+    height: 16px;
+    background: #e9edef;
+    transform: rotate(45deg);
+}
+
+.frost-child-simple-dropdown.is-open .frost-child-simple-dropdown__panel {
+    display: block;
+}
+
+.frost-child-simple-dropdown__link {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #1a353b;
+    font-weight: 600;
+    background: transparent;
+}
+
+.frost-child-simple-dropdown__link + .frost-child-simple-dropdown__link {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.frost-child-simple-dropdown__link:hover,
+.frost-child-simple-dropdown__link:focus {
+    background: rgba(255, 255, 255, 0.6);
+    color: #1a353b;
+}
+
+@media (max-width: 960px) {
+    .frost-child-simple-dropdown__panel {
+        left: 0;
+        right: auto;
+    }
+}
