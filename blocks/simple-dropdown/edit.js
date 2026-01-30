@@ -81,7 +81,7 @@
 						'button',
 						{ type: 'button', className: 'frost-child-simple-dropdown__button', disabled: true },
 						attributes.buttonText || 'Om oss',
-						el('span', { className: 'frost-child-simple-dropdown__arrow', 'aria-hidden': 'true' }, '⌄')
+						el('span', { className: 'frost-child-simple-dropdown__arrow', 'aria-hidden': 'true' }, '⌵')
 					),
 					el(
 						'div',
@@ -112,7 +112,7 @@
 					'button',
 					{ type: 'button', className: 'frost-child-simple-dropdown__button', 'aria-expanded': 'false' },
 					attributes.buttonText || 'Om oss',
-					el('span', { className: 'frost-child-simple-dropdown__arrow', 'aria-hidden': 'true' }, '⌄')
+					el('span', { className: 'frost-child-simple-dropdown__arrow', 'aria-hidden': 'true' }, '⌵')
 				),
 				el(
 					'div',
