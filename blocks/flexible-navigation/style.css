@@ -202,6 +202,30 @@ body.frost-child-flex-nav-open {
         text-decoration: none;
     }
 
+    /* Flexible Nav Link: make it look like a button in mobile */
+    .frost-child-flex-nav.is-open .frost-child-flex-nav__panel a.frost-child-flex-nav__quick-link {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        align-self: flex-start;
+        width: min(360px, 100%) !important;
+        box-sizing: border-box;
+        padding: 14px 16px !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        text-decoration: none !important;
+    }
+
+    .frost-child-flex-nav.is-open .frost-child-flex-nav__panel a.frost-child-flex-nav__quick-link:hover {
+        background: rgba(255, 255, 255, 0.14) !important;
+    }
+
+    .frost-child-flex-nav.is-open .frost-child-flex-nav__panel a.frost-child-flex-nav__quick-link:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.7);
+        outline-offset: 2px;
+    }
+
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel a:hover,
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel a:focus,
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel .wp-block-navigation-item__content:hover,
@@ -218,22 +242,10 @@ body.frost-child-flex-nav-open {
     }
 
     .frost-child-flex-nav__quick-link {
-        /* Mobile: make links look like normal menu items (no big boxed buttons) */
-        justify-content: flex-start;
-        padding: 8px 0;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
         font-size: 20px;
         max-width: 100%;
         text-align: left;
         white-space: normal;
-    }
-
-    .frost-child-flex-nav__quick-link:hover {
-        background-color: #5b797c !important;
-        color: #ffffff !important;
-        text-decoration: none;
     }
 
     .frost-child-flex-nav.is-open .frost-child-flex-nav__panel .wp-block-navigation__container,
