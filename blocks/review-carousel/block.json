@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/customer-reviews",
+  "title": "Customer Reviews",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "En carousel för att visa kundrecensioner med betyg, namn och datum.",
+  "keywords": ["review", "carousel", "testimonial", "rating"],
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "reviews": {
+      "type": "array",
+      "default": [
+        {
+          "reviewText": "Fantastisk service och kvalitet!",
+          "authorName": "Anna Andersson",
+          "date": "2026-01-15",
+          "rating": 5
+        },
+        {
+          "reviewText": "Mycket nöjd med resultatet.",
+          "authorName": "Erik Eriksson",
+          "date": "2026-01-20",
+          "rating": 4
+        },
+        {
+          "reviewText": "Professionellt och snabbt!",
+          "authorName": "Maria Johansson",
+          "date": "2026-01-25",
+          "rating": 5
+        }
+      ]
+    },
+    "cardsToShow": {
+      "type": "number",
+      "default": 3
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoplaySpeed": {
+      "type": "number",
+      "default": 5000
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    }
+  }
+}

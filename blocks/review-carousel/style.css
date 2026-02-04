@@ -1,0 +1,195 @@
+.review-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  padding: 0 50px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.review-card {
+  flex: 0 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-height: 250px;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-rating .stars {
+  font-size: 24px;
+  color: #ffc107;
+  letter-spacing: 2px;
+}
+
+.review-text {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.review-text p {
+  margin: 0;
+  font-style: italic;
+}
+
+.review-author {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.review-author strong {
+  font-size: 16px;
+  color: #222;
+}
+
+.review-date {
+  font-size: 14px;
+  color: #666;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-button.prev {
+  left: 0;
+}
+
+.carousel-button.next {
+  right: 0;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: #333;
+  width: 12px;
+  height: 12px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 0 40px;
+  }
+
+  .review-card {
+    padding: 20px;
+    min-height: 220px;
+  }
+
+  .review-rating .stars {
+    font-size: 20px;
+  }
+
+  .review-text {
+    font-size: 14px;
+  }
+
+  .carousel-button {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-carousel {
+    padding: 10px;
+  }
+
+  .carousel-container {
+    padding: 0 35px;
+  }
+
+  .review-card {
+    padding: 15px;
+    min-height: 200px;
+  }
+
+  .review-rating .stars {
+    font-size: 18px;
+  }
+
+  .review-text {
+    font-size: 13px;
+  }
+
+  .review-author strong {
+    font-size: 14px;
+  }
+
+  .review-date {
+    font-size: 12px;
+  }
+
+  .carousel-button {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}
