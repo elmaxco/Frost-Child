@@ -101,6 +101,20 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
+.carousel-button:focus {
+  outline: none;
+}
+
+.carousel-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.carousel-button:active {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(0.95);
+}
+
 .carousel-button.prev {
   left: 0;
 }

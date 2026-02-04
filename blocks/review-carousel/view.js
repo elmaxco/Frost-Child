@@ -119,14 +119,16 @@
       }
 
       // Event listeners
-      nextButton.addEventListener('click', () => {
+      nextButton.addEventListener('click', (e) => {
         nextSlide();
         stopAutoplay();
+        e.currentTarget.blur(); // Ta bort focus efter klick
       });
 
-      prevButton.addEventListener('click', () => {
+      prevButton.addEventListener('click', (e) => {
         prevSlide();
         stopAutoplay();
+        e.currentTarget.blur(); // Ta bort focus efter klick
       });
 
       // Pause autoplay on hover
