@@ -122,13 +122,15 @@
       nextButton.addEventListener('click', (e) => {
         nextSlide();
         stopAutoplay();
-        e.currentTarget.blur(); // Ta bort focus efter klick
+        // Ta bort focus omedelbart
+        setTimeout(() => e.currentTarget.blur(), 0);
       });
 
       prevButton.addEventListener('click', (e) => {
         prevSlide();
         stopAutoplay();
-        e.currentTarget.blur(); // Ta bort focus efter klick
+        // Ta bort focus omedelbart
+        setTimeout(() => e.currentTarget.blur(), 0);
       });
 
       // Pause autoplay on hover
