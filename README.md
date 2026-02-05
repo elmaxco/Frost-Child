@@ -1,16 +1,17 @@
 # Frost Child Theme
 
-A modern WordPress child theme built on top of the Frost parent theme, featuring custom Gutenberg blocks and small vanilla-JS interactions (no build step).
+A modern WordPress child theme built on top of the Frost parent theme, featuring custom Gutenberg blocks and vanilla JavaScript interactions with no build step required.
 
 ## Features
 
-- **Dropdown Menu (Mega Menu) Block**: Multi-column dropdown with location filtering and a shared backdrop
-- **Simple Dropdown Block**: Small dropdown with two links (shares the same backdrop as the mega menu)
-- **Flexible Navigation Block**: A navigation container that becomes an off-canvas menu on mobile
-- **Flexible Nav Link Block**: Styled link/button intended to live inside Flexible Navigation
-- **Slide Image Block**: Carousel/slider component for displaying review cards/images
-- **Responsive Design**: Mobile-first patterns and sensible breakpoints
-- **Template Parts**: Header and footer template parts under `parts/`
+- **Dropdown Menu (Mega Menu) Block**: Multi-column dropdown with location filtering, popular services, and a shared backdrop
+- **Simple Dropdown Block**: Compact dropdown with two links (shares the same backdrop as the mega menu)
+- **Flexible Navigation Block**: A flexible navigation container that becomes an off-canvas menu on mobile devices
+- **Flexible Nav Link Block**: Styled link/button component designed to live inside Flexible Navigation
+- **Customer Reviews Block**: Interactive carousel showcasing customer testimonials with ratings, names, and dates
+- **Responsive Design**: Mobile-first patterns with customizable breakpoints
+- **Template Parts**: Custom header and footer template parts
+- **No Build Step**: All JavaScript and CSS is vanilla code with no bundler or compilation required
 
 ## Project Structure
 
@@ -19,57 +20,74 @@ Frost-Child/
 ├── assets/                 # Theme assets folder
 ├── blocks/                 # Custom Gutenberg blocks
 │   ├── dropdown-menu/      # Mega dropdown menu block
-│   │   ├── block.json
-│   │   ├── dropdown.js
-│   │   ├── edit.js
-│   │   ├── editor.css
-│   │   ├── render.php
-│   │   └── style.css
+│   │   ├── block.json      # Block configuration
+│   │   ├── dropdown.js     # Frontend dropdown behavior
+│   │   ├── edit.js         # Block editor interface
+│   │   ├── editor.css      # Editor-specific styles
+│   │   ├── render.php      # Server-side rendering
+│   │   └── style.css       # Frontend styles
 │   ├── flexible-nav-link/   # Link/button for Flexible Navigation
-│   │   ├── block.json
-│   │   ├── edit.js
-│   │   └── style.css
+│   │   ├── block.json      # Block configuration
+│   │   ├── edit.js         # Block editor interface
+│   │   └── style.css       # Block styles
 │   ├── flexible-navigation/ # Off-canvas mobile navigation container
-│   │   ├── block.json
-│   │   ├── edit.js
-│   │   ├── editor.css
-│   │   ├── style.css
-│   │   └── view.js
+│   │   ├── block.json      # Block configuration
+│   │   ├── edit.js         # Block editor interface
+│   │   ├── editor.css      # Editor-specific styles
+│   │   ├── style.css       # Frontend styles
+│   │   └── view.js         # Frontend mobile toggle behavior
+│   ├── review-carousel/     # Customer reviews carousel block
+│   │   ├── block.json      # Block configuration
+│   │   ├── edit.js         # Block editor interface
+│   │   ├── editor.css      # Editor-specific styles
+│   │   ├── style.css       # Frontend carousel styles
+│   │   └── view.js         # Frontend carousel functionality
 │   ├── simple-dropdown/     # Small dropdown with two links
-│   │   ├── block.json
-│   │   ├── edit.js
-│   │   ├── editor.css
-│   │   ├── style.css
-│   │   └── view.js
-│   └── slide-image/         # Review carousel/slider block
-│       ├── block.json
-│       ├── carousel.js
-│       ├── edit.js
-│       ├── editor.css
-│       └── style.css
+│   │   ├── block.json      # Block configuration
+│   │   ├── edit.js         # Block editor interface
+│   │   ├── editor.css      # Editor-specific styles
+│   │   ├── style.css       # Frontend styles
+│   │   └── view.js         # Frontend dropdown behavior
+│   └── slide-image/         # Legacy carousel/slider block
+│       ├── block.json      # Block configuration
+│       ├── carousel.js     # Frontend carousel logic
+│       ├── edit.js         # Block editor interface
+│       ├── editor.css      # Editor-specific styles
+│       └── style.css       # Frontend styles
 ├── parts/                  # Template parts
-│   ├── footer.html
-│   └── header.html
-├── functions.php          # Theme functions
-├── style.css              # Main theme styles
-├── theme.json             # Theme configuration
-└── README.md              # This file
+│   ├── footer.html         # Footer template
+│   └── header.html         # Header template
+├── functions.php           # Theme functions and block registration
+├── style.css               # Main theme stylesheet
+├── theme.json              # Theme configuration
+└── README.md               # This file
 ```
 
 ## Custom Blocks
 
 ### Dropdown Menu (Mega Menu)
-A feature-rich dropdown menu component with:
-- Customizable button text
-- Multi-column layout for menu items
-- Location filtering buttons
-- Popular services section
-- "Read more" action buttons
-- Smooth animations and hover effects
+**Block Name:** `frost-child/dropdown-menu`  
+**Category:** Widgets  
+**Icon:** 📋 Menu Alt
 
-Notes:
-- Uses a shared page-dimming backdrop element `.dropdown-menu-backdrop` (also used by Simple Dropdown).
-- Frontend markup is generated by `render.php`.
+A feature-rich mega menu component with:
+- Customizable button text (default: "Tjänster")
+- Multi-column layout for menu items
+- Each menu item supports:
+  - Title and subtitle
+  - Detailed description
+  - Tags/keywords
+  - Custom action button with link
+- Location filtering buttons (e.g., Stockholm, Göteborg, Uppsala)
+- Popular services quick links section
+- Smooth animations and hover effects
+- Shared page-dimming backdrop (`.dropdown-menu-backdrop`)
+
+**Technical Details:**
+- Uses server-side rendering via `render.php` for dynamic content
+- Frontend interactions powered by `dropdown.js`
+- Supports location-based filtering
+- Fully responsive with mobile-optimized layout
 
 **Styling:**
 - Background: `#2c474d`
@@ -78,33 +96,104 @@ Notes:
 - Hover Color: `#5b797c`
 
 ### Simple Dropdown
-A smaller dropdown button with two links.
+**Block Name:** `frost-child/simple-dropdown`  
+**Category:** Widgets
 
-Notes:
-- Also uses `.dropdown-menu-backdrop` and portals the dropdown panel to `<body>` so it stacks above the backdrop.
-- Frontend behavior lives in `view.js`.
+A lightweight dropdown button component with two customizable links.
+
+**Features:**
+- Compact dropdown panel with two link slots
+- Shares `.dropdown-menu-backdrop` with mega menu
+- Portals dropdown panel to `<body>` for proper stacking
+- Smooth open/close animations
+- Click-outside-to-close behavior
+
+**Technical Details:**
+- Frontend behavior managed by `view.js`
+- Registered via `register_block_type()` using `block.json`
+- No server-side rendering required
 
 ### Flexible Navigation
-A navigation-like container that can hold any inner blocks.
+**Block Name:** `frost-child/flexible-navigation`  
+**Category:** Design  
+**Icon:** 📱 Menu
 
-Mobile behavior:
-- On screens up to the configured breakpoint (default `960px`), it becomes an off-canvas panel.
-- Toggle opens/closes the panel; a close button (×) is present and also auto-inserted for older saved content.
-- Adds `body.frost-child-flex-nav-open` while open to prevent background scrolling.
+A versatile navigation container that transforms into an off-canvas panel on mobile devices.
 
-Customization:
-- Block attribute `breakpoint` controls when it switches to mobile mode.
-- Block attribute `toggleLabel` controls the toggle aria-label.
+**Features:**
+- Accepts any inner blocks (not limited to navigation links)
+- Customizable breakpoint (default: `960px`)
+- Mobile off-canvas panel with:
+  - Toggle button with custom aria-label
+  - Close button (×)
+  - Smooth slide-in/out animation
+  - Background scroll prevention (`body.frost-child-flex-nav-open`)
+- Desktop: Standard horizontal navigation layout
+- Supports `wide` and `full` alignment
+
+**Attributes:**
+- `toggleLabel` (string): Label for mobile toggle button (default: "Meny")
+- `breakpoint` (number): Pixel width where mobile mode activates (default: 960)
+- `quickLinksMigrated` (boolean): Internal flag for content migration
+
+**Technical Details:**
+- Frontend mobile behavior in `view.js`
+- Automatically inserts close button for older content
+- Uses CSS media queries based on breakpoint attribute
 
 ### Flexible Nav Link
-A small companion block intended to be placed inside Flexible Navigation.
+**Block Name:** `frost-child/flexible-nav-link`  
+**Category:** Design
 
-Notes:
-- Outputs an `<a>` with class `.frost-child-flex-nav__quick-link`.
-- In mobile off-canvas mode the theme applies “button-like” styling via rules in the Flexible Navigation stylesheet.
+A companion block designed specifically for use inside Flexible Navigation.
 
-### Slide Image Block
-An image carousel/slider for showcasing multiple images in a rotating display.
+**Features:**
+- Renders as styled `<a>` with class `.frost-child-flex-nav__quick-link`
+- Automatically styled as button-like element in mobile off-canvas mode
+- Configurable link text and URL
+- Seamless integration with parent Flexible Navigation block
+
+### Customer Reviews (Review Carousel)
+**Block Name:** `frost-child/customer-reviews`  
+**Category:** Widgets  
+**Icon:** ⭐ Star Filled
+
+An interactive carousel for displaying customer testimonials with ratings.
+
+**Features:**
+- Display multiple customer reviews in a sliding carousel
+- Each review includes:
+  - Review text (testimonial)
+  - Author name
+  - Date
+  - Star rating (1-5 stars)
+- Configurable cards to show simultaneously (default: 3)
+- Optional autoplay functionality
+- Adjustable autoplay speed (default: 5000ms)
+- Navigation arrows (previous/next)
+- Smooth sliding animations
+- Fully responsive layout
+
+**Attributes:**
+- `reviews` (array): Collection of review objects with text, author, date, and rating
+- `cardsToShow` (number): How many review cards to display at once (default: 3)
+- `autoplay` (boolean): Enable automatic carousel rotation (default: false)
+- `autoplaySpeed` (number): Milliseconds between auto-rotations (default: 5000)
+
+**Default Reviews:**
+- Includes 3 sample Swedish reviews to demonstrate functionality
+- Easily customizable in block editor
+
+**Technical Details:**
+- Frontend carousel logic in `view.js`
+- Smooth CSS transitions for card movements
+- Touch-friendly on mobile devices
+- Accessible with keyboard navigation
+
+### Slide Image Block (Legacy)
+**Note:** This is a legacy carousel block. Consider using Customer Reviews block for new implementations.
+
+An image carousel/slider for showcasing multiple images in a rotating display, primarily used for review cards or image galleries.
 
 ## Installation
 
@@ -140,8 +229,9 @@ Each block has its own:
 
 - Block registration happens in `functions.php`.
 	- `dropdown-menu` and `slide-image` explicitly register/enqueue scripts/styles.
-	- `flexible-navigation`, `flexible-nav-link`, and `simple-dropdown` rely on `register_block_type()` with `block.json` file references.
+	- `flexible-navigation`, `flexible-nav-link`, `simple-dropdown`, and `review-carousel` (Customer Reviews) rely on `register_block_type()` with `block.json` file references.
 - There is no build pipeline (no bundler): all JS/CSS is committed as-is.
+- Each block has dedicated editor and frontend scripts/styles loaded only when needed.
 
 ## Files Overview
 
@@ -156,4 +246,4 @@ For issues or questions, refer to the WordPress block documentation or the paren
 ---
 
 **Theme Version:** 1.0.0  
-**Last Updated:** February 2, 2026
+**Last Updated:** February 5, 2026
