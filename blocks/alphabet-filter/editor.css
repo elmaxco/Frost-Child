@@ -1,0 +1,10 @@
+/* Alphabet Filter (editor) */
+.frost-child-alphabet-filter.is-editor .frost-child-alphabet-filter__letters {
+	opacity: 0.9;
+}
+
+.frost-child-alphabet-filter__hint {
+	margin-top: 10px;
+	font-size: 12px;
+	opacity: 0.8;
+}

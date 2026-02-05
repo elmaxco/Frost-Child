@@ -1,0 +1,117 @@
+/* Alphabet Filter (frontend) */
+.frost-child-alphabet-filter {
+	display: block;
+	width: 100%;
+}
+
+.frost-child-alphabet-filter__row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.frost-child-alphabet-filter__searchWrap {
+	position: relative;
+	flex: 1 1 320px;
+	max-width: 520px;
+}
+
+.frost-child-alphabet-filter__searchIcon {
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 16px;
+	opacity: 0.75;
+	pointer-events: none;
+}
+
+.frost-child-alphabet-filter__search {
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 999px;
+	padding: 12px 14px 12px 40px;
+	font-size: 16px;
+	line-height: 1.2;
+	background: #ffffff;
+	color: inherit;
+}
+
+.frost-child-alphabet-filter__search:focus {
+	outline: none;
+	border-color: rgba(0, 0, 0, 0.35);
+}
+
+.frost-child-alphabet-filter__letters {
+	flex: 999 1 520px;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 18px;
+	border-radius: 0;
+	background: #4b167c;
+	color: #ffffff;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.frost-child-alphabet-filter__letter {
+	appearance: none;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	padding: 0;
+	cursor: pointer;
+	font-size: 15px;
+	line-height: 1;
+}
+
+.frost-child-alphabet-filter__letter:hover {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+
+.frost-child-alphabet-filter__letter:focus-visible {
+	outline: 2px solid rgba(255, 255, 255, 0.85);
+	outline-offset: 4px;
+	border-radius: 4px;
+}
+
+.frost-child-alphabet-filter__letter.is-active {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+
+.frost-child-alphabet-filter__status {
+	margin-top: 12px;
+	font-size: 14px;
+	opacity: 0.85;
+	min-height: 1.2em;
+}
+
+.frost-child-alphabet-filter.is-loading .frost-child-alphabet-filter__status {
+	opacity: 0.9;
+}
+
+.frost-child-alphabet-filter__results {
+	list-style: none;
+	padding: 0;
+	margin: 12px 0 0;
+	display: grid;
+	gap: 8px;
+}
+
+.frost-child-alphabet-filter__resultLink {
+	display: inline-block;
+	text-decoration: none;
+}
+
+.frost-child-alphabet-filter__resultLink:hover {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}

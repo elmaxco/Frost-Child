@@ -162,3 +162,149 @@ function frost_child_register_customer_reviews_block() {
 	register_block_type( $block_dir );
 }
 add_action( 'init', 'frost_child_register_customer_reviews_block' );
+
+/**
+ * Alphabet Filter: REST endpoint + helper WHERE clause.
+ */
+function frost_child_alphabet_filter_posts_where_starts_with( $where, $query ) {
+	global $wpdb;
+
+	$starts_with = $query->get( 'frost_child_starts_with' );
+	if ( ! is_string( $starts_with ) || $starts_with === '' ) {
+		return $where;
+	}
+
+	// Expect a single letter (A-Z, Å, Ä, Ö). Keep it strict.
+	$starts_with = trim( $starts_with );
+	if ( $starts_with === '' ) {
+		return $where;
+	}
+
+	// Use a LIKE prefix match.
+	$like = $wpdb->esc_like( $starts_with ) . '%';
+	$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_title LIKE %s ", $like );
+
+	return $where;
+}
+add_filter( 'posts_where', 'frost_child_alphabet_filter_posts_where_starts_with', 10, 2 );
+
+function frost_child_register_alphabet_filter_rest_route() {
+	register_rest_route(
+		'frost-child/v1',
+		'/alphabet-filter',
+		array(
+			'methods'             => 'GET',
+			'permission_callback' => '__return_true',
+			'callback'            => 'frost_child_alphabet_filter_rest_callback',
+			'args'                => array(
+				'postType' => array(
+					'type'              => 'string',
+					'required'          => false,
+					'sanitize_callback' => 'sanitize_key',
+					'default'           => 'post',
+				),
+				's' => array(
+					'type'              => 'string',
+					'required'          => false,
+					'sanitize_callback' => 'sanitize_text_field',
+					'default'           => '',
+				),
+				'letter' => array(
+					'type'              => 'string',
+					'required'          => false,
+					'sanitize_callback' => 'sanitize_text_field',
+					'default'           => '',
+				),
+				'perPage' => array(
+					'type'              => 'integer',
+					'required'          => false,
+					'sanitize_callback' => 'absint',
+					'default'           => 100,
+				),
+				'page' => array(
+					'type'              => 'integer',
+					'required'          => false,
+					'sanitize_callback' => 'absint',
+					'default'           => 1,
+				),
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'frost_child_register_alphabet_filter_rest_route' );
+
+function frost_child_alphabet_filter_rest_callback( WP_REST_Request $request ) {
+	$post_type = $request->get_param( 'postType' );
+	$search    = $request->get_param( 's' );
+	$letter    = $request->get_param( 'letter' );
+	$per_page  = (int) $request->get_param( 'perPage' );
+	$page      = (int) $request->get_param( 'page' );
+
+	if ( ! $post_type ) {
+		$post_type = 'post';
+	}
+
+	$per_page = max( 1, min( 200, $per_page ) );
+	$page     = max( 1, $page );
+
+	$starts_with = '';
+	if ( is_string( $letter ) ) {
+		$letter = trim( $letter );
+		// Treat "ALLA" as no filter.
+		if ( $letter !== '' && mb_strtoupper( $letter ) !== 'ALLA' ) {
+			// Only first character matters.
+			$starts_with = mb_substr( $letter, 0, 1 );
+		}
+	}
+
+	$args = array(
+		'post_type'              => $post_type,
+		'post_status'            => 'publish',
+		'posts_per_page'         => $per_page,
+		'paged'                  => $page,
+		'ignore_sticky_posts'    => true,
+		'no_found_rows'          => false,
+		'orderby'                => 'title',
+		'order'                  => 'ASC',
+		's'                      => is_string( $search ) ? $search : '',
+		'frost_child_starts_with'=> $starts_with,
+	);
+
+	$query = new WP_Query( $args );
+
+	$items = array();
+	foreach ( $query->posts as $post ) {
+		$items[] = array(
+			'id'    => (int) $post->ID,
+			'title' => get_the_title( $post ),
+			'url'   => get_permalink( $post ),
+		);
+	}
+
+	return rest_ensure_response(
+		array(
+			'items'      => $items,
+			'total'      => (int) $query->found_posts,
+			'totalPages' => (int) $query->max_num_pages,
+			'page'       => $page,
+			'perPage'    => $per_page,
+			'postType'   => $post_type,
+			'letter'     => $starts_with,
+			's'          => is_string( $search ) ? $search : '',
+		)
+	);
+}
+
+/**
+ * Register Alphabet Filter block (no build step).
+ */
+function frost_child_register_alphabet_filter_block() {
+	$block_dir = get_stylesheet_directory() . '/blocks/alphabet-filter';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_alphabet_filter_block' );
