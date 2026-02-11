@@ -80,20 +80,20 @@ A feature-rich mega menu component with:
   - Custom action button with link
 - Location filtering buttons (e.g., Stockholm, Göteborg, Uppsala)
 - Popular services quick links section
+- Optional **popular services per city** (add/remove services for each city in the editor)
 - Smooth animations and hover effects
 - Shared page-dimming backdrop (`.dropdown-menu-backdrop`)
 
 **Technical Details:**
 - Uses server-side rendering via `render.php` for dynamic content
 - Frontend interactions powered by `dropdown.js`
-- Supports location-based filtering
+- Location buttons switch the visible “Populära tjänster i …” list in the dropdown (no navigation by default)
+- Per-city services are stored in the block attribute `popularServicesByCity` (object map: city name → array of services)
+  - If a city has no configured list, it falls back to `popularServices` and/or legacy hardcoded defaults
 - Fully responsive with mobile-optimized layout
 
 **Styling:**
-- Background: `#2c474d`
-- Font Size: `20px`
-- Font Weight: `700` (Bold)
-- Hover Color: `#5b797c`
+- Styling lives in `blocks/dropdown-menu/style.css` (frontend) and `blocks/dropdown-menu/editor.css` (editor).
 
 ### Simple Dropdown
 **Block Name:** `frost-child/simple-dropdown`  
@@ -246,4 +246,4 @@ For issues or questions, refer to the WordPress block documentation or the paren
 ---
 
 **Theme Version:** 1.0.0  
-**Last Updated:** February 5, 2026
+**Last Updated:** February 11, 2026
