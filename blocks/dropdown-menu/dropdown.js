@@ -100,6 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
             .trim()
             .toLowerCase();
     }
+
+    function safeJsonParse(value, fallback) {
+        if (!value || typeof value !== 'string') return fallback;
+        try {
+            return JSON.parse(value);
+        } catch (e) {
+            return fallback;
+        }
+    }
     
     dropdownButtons.forEach(button => {
         const wrapper = button.closest('.dropdown-menu-wrapper');
@@ -189,11 +198,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!locationButtons.length || !servicesSectionEl || !servicesListEl || !cityEl) return;
 
-            const defaultServicesByCity = {
+            // Legacy hardcoded defaults (kept for backward compatibility).
+            const legacyDefaultServicesByCity = {
                 Stockholm: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Energirenovering', 'Källarrenovering', 'Fasadrenovering'],
                 Göteborg: ['Badrumsrenovering', 'Köksrenovering', 'Helrenovering', 'Källarrenovering', 'Fasadrenovering'],
                 Uppsala: ['Badrumsrenovering'],
             };
+
+            // Data from PHP render (preferred).
+            const servicesByCity = safeJsonParse(servicesSectionEl.dataset.servicesByCity, {}) || {};
+            const defaultServices = safeJsonParse(servicesSectionEl.dataset.defaultServices, []) || [];
+            const initialCity = (servicesSectionEl.dataset.initialCity || '').trim();
 
             // For “Mindre jobb eller småfix”: same services for all cities.
             const smallFixServices = ['Elektriker', 'Rörmokare', 'Plattsättare', 'Målare', 'Snickare'];
@@ -206,7 +221,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             function getServices(cityName) {
                 if (getMode() === 'smallfix') return smallFixServices;
-                return defaultServicesByCity[cityName] || defaultServicesByCity.Stockholm;
+
+                const key = (cityName || '').trim();
+                const list = servicesByCity && servicesByCity[key];
+                if (Array.isArray(list) && list.length) return list;
+
+                if (legacyDefaultServicesByCity[key]) return legacyDefaultServicesByCity[key];
+                if (Array.isArray(defaultServices) && defaultServices.length) return defaultServices;
+
+                return legacyDefaultServicesByCity.Stockholm;
             }
 
             function renderServices(cityName) {
@@ -234,7 +257,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Init based on existing active, else first
-            const active = menu.querySelector('.location-button.active') || locationButtons[0];
+            let active = null;
+            if (initialCity) {
+                active = Array.from(locationButtons).find(
+                    (btn) => (btn.textContent || '').trim() === initialCity
+                );
+            }
+            active = active || menu.querySelector('.location-button.active') || locationButtons[0];
             if (active) setActiveCity(active);
 
             // Allow sidebar selection to switch which service list is used.

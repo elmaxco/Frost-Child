@@ -11,7 +11,22 @@ $button_text = isset($attributes['buttonText']) ? esc_html($attributes['buttonTe
 $menu_items = isset($attributes['menuItems']) ? $attributes['menuItems'] : [];
 $locations = isset($attributes['locations']) ? $attributes['locations'] : [];
 $popular_services = isset($attributes['popularServices']) ? $attributes['popularServices'] : [];
+$popular_services_by_city = ( isset( $attributes['popularServicesByCity'] ) && is_array( $attributes['popularServicesByCity'] ) )
+    ? $attributes['popularServicesByCity']
+    : [];
 $popular_services_title = isset($attributes['popularServicesTitle']) ? esc_html($attributes['popularServicesTitle']) : 'Populära tjänster i Stockholm:';
+
+$initial_city = ( ! empty( $locations ) && is_array( $locations ) ) ? (string) $locations[0] : 'Stockholm';
+$initial_city_key = trim( $initial_city );
+$initial_services = [];
+if ( $initial_city_key !== '' && isset( $popular_services_by_city[ $initial_city_key ] ) && is_array( $popular_services_by_city[ $initial_city_key ] ) ) {
+    $initial_services = $popular_services_by_city[ $initial_city_key ];
+} else {
+    $initial_services = $popular_services;
+}
+
+$services_by_city_json = wp_json_encode( $popular_services_by_city );
+$default_services_json = wp_json_encode( $popular_services );
 
 $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wrapper']);
 ?>
@@ -108,13 +123,18 @@ $wrapper_attributes = get_block_wrapper_attributes(['class' => 'dropdown-menu-wr
                         </div>
                     <?php endif; ?>
 
-                    <?php if (!empty($popular_services)) : ?>
-                        <div class="popular-services-section">
+                    <?php if ( ! empty( $popular_services ) || ! empty( $popular_services_by_city ) ) : ?>
+                        <div
+                            class="popular-services-section"
+                            data-services-by-city="<?php echo esc_attr( $services_by_city_json ); ?>"
+                            data-default-services="<?php echo esc_attr( $default_services_json ); ?>"
+                            data-initial-city="<?php echo esc_attr( $initial_city ); ?>"
+                        >
                             <h4 class="popular-services-title">
-                                <span class="popular-services-prefix">Populära tjänster i </span><span class="popular-services-city">Stockholm</span>:
+                                <span class="popular-services-prefix">Populära tjänster i </span><span class="popular-services-city"><?php echo esc_html( $initial_city ); ?></span>:
                             </h4>
                             <div class="popular-services-list">
-                                <?php foreach ($popular_services as $service) : ?>
+                                <?php foreach ((array) $initial_services as $service) : ?>
                                     <a href="#" class="popular-service-button">
                                         <?php echo esc_html($service); ?>
                                     </a>

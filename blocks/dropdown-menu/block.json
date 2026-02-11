@@ -51,6 +51,10 @@
         "Fasadrenovering"
       ]
     },
+    "popularServicesByCity": {
+      "type": "object",
+      "default": {}
+    },
     "popularServicesTitle": {
       "type": "string",
       "default": "Populära tjänster i Stockholm:"

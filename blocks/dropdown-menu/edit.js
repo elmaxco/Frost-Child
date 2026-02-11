@@ -57,6 +57,7 @@
 					'Sätta up tavlor'
 				]
 			},
+			popularServicesByCity: { type: 'object', default: {} },
 			popularServicesTitle: { type: 'string', default: 'Populära tjänster' }
 		},
 
@@ -67,7 +68,25 @@
 			var menuItems = attributes.menuItems;
 			var locations = attributes.locations;
 			var popularServices = attributes.popularServices;
+			var popularServicesByCity = attributes.popularServicesByCity || {};
 			var popularServicesTitle = attributes.popularServicesTitle;
+
+			function normalizeCityKey( value ) {
+				return ( value || '' ).toString().trim();
+			}
+
+			function getCityServices( cityName ) {
+				var key = normalizeCityKey( cityName );
+				var list = popularServicesByCity && popularServicesByCity[key];
+				return Array.isArray( list ) ? list : [];
+			}
+
+			function setCityServices( cityName, list ) {
+				var key = normalizeCityKey( cityName );
+				var next = Object.assign( {}, popularServicesByCity );
+				next[key] = list;
+				setAttributes( { popularServicesByCity: next } );
+			}
 
 			function updateMenuItem( index, key, value ) {
 				var newMenuItems = menuItems.slice();
@@ -120,7 +139,21 @@
 
 			function updateLocation( index, value ) {
 				var newLocations = locations.slice();
+				var oldName = newLocations[index];
 				newLocations[index] = value;
+
+				// If the city name changes, migrate any per-city services to the new key.
+				var oldKey = normalizeCityKey( oldName );
+				var newKey = normalizeCityKey( value );
+				if ( oldKey && newKey && oldKey !== newKey && popularServicesByCity && popularServicesByCity[oldKey] ) {
+					var migrated = Object.assign( {}, popularServicesByCity );
+					if ( !migrated[newKey] ) {
+						migrated[newKey] = migrated[oldKey];
+					}
+					delete migrated[oldKey];
+					setAttributes( { popularServicesByCity: migrated } );
+				}
+
 				setAttributes( { locations: newLocations } );
 			}
 
@@ -129,10 +162,38 @@
 			}
 
 			function removeLocation( index ) {
+				var removed = locations[index];
 				var newLocations = locations.filter( function ( loc, i ) {
 					return i !== index;
 				} );
 				setAttributes( { locations: newLocations } );
+
+				// Remove per-city services for removed city.
+				var key = normalizeCityKey( removed );
+				if ( key && popularServicesByCity && popularServicesByCity[key] ) {
+					var next = Object.assign( {}, popularServicesByCity );
+					delete next[key];
+					setAttributes( { popularServicesByCity: next } );
+				}
+			}
+
+			function updateCityService( cityName, serviceIndex, value ) {
+				var list = getCityServices( cityName ).slice();
+				list[serviceIndex] = value;
+				setCityServices( cityName, list );
+			}
+
+			function addCityService( cityName ) {
+				var list = getCityServices( cityName ).slice();
+				list.push( 'New Service' );
+				setCityServices( cityName, list );
+			}
+
+			function removeCityService( cityName, serviceIndex ) {
+				var list = getCityServices( cityName ).filter( function( s, i ) {
+					return i !== serviceIndex;
+				} );
+				setCityServices( cityName, list );
 			}
 
 			function updatePopularService( index, value ) {
@@ -280,6 +341,47 @@
 							isSecondary: true,
 							onClick: addLocation
 						}, __( 'Add Location', 'frost-child' ) )
+					),
+					el(
+						PanelBody,
+						{ title: __( 'Popular Services per City', 'frost-child' ), initialOpen: false },
+						( locations || [] ).map( function( cityName, cityIndex ) {
+							var services = getCityServices( cityName );
+							return el(
+								Card,
+								{ key: 'city-services-' + cityIndex, style: { marginBottom: '20px' } },
+								el(
+									CardBody,
+									{},
+									el( 'h3', { style: { marginTop: 0 } }, __( 'City: ', 'frost-child' ) + ( cityName || ( __( 'Location ', 'frost-child' ) + ( cityIndex + 1 ) ) ) ),
+									services.map( function( svc, svcIndex ) {
+										return el(
+											'div',
+											{ key: 'svc-' + svcIndex, style: { display: 'flex', gap: '8px', marginBottom: '8px' } },
+											el( TextControl, {
+												value: svc,
+												onChange: function( value ) {
+													updateCityService( cityName, svcIndex, value );
+												}
+											} ),
+											el( Button, {
+												isDestructive: true,
+												onClick: function() {
+													removeCityService( cityName, svcIndex );
+												}
+											}, __( 'Remove', 'frost-child' ) )
+										);
+									} ),
+									el( Button, {
+										isSecondary: true,
+										onClick: function() {
+											addCityService( cityName );
+										},
+										style: { marginBottom: '10px' }
+									}, __( 'Add Service', 'frost-child' ) )
+								)
+							);
+						} )
 					),
 					el(
 						PanelBody,
