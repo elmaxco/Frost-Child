@@ -14,8 +14,7 @@
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
-  padding: 8px 0 12px;
-  margin: -8px 0 -12px;
+  padding: 10px 0 14px;
 }
 
 .carousel-track {
