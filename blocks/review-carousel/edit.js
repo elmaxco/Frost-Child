@@ -125,20 +125,22 @@
 
       return el('div', blockProps,
         el('div', { className: 'carousel-container' },
-          el('div', { className: 'carousel-track' },
-            reviews.map((review, index) =>
-              el('div', { key: index, className: 'review-card' },
-                el('div', { className: 'review-rating' },
-                  el('div', { className: 'stars' },
-                    '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating)
+          el('div', { className: 'carousel-viewport' },
+            el('div', { className: 'carousel-track' },
+              reviews.map((review, index) =>
+                el('div', { key: index, className: 'review-card' },
+                  el('div', { className: 'review-rating' },
+                    el('div', { className: 'stars' },
+                      '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating)
+                    )
+                  ),
+                  el('div', { className: 'review-text' },
+                    el('p', {}, review.reviewText)
+                  ),
+                  el('div', { className: 'review-author' },
+                    el('strong', {}, review.authorName),
+                    el('span', { className: 'review-date' }, review.date)
                   )
-                ),
-                el('div', { className: 'review-text' },
-                  el('p', {}, review.reviewText)
-                ),
-                el('div', { className: 'review-author' },
-                  el('strong', {}, review.authorName),
-                  el('span', { className: 'review-date' }, review.date)
                 )
               )
             )

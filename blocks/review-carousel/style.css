@@ -8,8 +8,12 @@
 
 .carousel-container {
   position: relative;
-  overflow: hidden;
   padding: 0 50px;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
 }
 
 .carousel-track {

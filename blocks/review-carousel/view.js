@@ -13,6 +13,14 @@
 
       if (!track || cards.length === 0) return;
 
+      let viewport = carousel.querySelector('.carousel-viewport');
+      if (!viewport) {
+        viewport = document.createElement('div');
+        viewport.className = 'carousel-viewport';
+        track.parentNode.insertBefore(viewport, track);
+        viewport.appendChild(track);
+      }
+
       const cardsToShow = parseInt(carousel.dataset.cardsToShow) || 3;
       const autoplay = carousel.dataset.autoplay === 'true';
       const autoplaySpeed = parseInt(carousel.dataset.autoplaySpeed) || 5000;
@@ -141,12 +149,12 @@
       let touchStartX = 0;
       let touchEndX = 0;
 
-      track.addEventListener('touchstart', (e) => {
+      viewport.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
         stopAutoplay();
       }, { passive: true });
 
-      track.addEventListener('touchend', (e) => {
+      viewport.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
       }, { passive: true });
