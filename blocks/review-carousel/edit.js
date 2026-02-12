@@ -9,7 +9,7 @@
     edit: function(props) {
       const { attributes, setAttributes } = props;
       const { reviews, cardsToShow, autoplay, autoplaySpeed } = attributes;
-      const MAX_REVIEW_TEXT_LENGTH = 220;
+      const MAX_REVIEW_TEXT_LENGTH = 250;
       const blockProps = useBlockProps({
         className: 'review-carousel-editor'
       });
