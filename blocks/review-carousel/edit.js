@@ -9,13 +9,19 @@
     edit: function(props) {
       const { attributes, setAttributes } = props;
       const { reviews, cardsToShow, autoplay, autoplaySpeed } = attributes;
+      const MAX_REVIEW_TEXT_LENGTH = 220;
       const blockProps = useBlockProps({
         className: 'review-carousel-editor'
       });
 
       const updateReview = (index, field, value) => {
+        let nextValue = value;
+        if (field === 'reviewText' && typeof value === 'string') {
+          nextValue = value.slice(0, MAX_REVIEW_TEXT_LENGTH);
+        }
+
         const newReviews = [...reviews];
-        newReviews[index] = { ...newReviews[index], [field]: value };
+        newReviews[index] = { ...newReviews[index], [field]: nextValue };
         setAttributes({ reviews: newReviews });
       };
 
@@ -83,7 +89,9 @@
                   label: 'Recension',
                   value: review.reviewText,
                   onChange: (value) => updateReview(index, 'reviewText', value),
-                  rows: 3
+                  rows: 3,
+                  maxLength: MAX_REVIEW_TEXT_LENGTH,
+                  help: `${(review.reviewText || '').length}/${MAX_REVIEW_TEXT_LENGTH} tecken`
                 }),
                 el(TextControl, {
                   label: 'Namn',
