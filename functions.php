@@ -194,6 +194,7 @@ function frost_child_register_customer_reviews_block() {
 		'editor_script' => 'frost-child-customer-reviews-editor',
 		'editor_style'  => 'frost-child-customer-reviews-editor',
 		'style'         => 'frost-child-customer-reviews-style',
+		'script'        => 'frost-child-customer-reviews-view',
 		'view_script'   => 'frost-child-customer-reviews-view',
 	) );
 }

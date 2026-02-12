@@ -27,6 +27,8 @@
 .review-carousel .review-card {
   flex: 0 0 auto;
   box-sizing: border-box;
+  width: calc((100% - 40px) / 3);
+  min-width: calc((100% - 40px) / 3);
   background: #f8fafc;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -159,6 +161,8 @@
   }
 
   .review-carousel .review-card {
+    width: 100%;
+    min-width: 100%;
     padding: 20px;
     min-height: 220px;
   }
