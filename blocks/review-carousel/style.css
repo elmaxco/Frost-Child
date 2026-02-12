@@ -14,7 +14,7 @@
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
-  padding: 10px 0 14px;
+  padding: 10px 2px 14px;
   background: #ffffff;
 }
 
@@ -26,6 +26,7 @@
 
 .review-card {
   flex: 0 0 auto;
+  box-sizing: border-box;
   background: #f8fafc;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
