@@ -6,25 +6,25 @@
   padding: 20px;
 }
 
-.carousel-container {
+.review-carousel .carousel-container {
   position: relative;
   padding: 0 50px;
 }
 
-.carousel-viewport {
+.review-carousel .carousel-viewport {
   overflow: hidden;
   width: 100%;
   padding: 10px 2px 14px;
   background: #ffffff;
 }
 
-.carousel-track {
+.review-carousel .carousel-track {
   display: flex;
   gap: 20px;
   transition: transform 0.5s ease-in-out;
 }
 
-.review-card {
+.review-carousel .review-card {
   flex: 0 0 auto;
   box-sizing: border-box;
   background: #f8fafc;
@@ -38,35 +38,35 @@
   min-height: 250px;
 }
 
-.review-card:hover {
+.review-carousel .review-card:hover {
   transform: translateY(-5px);
 }
 
-.review-rating {
+.review-carousel .review-rating {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.review-rating .stars {
+.review-carousel .review-rating .stars {
   font-size: 24px;
   color: #ffc107;
   letter-spacing: 2px;
 }
 
-.review-text {
+.review-carousel .review-text {
   flex: 1;
   font-size: 16px;
   line-height: 1.6;
   color: #333;
 }
 
-.review-text p {
+.review-carousel .review-text p {
   margin: 0;
   font-style: italic;
 }
 
-.review-author {
+.review-carousel .review-author {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -74,17 +74,17 @@
   border-top: 1px solid #e0e0e0;
 }
 
-.review-author strong {
+.review-carousel .review-author strong {
   font-size: 16px;
   color: #222;
 }
 
-.review-date {
+.review-carousel .review-date {
   font-size: 14px;
   color: #666;
 }
 
-.carousel-button {
+.review-carousel .carousel-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -103,40 +103,40 @@
   justify-content: center;
 }
 
-.carousel-button:hover {
+.review-carousel .carousel-button:hover {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.carousel-button:focus {
+.review-carousel .carousel-button:focus {
   outline: none;
 }
 
-.carousel-button:focus-visible {
+.review-carousel .carousel-button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
 
-.carousel-button:active {
+.review-carousel .carousel-button:active {
   background: rgba(0, 0, 0, 0.9);
   transform: translateY(-50%) scale(0.95);
 }
 
-.carousel-button.prev {
+.review-carousel .carousel-button.prev {
   left: 0;
 }
 
-.carousel-button.next {
+.review-carousel .carousel-button.next {
   right: 0;
 }
 
-.carousel-dots {
+.review-carousel .carousel-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-top: 16px;
 }
 
-.carousel-dot {
+.review-carousel .carousel-dot {
   width: 9px;
   height: 9px;
   padding: 0;
@@ -148,30 +148,30 @@
   transition: background-color 0.25s ease;
 }
 
-.carousel-dot.active {
+.review-carousel .carousel-dot.active {
   background: #1f1f1f;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .carousel-container {
+  .review-carousel .carousel-container {
     padding: 0 40px;
   }
 
-  .review-card {
+  .review-carousel .review-card {
     padding: 20px;
     min-height: 220px;
   }
 
-  .review-rating .stars {
+  .review-carousel .review-rating .stars {
     font-size: 20px;
   }
 
-  .review-text {
+  .review-carousel .review-text {
     font-size: 14px;
   }
 
-  .carousel-button {
+  .review-carousel .carousel-button {
     width: 35px;
     height: 35px;
     font-size: 20px;
@@ -183,32 +183,32 @@
     padding: 10px;
   }
 
-  .carousel-container {
+  .review-carousel .carousel-container {
     padding: 0 35px;
   }
 
-  .review-card {
+  .review-carousel .review-card {
     padding: 15px;
     min-height: 200px;
   }
 
-  .review-rating .stars {
+  .review-carousel .review-rating .stars {
     font-size: 18px;
   }
 
-  .review-text {
+  .review-carousel .review-text {
     font-size: 13px;
   }
 
-  .review-author strong {
+  .review-carousel .review-author strong {
     font-size: 14px;
   }
 
-  .review-date {
+  .review-carousel .review-date {
     font-size: 12px;
   }
 
-  .carousel-button {
+  .review-carousel .carousel-button {
     width: 30px;
     height: 30px;
     font-size: 18px;
