@@ -154,12 +154,48 @@ add_action( 'init', 'frost_child_register_simple_dropdown_block' );
  */
 function frost_child_register_customer_reviews_block() {
 	$block_dir  = get_stylesheet_directory() . '/blocks/review-carousel';
+	$block_uri  = get_stylesheet_directory_uri() . '/blocks/review-carousel';
 
 	if ( ! file_exists( $block_dir . '/block.json' ) ) {
 		return;
 	}
 
-	register_block_type( $block_dir );
+	wp_register_script(
+		'frost-child-customer-reviews-editor',
+		$block_uri . '/edit.js',
+		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
+		filemtime( $block_dir . '/edit.js' ),
+		true
+	);
+
+	wp_register_style(
+		'frost-child-customer-reviews-editor',
+		$block_uri . '/editor.css',
+		array( 'wp-edit-blocks' ),
+		filemtime( $block_dir . '/editor.css' )
+	);
+
+	wp_register_style(
+		'frost-child-customer-reviews-style',
+		$block_uri . '/style.css',
+		array(),
+		filemtime( $block_dir . '/style.css' )
+	);
+
+	wp_register_script(
+		'frost-child-customer-reviews-view',
+		$block_uri . '/view.js',
+		array(),
+		filemtime( $block_dir . '/view.js' ),
+		true
+	);
+
+	register_block_type( $block_dir, array(
+		'editor_script' => 'frost-child-customer-reviews-editor',
+		'editor_style'  => 'frost-child-customer-reviews-editor',
+		'style'         => 'frost-child-customer-reviews-style',
+		'view_script'   => 'frost-child-customer-reviews-view',
+	) );
 }
 add_action( 'init', 'frost_child_register_customer_reviews_block' );
 
