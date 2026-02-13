@@ -152,28 +152,23 @@
 .ic-dots {
 	display: flex;
 	justify-content: center;
-	gap: 8px;
+	gap: 10px;
 	padding: 14px 0 4px;
 }
 
 .ic-dot {
-	width: 10px;
-	height: 10px;
+	width: 9px;
+	height: 9px;
 	border-radius: 50%;
-	border: 2px solid var(--ic-arrow-bg, #333);
-	background: transparent;
+	border: 0;
+	background: #bcbcbc;
 	cursor: pointer;
 	padding: 0;
-	transition: background 0.25s, transform 0.25s;
-}
-
-.ic-dot:hover {
-	transform: scale(1.3);
+	transition: background-color 0.25s ease;
 }
 
 .ic-dot.active {
-	background: var(--ic-arrow-bg, #333);
-	transform: scale(1.2);
+	background: #1f1f1f;
 }
 
 /* ---------- Caption position "none" ---------- */
@@ -188,9 +183,6 @@
 @media ( max-width: 900px ) {
 	.ic-slide {
 		flex: 0 0 calc( ( 100% - var(--ic-gap, 16px) ) / 2 );
-	}
-	.ic-track {
-		/* keep gap unchanged */
 	}
 }
 
@@ -213,11 +205,12 @@
 	}
 
 	.ic-dots {
-		gap: 6px;
+		gap: 8px;
 	}
 	.ic-dot {
 		width: 8px;
 		height: 8px;
+		border: 0;
 	}
 }
 
@@ -228,7 +221,3 @@
 	}
 }
 
-/* ---------- Clone slides (hide from screen readers) ---------- */
-.ic-clone {
-	/* visual same as normal, aria-hidden already set in JS */
-}
