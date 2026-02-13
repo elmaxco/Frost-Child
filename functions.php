@@ -377,7 +377,6 @@ function frost_child_register_image_carousel_block() {
 		'editor_script' => 'frost-child-image-carousel-editor',
 		'editor_style'  => 'frost-child-image-carousel-editor',
 		'style'         => 'frost-child-image-carousel-style',
-		'script'        => 'frost-child-image-carousel-view',
 		'view_script'   => 'frost-child-image-carousel-view',
 	) );
 }

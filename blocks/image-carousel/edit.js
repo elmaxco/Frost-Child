@@ -415,8 +415,12 @@
 				);
 			} );
 
+			var saveProps = blockEditor.useBlockProps.save( {
+				className: 'ic-carousel ic-caption-' + attrs.captionPosition,
+			} );
+
 			return el( 'div',
-				Object.assign( {}, blockEditor.useBlockProps.save(), dataAttrs, { style: wrapStyle, className: 'ic-carousel ic-caption-' + attrs.captionPosition } ),
+				Object.assign( {}, saveProps, dataAttrs, { style: wrapStyle } ),
 				el( 'div', { className: 'ic-track-wrapper' },
 					el( 'div', { className: 'ic-track' }, slides )
 				),
