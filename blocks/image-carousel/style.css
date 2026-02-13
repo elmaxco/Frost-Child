@@ -4,7 +4,9 @@
 .ic-carousel {
 	position: relative;
 	width: 100%;
-	overflow: hidden;
+	overflow: visible;
+	padding: 0 52px;
+	box-sizing: border-box;
 	user-select: none;
 	-webkit-user-select: none;
 	outline: none;
@@ -106,11 +108,11 @@
 }
 
 .ic-arrow-prev {
-	left: 12px;
+	left: 0;
 }
 
 .ic-arrow-next {
-	right: 12px;
+	right: 0;
 }
 
 .ic-arrow svg {
@@ -188,6 +190,9 @@
 
 /* Mobile: always 1 slide */
 @media ( max-width: 600px ) {
+	.ic-carousel {
+		padding: 0 38px;
+	}
 	.ic-slide {
 		flex: 0 0 100%;
 	}
@@ -197,8 +202,8 @@
 	.ic-arrow {
 		--ic-arrow-size: 34px;
 	}
-	.ic-arrow-prev { left: 6px; }
-	.ic-arrow-next { right: 6px; }
+	.ic-arrow-prev { left: 0; }
+	.ic-arrow-next { right: 0; }
 
 	.ic-slide-inner img {
 		height: clamp(200px, 60vw, var(--ic-height, 400px));
