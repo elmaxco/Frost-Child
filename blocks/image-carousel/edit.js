@@ -33,16 +33,19 @@
 			var setCurrentPreview = previewIndex[1];
 
 			/* ---------- helpers ---------- */
-			function addImageFromMedia( media ) {
-				var newImage = {
-					id: Date.now() + Math.random(),
-					url: media.url,
-					alt: media.alt || '',
-					caption: '',
-					overlayText: '',
-					mediaId: media.id,
-				};
-				setAttributes( { images: images.concat( [ newImage ] ) } );
+			function addImagesFromMedia( selection ) {
+				var mediaItems = Array.isArray( selection ) ? selection : [ selection ];
+				var newImages = mediaItems.map( function ( media ) {
+					return {
+						id: Date.now() + Math.random(),
+						url: media.url,
+						alt: media.alt || '',
+						caption: '',
+						overlayText: '',
+						mediaId: media.id,
+					};
+				} );
+				setAttributes( { images: images.concat( newImages ) } );
 			}
 
 			function addImageFromUrl() {
@@ -88,10 +91,10 @@
 				InspectorControls, null,
 
 				/* -- Carousel Settings -- */
-				el( PanelBody, { title: __( 'Karusellinställningar', 'frost-child' ), initialOpen: true },
+				el( PanelBody, { title: __( 'Carousel Settings', 'frost-child' ), initialOpen: true },
 					el( RangeControl, {
-						label: __( 'Synliga bilder (desktop)', 'frost-child' ),
-						help: __( 'På mobil visas alltid 1 bild.', 'frost-child' ),
+						label: __( 'Visible slides (desktop)', 'frost-child' ),
+						help: __( 'On mobile, only 1 slide is shown.', 'frost-child' ),
 						min: 1, max: 6, value: attrs.visibleSlides,
 						onChange: function ( v ) { setAttributes( { visibleSlides: v } ); },
 					} ),
@@ -101,39 +104,39 @@
 						onChange: function ( v ) { setAttributes( { autoplay: v } ); },
 					} ),
 					attrs.autoplay && el( RangeControl, {
-						label: __( 'Autoplay-hastighet (ms)', 'frost-child' ),
+						label: __( 'Autoplay speed (ms)', 'frost-child' ),
 						min: 1000, max: 15000, step: 500,
 						value: attrs.autoplaySpeed,
 						onChange: function ( v ) { setAttributes( { autoplaySpeed: v } ); },
 					} ),
 					el( RangeControl, {
-						label: __( 'Övergångshastighet (ms)', 'frost-child' ),
+						label: __( 'Transition speed (ms)', 'frost-child' ),
 						min: 100, max: 2000, step: 50,
 						value: attrs.transitionSpeed,
 						onChange: function ( v ) { setAttributes( { transitionSpeed: v } ); },
 					} ),
 					el( ToggleControl, {
-						label: __( 'Pausa vid hover', 'frost-child' ),
+						label: __( 'Pause on hover', 'frost-child' ),
 						checked: attrs.pauseOnHover,
 						onChange: function ( v ) { setAttributes( { pauseOnHover: v } ); },
 					} ),
 					el( ToggleControl, {
-						label: __( 'Oändlig loop', 'frost-child' ),
+						label: __( 'Infinite loop', 'frost-child' ),
 						checked: attrs.infinite,
 						onChange: function ( v ) { setAttributes( { infinite: v } ); },
 					} )
 				),
 
 				/* -- Appearance -- */
-				el( PanelBody, { title: __( 'Utseende', 'frost-child' ), initialOpen: false },
+				el( PanelBody, { title: __( 'Appearance', 'frost-child' ), initialOpen: false },
 					el( RangeControl, {
-						label: __( 'Bildhöjd (px)', 'frost-child' ),
+						label: __( 'Image height (px)', 'frost-child' ),
 						min: 150, max: 800, step: 10,
 						value: attrs.imageHeight,
 						onChange: function ( v ) { setAttributes( { imageHeight: v } ); },
 					} ),
 					el( SelectControl, {
-						label: __( 'Bildpassning', 'frost-child' ),
+						label: __( 'Image fit', 'frost-child' ),
 						value: attrs.imageFit,
 						options: [
 							{ label: 'Cover', value: 'cover' },
@@ -143,60 +146,60 @@
 						onChange: function ( v ) { setAttributes( { imageFit: v } ); },
 					} ),
 					el( RangeControl, {
-						label: __( 'Mellanrum (px)', 'frost-child' ),
+						label: __( 'Gap (px)', 'frost-child' ),
 						min: 0, max: 60, value: attrs.gap,
 						onChange: function ( v ) { setAttributes( { gap: v } ); },
 					} ),
 					el( RangeControl, {
-						label: __( 'Hörnradie (px)', 'frost-child' ),
+						label: __( 'Border radius (px)', 'frost-child' ),
 						min: 0, max: 50, value: attrs.borderRadius,
 						onChange: function ( v ) { setAttributes( { borderRadius: v } ); },
 					} ),
 					el( SelectControl, {
-						label: __( 'Textplacering', 'frost-child' ),
+						label: __( 'Caption position', 'frost-child' ),
 						value: attrs.captionPosition,
 						options: [
-							{ label: __( 'Under bilden', 'frost-child' ), value: 'below' },
-							{ label: __( 'Ovanpå bilden', 'frost-child' ), value: 'overlay' },
-							{ label: __( 'Ingen text', 'frost-child' ), value: 'none' },
+							{ label: __( 'Below image', 'frost-child' ), value: 'below' },
+							{ label: __( 'Overlay on image', 'frost-child' ), value: 'overlay' },
+							{ label: __( 'No caption', 'frost-child' ), value: 'none' },
 						],
 						onChange: function ( v ) { setAttributes( { captionPosition: v } ); },
 					} )
 				),
 
 				/* -- Arrows -- */
-				el( PanelBody, { title: __( 'Pilar', 'frost-child' ), initialOpen: false },
+				el( PanelBody, { title: __( 'Arrows', 'frost-child' ), initialOpen: false },
 					el( ToggleControl, {
-						label: __( 'Visa pilar', 'frost-child' ),
+						label: __( 'Show arrows', 'frost-child' ),
 						checked: attrs.showArrows,
 						onChange: function ( v ) { setAttributes( { showArrows: v } ); },
 					} ),
 					attrs.showArrows && el( Fragment, null,
 						el( SelectControl, {
-							label: __( 'Pilstil', 'frost-child' ),
+							label: __( 'Arrow style', 'frost-child' ),
 							value: attrs.arrowStyle,
 							options: [
-								{ label: __( 'Cirkel', 'frost-child' ), value: 'circle' },
-								{ label: __( 'Fyrkantig', 'frost-child' ), value: 'square' },
-								{ label: __( 'Avrundad', 'frost-child' ), value: 'rounded' },
+								{ label: __( 'Circle', 'frost-child' ), value: 'circle' },
+								{ label: __( 'Square', 'frost-child' ), value: 'square' },
+								{ label: __( 'Rounded', 'frost-child' ), value: 'rounded' },
 								{ label: __( 'Minimal', 'frost-child' ), value: 'minimal' },
-								{ label: __( 'Ingen bakgrund', 'frost-child' ), value: 'none' },
+								{ label: __( 'No background', 'frost-child' ), value: 'none' },
 							],
 							onChange: function ( v ) { setAttributes( { arrowStyle: v } ); },
 						} ),
 						el( RangeControl, {
-							label: __( 'Pilstorlek (px)', 'frost-child' ),
+							label: __( 'Arrow size (px)', 'frost-child' ),
 							min: 24, max: 72, value: attrs.arrowSize,
 							onChange: function ( v ) { setAttributes( { arrowSize: v } ); },
 						} ),
-						el( BaseControl, { label: __( 'Pilfärg', 'frost-child' ) },
+						el( BaseControl, { label: __( 'Arrow color', 'frost-child' ) },
 							el( ColorPicker, {
 								color: attrs.arrowColor,
 								onChangeComplete: function ( c ) { setAttributes( { arrowColor: c.hex } ); },
 								disableAlpha: true,
 							} )
 						),
-						attrs.arrowStyle !== 'none' && el( BaseControl, { label: __( 'Pil-bakgrundsfärg', 'frost-child' ) },
+						attrs.arrowStyle !== 'none' && el( BaseControl, { label: __( 'Arrow background color', 'frost-child' ) },
 							el( ColorPicker, {
 								color: attrs.arrowBgColor,
 								onChangeComplete: function ( c ) { setAttributes( { arrowBgColor: c.hex } ); },
@@ -207,9 +210,9 @@
 				),
 
 				/* -- Dots -- */
-				el( PanelBody, { title: __( 'Prickar', 'frost-child' ), initialOpen: false },
+				el( PanelBody, { title: __( 'Dots', 'frost-child' ), initialOpen: false },
 					el( ToggleControl, {
-						label: __( 'Visa prickar', 'frost-child' ),
+						label: __( 'Show dots', 'frost-child' ),
 						checked: attrs.showDots,
 						onChange: function ( v ) { setAttributes( { showDots: v } ); },
 					} )
@@ -218,25 +221,27 @@
 
 			/* ---------- Add images area ---------- */
 			var addArea = el( 'div', { className: 'ic-add-area' },
-				el( 'h4', null, __( 'Lägg till bilder', 'frost-child' ) ),
+				el( 'h4', null, __( 'Add Images', 'frost-child' ) ),
 				el( 'div', { className: 'ic-add-row' },
 					el( MediaUploadCheck, null,
 						el( MediaUpload, {
-							onSelect: addImageFromMedia,
+							onSelect: addImagesFromMedia,
 							allowedTypes: [ 'image' ],
+							multiple: true,
+							gallery: true,
 							render: function ( ref ) {
 								return el( Button, {
 									variant: 'secondary',
 									onClick: ref.open,
 									className: 'ic-upload-btn',
-								}, __( '📁 Välj från mediabiblioteket', 'frost-child' ) );
+								}, __( '📁 Choose from Media Library', 'frost-child' ) );
 							},
 						} )
 					)
 				),
 				el( 'div', { className: 'ic-add-row ic-url-row' },
 					el( TextControl, {
-						placeholder: __( 'Klistra in bild-URL...', 'frost-child' ),
+						placeholder: __( 'Paste image URL...', 'frost-child' ),
 						value: urlInput,
 						onChange: setUrlInput,
 						className: 'ic-url-input',
@@ -245,7 +250,7 @@
 						variant: 'primary',
 						onClick: addImageFromUrl,
 						disabled: ! urlInput.trim(),
-					}, __( '➕ Lägg till URL', 'frost-child' ) )
+					}, __( '➕ Add URL', 'frost-child' ) )
 				)
 			);
 
@@ -288,8 +293,8 @@
 								} ),
 								attrs.captionPosition !== 'none' && el( TextControl, {
 									label: attrs.captionPosition === 'overlay'
-										? __( 'Overlay-text', 'frost-child' )
-										: __( 'Bildtext', 'frost-child' ),
+									? __( 'Overlay text', 'frost-child' )
+									: __( 'Caption', 'frost-child' ),
 									value: attrs.captionPosition === 'overlay' ? img.overlayText : img.caption,
 									onChange: function ( v ) {
 										updateImage( idx, attrs.captionPosition === 'overlay' ? 'overlayText' : 'caption', v );
@@ -303,7 +308,7 @@
 											return el( Button, {
 												isSmall: true, variant: 'tertiary',
 												onClick: ref.open,
-											}, __( '🔄 Byt bild', 'frost-child' ) );
+											}, __( '🔄 Replace image', 'frost-child' ) );
 										},
 									} )
 								)
@@ -312,14 +317,14 @@
 					} )
 				)
 				: el( 'div', { className: 'ic-empty' },
-					el( 'p', null, __( 'Inga bilder ännu. Lägg till bilder ovan.', 'frost-child' ) )
+					el( 'p', null, __( 'No images yet. Add images above.', 'frost-child' ) )
 				);
 
 			/* ---------- Preview ---------- */
 			var maxPreview = Math.min( attrs.visibleSlides, images.length );
 			var preview = images.length > 0
 				? el( 'div', { className: 'ic-preview' },
-					el( 'h4', null, __( 'Förhandsgranskning', 'frost-child' ) ),
+					el( 'h4', null, __( 'Preview', 'frost-child' ) ),
 					el( 'div', {
 						className: 'ic-preview-track',
 						style: {
@@ -351,7 +356,7 @@
 					el( 'div', { className: 'ic-editor-header' },
 						el( 'span', { className: 'ic-icon dashicons dashicons-images-alt2' } ),
 						el( 'span', { className: 'ic-title' }, __( 'Image Carousel', 'frost-child' ) ),
-						images.length > 0 && el( 'span', { className: 'ic-count' }, images.length + ' ' + __( 'bilder', 'frost-child' ) )
+						images.length > 0 && el( 'span', { className: 'ic-count' }, images.length + ' ' + __( 'images', 'frost-child' ) )
 					),
 					preview,
 					addArea,
