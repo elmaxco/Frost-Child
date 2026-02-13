@@ -272,18 +272,18 @@
 											icon: 'arrow-up-alt2', isSmall: true,
 											disabled: idx === 0,
 											onClick: function () { moveImage( idx, idx - 1 ); },
-											label: __( 'Flytta upp', 'frost-child' ),
+											label: __( 'Move up', 'frost-child' ),
 										} ),
 										el( Button, {
 											icon: 'arrow-down-alt2', isSmall: true,
 											disabled: idx === images.length - 1,
 											onClick: function () { moveImage( idx, idx + 1 ); },
-											label: __( 'Flytta ner', 'frost-child' ),
+											label: __( 'Move down', 'frost-child' ),
 										} ),
 										el( Button, {
 											isDestructive: true, isSmall: true,
 											onClick: function () { removeImage( idx ); },
-										}, __( 'Ta bort', 'frost-child' ) )
+										}, __( 'Remove', 'frost-child' ) )
 									)
 								),
 								el( TextControl, {
