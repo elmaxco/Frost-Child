@@ -333,6 +333,57 @@ function frost_child_alphabet_filter_rest_callback( WP_REST_Request $request ) {
 }
 
 /**
+ * Register Image Carousel block (no build step).
+ */
+function frost_child_register_image_carousel_block() {
+	$block_dir = get_stylesheet_directory() . '/blocks/image-carousel';
+	$block_uri = get_stylesheet_directory_uri() . '/blocks/image-carousel';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	wp_register_script(
+		'frost-child-image-carousel-editor',
+		$block_uri . '/edit.js',
+		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
+		filemtime( $block_dir . '/edit.js' ),
+		true
+	);
+
+	wp_register_style(
+		'frost-child-image-carousel-editor',
+		$block_uri . '/editor.css',
+		array( 'wp-edit-blocks' ),
+		filemtime( $block_dir . '/editor.css' )
+	);
+
+	wp_register_style(
+		'frost-child-image-carousel-style',
+		$block_uri . '/style.css',
+		array(),
+		filemtime( $block_dir . '/style.css' )
+	);
+
+	wp_register_script(
+		'frost-child-image-carousel-view',
+		$block_uri . '/view.js',
+		array(),
+		filemtime( $block_dir . '/view.js' ),
+		true
+	);
+
+	register_block_type( $block_dir, array(
+		'editor_script' => 'frost-child-image-carousel-editor',
+		'editor_style'  => 'frost-child-image-carousel-editor',
+		'style'         => 'frost-child-image-carousel-style',
+		'script'        => 'frost-child-image-carousel-view',
+		'view_script'   => 'frost-child-image-carousel-view',
+	) );
+}
+add_action( 'init', 'frost_child_register_image_carousel_block' );
+
+/**
  * Register Alphabet Filter block (no build step).
  */
 function frost_child_register_alphabet_filter_block() {

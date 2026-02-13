@@ -1,0 +1,169 @@
+/* ===== Image Carousel – Editor Styles ===== */
+
+.ic-editor-wrap {
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 20px;
+	background: #fafafa;
+}
+
+.ic-editor-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 16px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.ic-icon {
+	font-size: 24px;
+	color: #007cba;
+}
+
+.ic-title {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.ic-count {
+	margin-left: auto;
+	background: #007cba;
+	color: #fff;
+	padding: 2px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+/* ---- Add area ---- */
+.ic-add-area {
+	background: #fff;
+	border: 1px dashed #c3c4c7;
+	border-radius: 8px;
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+.ic-add-area h4 {
+	margin: 0 0 12px;
+	font-size: 14px;
+}
+
+.ic-add-row {
+	margin-bottom: 10px;
+}
+
+.ic-url-row {
+	display: flex;
+	gap: 8px;
+	align-items: flex-end;
+}
+
+.ic-url-input {
+	flex: 1;
+}
+
+.ic-url-row .components-base-control {
+	flex: 1;
+	margin-bottom: 0;
+}
+
+.ic-upload-btn {
+	width: 100%;
+	justify-content: center;
+}
+
+/* ---- Image list ---- */
+.ic-image-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.ic-image-card {
+	border: 1px solid #e0e0e0;
+	border-radius: 6px;
+}
+
+.ic-card-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 10px;
+}
+
+.ic-thumb {
+	width: 80px;
+	height: 60px;
+	object-fit: cover;
+	border-radius: 4px;
+	flex-shrink: 0;
+}
+
+.ic-card-actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-left: auto;
+}
+
+.ic-card-number {
+	font-weight: 600;
+	font-size: 14px;
+	color: #757575;
+	margin-right: 4px;
+}
+
+/* ---- Preview ---- */
+.ic-preview {
+	margin-bottom: 16px;
+}
+
+.ic-preview h4 {
+	margin: 0 0 10px;
+	font-size: 14px;
+}
+
+.ic-preview-track {
+	display: flex;
+	gap: var(--ic-gap, 16px);
+	overflow: hidden;
+	border-radius: var(--ic-radius, 8px);
+}
+
+.ic-preview-slide {
+	flex: 0 0 calc( ( 100% - ( var(--ic-visible, 3) - 1 ) * var(--ic-gap, 16px) ) / var(--ic-visible, 3) );
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--ic-radius, 8px);
+}
+
+.ic-preview-slide img {
+	width: 100%;
+	height: var(--ic-height, 300px);
+	display: block;
+}
+
+.ic-preview-overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,0.55);
+	color: #fff;
+	padding: 8px 12px;
+	font-size: 14px;
+}
+
+.ic-preview-caption {
+	padding: 6px 4px;
+	font-size: 13px;
+	color: #555;
+}
+
+/* ---- Empty state ---- */
+.ic-empty {
+	text-align: center;
+	padding: 30px;
+	color: #999;
+}

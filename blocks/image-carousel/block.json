@@ -1,0 +1,100 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/image-carousel",
+  "title": "Image Carousel",
+  "category": "media",
+  "icon": "images-alt2",
+  "description": "En bildkarusell med stöd för uppladdning, URL-bilder, texter, anpassningsbara pilar och responsiv design.",
+  "keywords": ["image", "carousel", "slider", "gallery", "bild", "karusell"],
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "visibleSlides": {
+      "type": "number",
+      "default": 3
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoplaySpeed": {
+      "type": "number",
+      "default": 4000
+    },
+    "transitionSpeed": {
+      "type": "number",
+      "default": 500
+    },
+    "pauseOnHover": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": true
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "arrowStyle": {
+      "type": "string",
+      "default": "circle"
+    },
+    "arrowColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "arrowBgColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "arrowSize": {
+      "type": "number",
+      "default": 40
+    },
+    "imageHeight": {
+      "type": "number",
+      "default": 400
+    },
+    "imageFit": {
+      "type": "string",
+      "default": "cover"
+    },
+    "gap": {
+      "type": "number",
+      "default": 16
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 8
+    },
+    "captionPosition": {
+      "type": "string",
+      "default": "below"
+    },
+    "infinite": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    }
+  }
+}
