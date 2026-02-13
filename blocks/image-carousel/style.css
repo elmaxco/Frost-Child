@@ -88,25 +88,39 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	width: var(--ic-arrow-size, 40px);
-	height: var(--ic-arrow-size, 40px);
-	color: var(--ic-arrow-color, #fff);
-	background: var(--ic-arrow-bg, #000);
-	transition: opacity 0.2s, transform 0.2s, background 0.2s;
-	opacity: 0.8;
-	padding: 0;
+	width: 40px;
+	height: 40px;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 50%;
+	font-size: 24px;
 	line-height: 1;
+	transition: background 0.3s ease, transform 0.2s ease;
+	padding: 0;
 }
 
 .ic-arrow:hover {
-	opacity: 1;
-	transform: translateY(-50%) scale(1.08);
+	background: rgba(0, 0, 0, 0.8);
 }
 
 .ic-arrow:disabled {
-	opacity: 0.3;
+	opacity: 0.5;
 	cursor: default;
 	transform: translateY(-50%);
+}
+
+.ic-arrow:active {
+	background: rgba(0, 0, 0, 0.9);
+	transform: translateY(-50%) scale(0.95);
+}
+
+.ic-arrow:focus {
+	outline: none;
+}
+
+.ic-arrow:focus-visible {
+	outline: 2px solid #fff;
+	outline-offset: 2px;
 }
 
 .ic-arrow-prev {
@@ -115,11 +129,6 @@
 
 .ic-arrow-next {
 	right: -52px;
-}
-
-.ic-arrow svg {
-	width: 50%;
-	height: 50%;
 }
 
 /* -- Arrow style variants -- */

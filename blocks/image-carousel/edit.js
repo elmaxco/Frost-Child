@@ -370,12 +370,6 @@
 			var images = attrs.images || [];
 			if ( ! images.length ) return null;
 
-			var arrowSvg = el( 'svg', { width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '3', strokeLinecap: 'round', strokeLinejoin: 'round' },
-				el( 'polyline', { points: '15 18 9 12 15 6' } )
-			);
-			var arrowSvgRight = el( 'svg', { width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '3', strokeLinecap: 'round', strokeLinejoin: 'round' },
-				el( 'polyline', { points: '9 18 15 12 9 6' } )
-			);
 
 			var dataAttrs = {
 				'data-visible': attrs.visibleSlides,
@@ -424,8 +418,8 @@
 				el( 'div', { className: 'ic-track-wrapper' },
 					el( 'div', { className: 'ic-track' }, slides )
 				),
-				attrs.showArrows && el( 'button', { className: 'ic-arrow ic-arrow-prev', 'aria-label': 'Previous' }, arrowSvg ),
-				attrs.showArrows && el( 'button', { className: 'ic-arrow ic-arrow-next', 'aria-label': 'Next' }, arrowSvgRight ),
+				attrs.showArrows && el( 'button', { className: 'ic-arrow ic-arrow-prev', 'aria-label': 'Previous' }, '‹' ),
+				attrs.showArrows && el( 'button', { className: 'ic-arrow ic-arrow-next', 'aria-label': 'Next' }, '›' ),
 				attrs.showDots && el( 'div', { className: 'ic-dots' },
 					images.map( function ( _, idx ) {
 						return el( 'button', { key: idx, className: 'ic-dot' + ( idx === 0 ? ' active' : '' ), 'data-index': idx, 'aria-label': 'Go to slide ' + ( idx + 1 ) } );
