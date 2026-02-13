@@ -131,6 +131,17 @@
 	right: -52px;
 }
 
+/* Keep arrows inside carousel earlier to avoid horizontal page scroll */
+@media ( max-width: 1600px ) {
+	.ic-arrow-prev {
+		left: 8px;
+	}
+
+	.ic-arrow-next {
+		right: 8px;
+	}
+}
+
 /* -- Arrow style variants -- */
 /* circle (default) */
 .ic-carousel[data-arrow-style="circle"] .ic-arrow {
