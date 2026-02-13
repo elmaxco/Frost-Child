@@ -27,8 +27,8 @@
 
       const addReview = () => {
         const newReviews = [...reviews, {
-          reviewText: 'Ny recension...',
-          authorName: 'Namn',
+          reviewText: 'New review...',
+          authorName: 'Name',
           date: new Date().toISOString().split('T')[0],
           rating: 5
         }];
@@ -42,14 +42,14 @@
 
       return el(Fragment, {},
         el(InspectorControls, {},
-          el(PanelBody, { title: 'Carousel Inställningar', initialOpen: true },
+          el(PanelBody, { title: 'Carousel Settings', initialOpen: true },
             el(RangeControl, {
-              label: 'Antal kort att visa (desktop)',
+              label: 'Number of cards to show (desktop)',
               value: cardsToShow,
               onChange: (value) => setAttributes({ cardsToShow: value }),
               min: 1,
               max: 4,
-              help: 'På mobil visas alltid ett kort åt gången'
+              help: 'On mobile, one card is always shown at a time'
             }),
             el(ToggleControl, {
               label: 'Autoplay',
@@ -57,7 +57,7 @@
               onChange: (value) => setAttributes({ autoplay: value })
             }),
             autoplay && el(RangeControl, {
-              label: 'Autoplay hastighet (ms)',
+              label: 'Autoplay speed (ms)',
               value: autoplaySpeed,
               onChange: (value) => setAttributes({ autoplaySpeed: value }),
               min: 2000,
@@ -65,12 +65,12 @@
               step: 500
             })
           ),
-          el(PanelBody, { title: 'Recensioner', initialOpen: true },
+          el(PanelBody, { title: 'Reviews', initialOpen: true },
             el(Button, {
               variant: 'secondary',
               onClick: addReview,
               style: { marginBottom: '10px' }
-            }, 'Lägg till recension')
+            }, 'Add review')
           )
         ),
         el('div', blockProps,
@@ -78,34 +78,34 @@
             reviews.map((review, index) =>
               el('div', { key: index, className: 'review-card-editor' },
                 el('div', { className: 'review-card-header' },
-                  el('strong', {}, `Recension ${index + 1}`),
+                  el('strong', {}, `Review ${index + 1}`),
                   el(Button, {
                     isDestructive: true,
                     isSmall: true,
                     onClick: () => removeReview(index)
-                  }, 'Ta bort')
+                  }, 'Remove')
                 ),
                 el(TextareaControl, {
-                  label: 'Recension',
+                  label: 'Review',
                   value: review.reviewText,
                   onChange: (value) => updateReview(index, 'reviewText', value),
                   rows: 3,
                   maxLength: MAX_REVIEW_TEXT_LENGTH,
-                  help: `${(review.reviewText || '').length}/${MAX_REVIEW_TEXT_LENGTH} tecken`
+                  help: `${(review.reviewText || '').length}/${MAX_REVIEW_TEXT_LENGTH} characters`
                 }),
                 el(TextControl, {
-                  label: 'Namn',
+                  label: 'Name',
                   value: review.authorName,
                   onChange: (value) => updateReview(index, 'authorName', value)
                 }),
                 el(TextControl, {
-                  label: 'Datum',
+                  label: 'Date',
                   type: 'date',
                   value: review.date,
                   onChange: (value) => updateReview(index, 'date', value)
                 }),
                 el(RangeControl, {
-                  label: 'Betyg',
+                  label: 'Rating',
                   value: review.rating,
                   onChange: (value) => updateReview(index, 'rating', value),
                   min: 1,
