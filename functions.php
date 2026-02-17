@@ -151,6 +151,20 @@ function frost_child_register_simple_dropdown_block() {
 add_action( 'init', 'frost_child_register_simple_dropdown_block' );
 
 /**
+ * Register FAQ Dropdown block (no build step).
+ */
+function frost_child_register_faq_dropdown_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/faq-dropdown';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_faq_dropdown_block' );
+
+/**
  * Register Company Google Map block (no build step).
  */
 function frost_child_register_company_map_block() {

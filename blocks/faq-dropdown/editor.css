@@ -1,0 +1,7 @@
+.wp-block-frost-child-faq-dropdown .frost-child-faq-dropdown__trigger {
+	cursor: pointer;
+}
+
+.wp-block-frost-child-faq-dropdown .frost-child-faq-dropdown__item {
+	padding-right: 2px;
+}

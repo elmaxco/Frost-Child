@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/faq-dropdown",
+  "version": "1.0.0",
+  "title": "FAQ Dropdown",
+  "category": "widgets",
+  "icon": "editor-help",
+  "description": "FAQ accordion med flera expanderbara frågor och svar.",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "script": "file:./view.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "question": "Hur får jag hjälp av en elektriker i Stockholm?",
+          "answer": "Kontakta oss! Våra certifierade elektriker i Stockholm ser fram emot att hjälpa dig, oavsett om det handlar om ett mindre eljobb eller ett större projekt."
+        },
+        {
+          "question": "Vad kan era elektriker i Stockholm hjälpa mig med?",
+          "answer": "Vi hjälper med installationer, felsökning, elrenoveringar och service för både hem och företag."
+        },
+        {
+          "question": "Hur snabbt kan jag få hjälp av en elektriker i Stockholm?",
+          "answer": "Vi återkommer snabbt och bokar in en tid så snart som möjligt utifrån ditt behov."
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  }
+}
