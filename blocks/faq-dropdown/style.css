@@ -2,10 +2,6 @@
 	color: var(--wp--preset--color--contrast, #123446);
 }
 
-.frost-child-faq-dropdown__item + .frost-child-faq-dropdown__item {
-	border-top: 1px solid rgba(18, 52, 70, 0.14);
-}
-
 .frost-child-faq-dropdown__trigger {
 	width: 100%;
 	display: flex;
