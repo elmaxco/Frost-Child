@@ -49,7 +49,7 @@
 		title: __('Booking Calendar', 'frost-child'),
 		icon: 'calendar-alt',
 		category: 'widgets',
-		description: __('Kalender för att välja dag och boka en tid.', 'frost-child'),
+		description: __('Calendar for selecting a date and booking a time.', 'frost-child'),
 		supports: {
 			html: false,
 			align: ['wide', 'full'],
@@ -90,9 +90,9 @@
 					{},
 					el(
 						PanelBody,
-						{ title: __('Bokningskalender', 'frost-child'), initialOpen: true },
+						{ title: __('Booking Calendar', 'frost-child'), initialOpen: true },
 						el(TextControl, {
-							label: __('Rubrik', 'frost-child'),
+							label: __('Title', 'frost-child'),
 							value: attributes.title,
 							onChange: function (value) {
 								setAttributes({ title: value });
@@ -106,22 +106,22 @@
 							},
 						}),
 						el(TextControl, {
-							label: __('Möteslängd', 'frost-child'),
+							label: __('Meeting length', 'frost-child'),
 							value: attributes.meetingLength,
 							onChange: function (value) {
 								setAttributes({ meetingLength: value });
 							},
 						}),
 						el(TextareaControl, {
-							label: __('Tider (en tid per rad)', 'frost-child'),
-							help: __('Exempel: 07:45', 'frost-child'),
+							label: __('Times (one per line)', 'frost-child'),
+							help: __('Example: 07:45', 'frost-child'),
 							value: timesToText(timeList),
 							onChange: function (value) {
 								setAttributes({ times: textToTimes(value) });
 							},
 						}),
 						el(TextControl, {
-							label: __('Lägg till tid (HH:MM)', 'frost-child'),
+							label: __('Add time (HH:MM)', 'frost-child'),
 							placeholder: '09:30',
 							value: newTime,
 							onChange: function (value) {
@@ -155,16 +155,16 @@
 								setAttributes({ times: nextTimes });
 								setNewTime('');
 							},
-						}, __('Lägg till tid', 'frost-child')),
+						}, __('Add time', 'frost-child')),
 						el(TextControl, {
-							label: __('Knapptext', 'frost-child'),
+							label: __('Button text', 'frost-child'),
 							value: attributes.ctaText,
 							onChange: function (value) {
 								setAttributes({ ctaText: value });
 							},
 						}),
 						el(TextControl, {
-							label: __('Bekräftelsetext', 'frost-child'),
+							label: __('Confirmation text', 'frost-child'),
 							value: attributes.confirmationText,
 							onChange: function (value) {
 								setAttributes({ confirmationText: value });
