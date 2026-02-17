@@ -1,0 +1,175 @@
+.frost-child-booking-calendar {
+	display: grid;
+	grid-template-columns: minmax(280px, 420px) minmax(280px, 1fr);
+	background: var(--wp--preset--color--base, #ffffff);
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 10%, transparent);
+	border-radius: 12px;
+	overflow: hidden;
+	max-width: 980px;
+}
+
+.frost-child-booking-calendar__calendar {
+	background: var(--wp--preset--color--contrast, #123446);
+	color: var(--wp--preset--color--base, #ffffff);
+	padding: 28px;
+}
+
+.frost-child-booking-calendar__title {
+	margin: 0 0 18px;
+	font-size: 36px;
+	line-height: 1.1;
+}
+
+.frost-child-booking-calendar__month-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.frost-child-booking-calendar__month {
+	margin: 0;
+	font-size: 32px;
+	line-height: 1.1;
+	text-transform: lowercase;
+}
+
+.frost-child-booking-calendar__month-nav {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--base, #ffffff) 35%, transparent);
+	background: transparent;
+	color: inherit;
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	cursor: pointer;
+}
+
+.frost-child-booking-calendar__weekdays,
+.frost-child-booking-calendar__days {
+	display: grid;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.frost-child-booking-calendar__weekday {
+	font-size: 14px;
+	letter-spacing: 0.02em;
+	font-weight: 600;
+	opacity: 0.9;
+	text-align: center;
+}
+
+.frost-child-booking-calendar__day {
+	border: 1px solid transparent;
+	background: transparent;
+	color: inherit;
+	height: 42px;
+	border-radius: 999px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.frost-child-booking-calendar__day[disabled] {
+	opacity: 0.3;
+	cursor: default;
+}
+
+.frost-child-booking-calendar__day.is-selected {
+	background: var(--wp--preset--color--base, #ffffff);
+	color: var(--wp--preset--color--contrast, #123446);
+	border-color: color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 30%, transparent);
+}
+
+.frost-child-booking-calendar__times {
+	padding: 28px;
+	background: var(--wp--preset--color--base, #ffffff);
+	color: var(--wp--preset--color--contrast, #123446);
+}
+
+.frost-child-booking-calendar__meta-label {
+	margin: 0 0 8px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.frost-child-booking-calendar__meeting-length {
+	background: color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 10%, var(--wp--preset--color--base, #ffffff));
+	border-radius: 4px;
+	padding: 12px;
+	font-weight: 500;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.frost-child-booking-calendar__times-title {
+	font-size: 32px;
+	line-height: 1.1;
+	margin: 0 0 6px;
+}
+
+.frost-child-booking-calendar__selected-date,
+.frost-child-booking-calendar__timezone {
+	margin: 0 0 8px;
+}
+
+.frost-child-booking-calendar__timezone {
+	font-size: 15px;
+	color: color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 70%, transparent);
+}
+
+.frost-child-booking-calendar__time-list {
+	display: grid;
+	gap: 10px;
+	margin: 14px 0 18px;
+}
+
+.frost-child-booking-calendar__time-button {
+	width: 100%;
+	padding: 12px 14px;
+	border-radius: 4px;
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 20%, transparent);
+	background: var(--wp--preset--color--base, #ffffff);
+	cursor: pointer;
+	font-size: 24px;
+	line-height: 1.1;
+	color: inherit;
+}
+
+.frost-child-booking-calendar__time-button.is-selected {
+	border-color: var(--wp--preset--color--contrast, #123446);
+	background: color-mix(in srgb, var(--wp--preset--color--contrast, #123446) 8%, var(--wp--preset--color--base, #ffffff));
+}
+
+.frost-child-booking-calendar__book-button {
+	padding: 12px 14px;
+	border: 0;
+	border-radius: 4px;
+	background: var(--wp--preset--color--contrast, #123446);
+	color: var(--wp--preset--color--base, #ffffff);
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.frost-child-booking-calendar__book-button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.frost-child-booking-calendar__confirmation {
+	margin-top: 10px;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+@media (max-width: 900px) {
+	.frost-child-booking-calendar {
+		grid-template-columns: 1fr;
+	}
+
+	.frost-child-booking-calendar__title,
+	.frost-child-booking-calendar__times-title {
+		font-size: 28px;
+	}
+}

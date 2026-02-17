@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/booking-calendar",
+  "version": "1.0.0",
+  "title": "Booking Calendar",
+  "category": "widgets",
+  "icon": "calendar-alt",
+  "description": "Kalender för att välja dag och boka en tid.",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "viewScript": "file:./view.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Prata med Elektriker"
+    },
+    "meetingLength": {
+      "type": "string",
+      "default": "15 min"
+    },
+    "timezoneLabel": {
+      "type": "string",
+      "default": "Koordinerad universell tid+01:00 (Europa/Stockholm)"
+    },
+    "times": {
+      "type": "array",
+      "default": ["07:45", "08:00", "12:15", "12:30", "13:30"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Boka möte"
+    },
+    "confirmationText": {
+      "type": "string",
+      "default": "Tack! Din bokning är registrerad."
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  }
+}

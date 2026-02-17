@@ -177,6 +177,21 @@ function frost_child_register_company_map_block() {
 	register_block_type( $block_dir );
 }
 add_action( 'init', 'frost_child_register_company_map_block' );
+
+/**
+ * Register Booking Calendar block (no build step).
+ */
+function frost_child_register_booking_calendar_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/booking-calendar';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_booking_calendar_block' );
+
 /**
  * Register Customer Reviews block (no build step).
  */
