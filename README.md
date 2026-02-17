@@ -2,7 +2,15 @@
 
 WordPress child theme for Frost with custom Gutenberg blocks and vanilla JS/CSS (no build step).
 
-## What’s New (Feb 13, 2026)
+## What’s New (Feb 17, 2026)
+
+- Added a new Booking Calendar block: `frost-child/booking-calendar`
+- Added a new Company Google Map block: `frost-child/company-map`
+- Added a new A–Ö Filter block: `frost-child/alphabet-filter`
+- Added REST endpoint for alphabet filtering: `frost-child/v1/alphabet-filter`
+- Verified frontend logic is domain-independent (no local domain hardcoding)
+
+## Earlier Updates (Feb 13, 2026)
 
 - Added a new Image Carousel block: `frost-child/image-carousel`
 - Image Carousel now supports multi-image add from Media Library and URL-based image add
@@ -18,10 +26,13 @@ WordPress child theme for Frost with custom Gutenberg blocks and vanilla JS/CSS 
 
 - Dropdown Menu (Mega Menu) block
 - Simple Dropdown block
+- FAQ Dropdown block
 - Flexible Navigation block
 - Flexible Nav Link block
 - Customer Reviews carousel block
-- Image Carousel block (new)
+- Image Carousel block
+- Booking Calendar block
+- Company Google Map block
 - Alphabet Filter block + REST endpoint
 - Responsive behavior across blocks
 - Template parts (header/footer)
@@ -34,10 +45,13 @@ Frost-Child/
 ├── assets/
 ├── blocks/
 │   ├── alphabet-filter/
+│   ├── booking-calendar/
+│   ├── company-map/
 │   ├── dropdown-menu/
+│   ├── faq-dropdown/
 │   ├── flexible-nav-link/
 │   ├── flexible-navigation/
-│   ├── image-carousel/      # New image carousel block
+│   ├── image-carousel/
 │   ├── review-carousel/
 │   ├── simple-dropdown/
 │   └── slide-image/         # Legacy carousel block
@@ -96,14 +110,24 @@ Frost-Child/
   - arrows positioned outside image cards
   - dot style matches current design system used in carousels
 
+### Booking Calendar
+- Block: `frost-child/booking-calendar`
+- Features: weekday/holiday-aware date picker, time slot selection, booking confirmation state
+
+### Company Google Map
+- Block: `frost-child/company-map`
+- Features: company name/address or exact lat/lng pin, editable zoom and map height
+
 ### Alphabet Filter
 - Block: `frost-child/alphabet-filter`
 - REST endpoint: `frost-child/v1/alphabet-filter`
+- Features: search input + letter filtering (A–Ö) against published content
 
 ## Registration & Loading
 
 - Theme setup and block registration are in `functions.php`
 - Most blocks use `register_block_type()` with block.json metadata
+- Booking Calendar, Company Map, and Alphabet Filter are registered via block.json in `functions.php`
 - Image Carousel is explicitly registered with:
   - editor script/style
   - frontend style
@@ -129,4 +153,4 @@ Frost-Child/
 ---
 
 Theme Version: 1.0.0  
-Last Updated: February 13, 2026
+Last Updated: February 17, 2026
