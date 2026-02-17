@@ -1,8 +1,5 @@
 .frost-child-company-map {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-	gap: clamp(20px, 4vw, 56px);
-	align-items: stretch;
+	width: 100%;
 }
 
 .frost-child-company-map__map {
@@ -20,17 +17,7 @@
 	min-height: inherit;
 }
 
-.frost-child-company-map__content {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
 @media (max-width: 960px) {
-	.frost-child-company-map {
-		grid-template-columns: 1fr;
-	}
-
 	.frost-child-company-map__map {
 		min-height: 320px !important;
 	}

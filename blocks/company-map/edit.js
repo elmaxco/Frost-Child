@@ -4,11 +4,9 @@
 	var __ = i18n.__;
 	var useBlockProps = blockEditor.useBlockProps;
 	var InspectorControls = blockEditor.InspectorControls;
-	var InnerBlocks = blockEditor.InnerBlocks;
 	var PanelBody = components.PanelBody;
 	var TextControl = components.TextControl;
 	var RangeControl = components.RangeControl;
-	var Notice = components.Notice;
 
 	function buildMapUrl( attrs ) {
 		var zoom = typeof attrs.zoom === 'number' ? attrs.zoom : 13;
@@ -109,19 +107,6 @@
 							allowFullScreen: true,
 							referrerPolicy: 'no-referrer-when-downgrade',
 						} )
-					),
-					el(
-						'div',
-						{ className: 'frost-child-company-map__content' },
-						el( Notice, { status: 'info', isDismissible: false }, __( 'Lägg till rubrik och text till höger via innehållsytan nedan.', 'frost-child' ) ),
-						el( InnerBlocks, {
-							allowedBlocks: [ 'core/heading', 'core/paragraph', 'core/list', 'core/buttons' ],
-							template: [
-								[ 'core/heading', { level: 2, content: 'Våra elektriker täcker hela Stockholm med omnejd' } ],
-								[ 'core/paragraph', { content: 'Skriv din företagsbeskrivning här. Du kan byta plats för pin genom adress eller lat/lng i blockinställningarna.' } ]
-							],
-							templateLock: false,
-						} )
 					)
 				)
 			);
@@ -146,11 +131,6 @@
 						allowFullScreen: true,
 						referrerPolicy: 'no-referrer-when-downgrade',
 					} )
-				),
-				el(
-					'div',
-					{ className: 'frost-child-company-map__content' },
-					el( InnerBlocks.Content )
 				)
 			);
 		},
