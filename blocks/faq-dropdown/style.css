@@ -12,7 +12,7 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
-	padding: 20px 0;
+	padding: 24px 0;
 	background: transparent;
 	border: 0;
 	font: inherit;
@@ -22,28 +22,33 @@
 }
 
 .frost-child-faq-dropdown__question {
-	font-size: clamp(24px, 2.8vw, 42px);
-	line-height: 1.12;
+	font-size: clamp(22px, 2.5vw, 38px);
+	line-height: 1.16;
 	font-weight: 500;
-	max-width: min(78%, 22ch);
+	max-width: min(80%, 25ch);
 }
 
 .frost-child-faq-dropdown__icon {
-	width: 44px;
-	height: 44px;
-	flex: 0 0 44px;
+	width: 48px;
+	height: 48px;
+	flex: 0 0 48px;
 	border-radius: 999px;
 	background: var(--wp--preset--color--accent, #e6b36d);
 	color: var(--wp--preset--color--contrast, #123446);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 28px;
+	font-size: 29px;
 	line-height: 1;
-	font-weight: 600;
+	font-weight: 500;
 	transform-origin: 50% 50%;
-	transition: transform 0.2s ease;
-	padding-bottom: 4px;
+	transition: transform 0.26s ease, filter 0.2s ease;
+	padding-bottom: 2px;
+}
+
+.frost-child-faq-dropdown__trigger:hover .frost-child-faq-dropdown__icon,
+.frost-child-faq-dropdown__trigger:focus-visible .frost-child-faq-dropdown__icon {
+	filter: brightness(0.96);
 }
 
 .frost-child-faq-dropdown__item.is-open .frost-child-faq-dropdown__icon {
@@ -51,15 +56,17 @@
 }
 
 .frost-child-faq-dropdown__panel {
-	padding: 0 0 24px 0;
+	padding: 0 0 26px 0;
+	overflow: hidden;
 }
 
 .frost-child-faq-dropdown__answer {
-	font-size: clamp(18px, 1.9vw, 31px);
+	font-size: clamp(17px, 1.8vw, 29px);
 	line-height: 1.35;
 	max-width: 36ch;
-	padding-left: 18px;
-	border-left: 1px solid rgba(18, 52, 70, 0.6);
+	padding: 2px 0 0 24px;
+	margin-left: 2px;
+	border-left: 1px solid rgba(18, 52, 70, 0.7);
 	white-space: pre-line;
 }
 
@@ -72,11 +79,12 @@
 @media (max-width: 960px) {
 	.frost-child-faq-dropdown__question {
 		max-width: 100%;
-		font-size: clamp(24px, 4.6vw, 34px);
+		font-size: clamp(22px, 4.8vw, 32px);
 	}
 
 	.frost-child-faq-dropdown__answer {
-		font-size: clamp(17px, 3.7vw, 24px);
+		font-size: clamp(17px, 3.7vw, 22px);
 		max-width: 100%;
+		padding-left: 18px;
 	}
 }
