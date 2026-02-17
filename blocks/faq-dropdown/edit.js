@@ -14,8 +14,8 @@
 		if ( ! Array.isArray( items ) || ! items.length ) {
 			return [
 				{
-					question: __( 'Ny fråga', 'frost-child' ),
-					answer: __( 'Skriv svar här.', 'frost-child' ),
+					question: __( 'New question', 'frost-child' ),
+					answer: __( 'Write answer here.', 'frost-child' ),
 				},
 			];
 		}
@@ -32,7 +32,7 @@
 		title: __( 'FAQ Dropdown', 'frost-child' ),
 		icon: 'editor-help',
 		category: 'widgets',
-		description: __( 'FAQ accordion med flera expanderbara frågor och svar.', 'frost-child' ),
+		description: __( 'FAQ accordion with multiple expandable questions and answers.', 'frost-child' ),
 		supports: {
 			html: false,
 		},
@@ -66,8 +66,8 @@
 				setAttributes( {
 					items: items.concat( [
 						{
-							question: __( 'Ny fråga', 'frost-child' ),
-							answer: __( 'Skriv svar här.', 'frost-child' ),
+							question: __( 'New question', 'frost-child' ),
+							answer: __( 'Write answer here.', 'frost-child' ),
 						},
 					] ),
 				} );
@@ -95,19 +95,19 @@
 				return el(
 					PanelBody,
 					{
-						title: __( 'Fråga', 'frost-child' ) + ' ' + ( index + 1 ),
+						title: __( 'Question', 'frost-child' ) + ' ' + ( index + 1 ),
 						initialOpen: index === 0,
 						key: 'item-panel-' + index,
 					},
 					el( TextControl, {
-						label: __( 'Fråga', 'frost-child' ),
+						label: __( 'Question', 'frost-child' ),
 						value: item.question,
 						onChange: function ( value ) {
 							updateItem( index, 'question', value );
 						},
 					} ),
 					el( TextareaControl, {
-						label: __( 'Svar', 'frost-child' ),
+						label: __( 'Answer', 'frost-child' ),
 						value: item.answer,
 						onChange: function ( value ) {
 							updateItem( index, 'answer', value );
@@ -123,7 +123,7 @@
 							},
 							disabled: items.length <= 1,
 						},
-						__( 'Ta bort fråga', 'frost-child' )
+						__( 'Remove question', 'frost-child' )
 					)
 				);
 			} );
@@ -146,13 +146,13 @@
 							},
 							'aria-expanded': isOpen ? 'true' : 'false',
 						},
-						el( 'span', { className: 'frost-child-faq-dropdown__question' }, item.question || __( 'Skriv fråga...', 'frost-child' ) ),
+						el( 'span', { className: 'frost-child-faq-dropdown__question' }, item.question || __( 'Write question...', 'frost-child' ) ),
 						el( 'span', { className: 'frost-child-faq-dropdown__icon', 'aria-hidden': 'true' }, '⌄' )
 					),
 					el(
 						'div',
 						{ className: 'frost-child-faq-dropdown__panel', hidden: ! isOpen },
-						el( 'div', { className: 'frost-child-faq-dropdown__answer' }, item.answer || __( 'Skriv svar...', 'frost-child' ) )
+						el( 'div', { className: 'frost-child-faq-dropdown__answer' }, item.answer || __( 'Write answer...', 'frost-child' ) )
 					)
 				);
 			} );
@@ -166,14 +166,14 @@
 					inspectorItems,
 					el(
 						PanelBody,
-						{ title: __( 'Lägg till', 'frost-child' ), initialOpen: false },
+						{ title: __( 'Add', 'frost-child' ), initialOpen: false },
 						el(
 							Button,
 							{
 								variant: 'primary',
 								onClick: addItem,
 							},
-							__( 'Lägg till ny fråga', 'frost-child' )
+							__( 'Add new question', 'frost-child' )
 						)
 					)
 				),
