@@ -1,16 +1,5 @@
 ( function () {
 	var ROOT_SELECTOR = '.wp-block-frost-child-faq-dropdown';
-	var ANIMATION_MS = 260;
-
-	function clearPanelStyles( panel ) {
-		if ( ! panel ) {
-			return;
-		}
-
-		panel.style.height = '';
-		panel.style.overflow = '';
-		panel.style.transition = '';
-	}
 
 	function closeItem( item ) {
 		if ( ! item ) {
@@ -25,20 +14,8 @@
 			trigger.setAttribute( 'aria-expanded', 'false' );
 		}
 		if ( panel ) {
-			var panelHeight = panel.scrollHeight;
 			panel.hidden = false;
-			panel.style.overflow = 'hidden';
-			panel.style.height = panelHeight + 'px';
-			panel.style.transition = 'height ' + ANIMATION_MS + 'ms ease';
-
-			requestAnimationFrame( function () {
-				panel.style.height = '0px';
-			} );
-
-			window.setTimeout( function () {
-				panel.hidden = true;
-				clearPanelStyles( panel );
-			}, ANIMATION_MS + 24 );
+			panel.setAttribute( 'aria-hidden', 'true' );
 		}
 	}
 
@@ -55,19 +32,8 @@
 			trigger.setAttribute( 'aria-expanded', 'true' );
 		}
 		if ( panel ) {
-			var panelHeight = panel.scrollHeight;
 			panel.hidden = false;
-			panel.style.overflow = 'hidden';
-			panel.style.height = '0px';
-			panel.style.transition = 'height ' + ANIMATION_MS + 'ms ease';
-
-			requestAnimationFrame( function () {
-				panel.style.height = panelHeight + 'px';
-			} );
-
-			window.setTimeout( function () {
-				clearPanelStyles( panel );
-			}, ANIMATION_MS + 24 );
+			panel.setAttribute( 'aria-hidden', 'false' );
 		}
 	}
 
