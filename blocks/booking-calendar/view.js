@@ -201,6 +201,7 @@
 		}
 
 		const today = startOfDay(new Date());
+		const minVisibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 		const holidayCache = {};
 		let selectedDate = findNextAvailableDate(today, today, holidayCache);
 		let visibleMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
@@ -298,6 +299,10 @@
 			prev.className = 'frost-child-booking-calendar__month-nav';
 			prev.setAttribute('aria-label', 'Föregående månad');
 			prev.textContent = '‹';
+			if (visibleMonth <= minVisibleMonth) {
+				prev.disabled = true;
+				prev.setAttribute('aria-disabled', 'true');
+			}
 
 			const month = document.createElement('p');
 			month.className = 'frost-child-booking-calendar__month';
@@ -361,6 +366,9 @@
 			});
 
 			prev.addEventListener('click', () => {
+				if (visibleMonth <= minVisibleMonth) {
+					return;
+				}
 				visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1);
 				renderCalendar();
 			});

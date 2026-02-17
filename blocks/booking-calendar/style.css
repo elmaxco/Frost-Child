@@ -45,6 +45,11 @@
 	cursor: pointer;
 }
 
+.frost-child-booking-calendar__month-nav[disabled] {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
 .frost-child-booking-calendar__weekdays,
 .frost-child-booking-calendar__days {
 	display: grid;
