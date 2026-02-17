@@ -9,7 +9,7 @@
 }
 
 .frost-child-booking-calendar__calendar {
-	background: var(--wp--preset--color--contrast, #123446);
+	background: #1A353B;
 	color: var(--wp--preset--color--base, #ffffff);
 	padding: 28px;
 }
