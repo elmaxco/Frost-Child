@@ -189,6 +189,7 @@
 		block.dataset.bookingCalendarBound = '1';
 
 		const title = block.dataset.title || 'Prata med Elektriker';
+		const badgeText = block.dataset.badgeText || 'Dryft';
 		const meetingLength = block.dataset.meetingLength || '15 min';
 		const times = parseTimes(block.dataset.times);
 		const ctaText = block.dataset.ctaText || 'Boka möte';
@@ -291,6 +292,10 @@
 			heading.className = 'frost-child-booking-calendar__title';
 			heading.textContent = title;
 
+			const badge = document.createElement('div');
+			badge.className = 'frost-child-booking-calendar__badge';
+			badge.textContent = badgeText;
+
 			const monthWrap = document.createElement('div');
 			monthWrap.className = 'frost-child-booking-calendar__month-wrap';
 
@@ -378,6 +383,7 @@
 				renderCalendar();
 			});
 
+			calendarRoot.appendChild(badge);
 			calendarRoot.appendChild(heading);
 			calendarRoot.appendChild(monthWrap);
 			calendarRoot.appendChild(weekdays);

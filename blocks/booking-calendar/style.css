@@ -14,6 +14,21 @@
 	padding: 28px;
 }
 
+.frost-child-booking-calendar__badge {
+	width: 104px;
+	height: 104px;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--wp--preset--color--base, #ffffff) 12%, transparent);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 42px;
+	font-weight: 700;
+	line-height: 1;
+	margin: 0 auto 22px;
+	text-transform: none;
+}
+
 .frost-child-booking-calendar__title {
 	margin: 0 0 18px;
 	font-size: 36px;

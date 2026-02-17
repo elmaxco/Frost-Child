@@ -17,6 +17,10 @@
       "type": "string",
       "default": "Prata med Elektriker"
     },
+    "badgeText": {
+      "type": "string",
+      "default": "Dryft"
+    },
     "meetingLength": {
       "type": "string",
       "default": "15 min"

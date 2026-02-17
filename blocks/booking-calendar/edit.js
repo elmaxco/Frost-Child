@@ -36,6 +36,7 @@
 		},
 		attributes: {
 			title: { type: 'string', default: 'Prata med Elektriker' },
+			badgeText: { type: 'string', default: 'Dryft' },
 			meetingLength: { type: 'string', default: '15 min' },
 			times: {
 				type: 'array',
@@ -74,6 +75,13 @@
 							},
 						}),
 						el(TextControl, {
+							label: __('Badge text', 'frost-child'),
+							value: attributes.badgeText,
+							onChange: function (value) {
+								setAttributes({ badgeText: value });
+							},
+						}),
+						el(TextControl, {
 							label: __('Möteslängd', 'frost-child'),
 							value: attributes.meetingLength,
 							onChange: function (value) {
@@ -108,6 +116,7 @@
 					'div',
 					blockProps,
 					el('div', { className: 'frost-child-booking-calendar__calendar' },
+						el('div', { className: 'frost-child-booking-calendar__badge' }, attributes.badgeText || 'Dryft'),
 						el('h3', { className: 'frost-child-booking-calendar__title' }, attributes.title || __('Prata med Elektriker', 'frost-child')),
 						el('p', { className: 'frost-child-booking-calendar__month' }, __('Kalender visas på frontend med månadsvy.', 'frost-child'))
 					),
@@ -144,6 +153,7 @@
 				'div',
 				Object.assign({}, blockProps, {
 					'data-title': attributes.title || '',
+					'data-badge-text': attributes.badgeText || '',
 					'data-meeting-length': attributes.meetingLength || '',
 					'data-times': JSON.stringify(times),
 					'data-cta-text': attributes.ctaText || '',
