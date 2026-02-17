@@ -1,0 +1,37 @@
+.frost-child-company-map {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: clamp(20px, 4vw, 56px);
+	align-items: stretch;
+}
+
+.frost-child-company-map__map {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.frost-child-company-map__iframe {
+	border: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: inherit;
+}
+
+.frost-child-company-map__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+@media (max-width: 960px) {
+	.frost-child-company-map {
+		grid-template-columns: 1fr;
+	}
+
+	.frost-child-company-map__map {
+		min-height: 320px !important;
+	}
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/company-map",
+  "version": "1.0.0",
+  "title": "Company Google Map",
+  "category": "widgets",
+  "icon": "location-alt",
+  "description": "Google Maps section with selectable company pin and editable content.",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "companyName": {
+      "type": "string",
+      "default": ""
+    },
+    "address": {
+      "type": "string",
+      "default": "Stockholm"
+    },
+    "latitude": {
+      "type": "string",
+      "default": ""
+    },
+    "longitude": {
+      "type": "string",
+      "default": ""
+    },
+    "zoom": {
+      "type": "number",
+      "default": 13
+    },
+    "mapHeight": {
+      "type": "number",
+      "default": 480
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    }
+  }
+}
