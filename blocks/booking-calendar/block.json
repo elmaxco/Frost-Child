@@ -21,10 +21,6 @@
       "type": "string",
       "default": "15 min"
     },
-    "timezoneLabel": {
-      "type": "string",
-      "default": "Koordinerad universell tid+01:00 (Europa/Stockholm)"
-    },
     "times": {
       "type": "array",
       "default": ["07:45", "08:00", "12:15", "12:30", "13:30"],

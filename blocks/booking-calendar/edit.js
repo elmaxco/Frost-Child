@@ -37,7 +37,6 @@
 		attributes: {
 			title: { type: 'string', default: 'Prata med Elektriker' },
 			meetingLength: { type: 'string', default: '15 min' },
-			timezoneLabel: { type: 'string', default: 'Koordinerad universell tid+01:00 (Europa/Stockholm)' },
 			times: {
 				type: 'array',
 				default: ['07:45', '08:00', '12:15', '12:30', '13:30'],
@@ -81,13 +80,6 @@
 								setAttributes({ meetingLength: value });
 							},
 						}),
-						el(TextControl, {
-							label: __('Tidszonstext', 'frost-child'),
-							value: attributes.timezoneLabel,
-							onChange: function (value) {
-								setAttributes({ timezoneLabel: value });
-							},
-						}),
 						el(TextareaControl, {
 							label: __('Tider (en tid per rad)', 'frost-child'),
 							help: __('Exempel: 07:45', 'frost-child'),
@@ -124,7 +116,6 @@
 						el('div', { className: 'frost-child-booking-calendar__meeting-length' }, attributes.meetingLength || '15 min'),
 						el('h4', { className: 'frost-child-booking-calendar__times-title' }, __('Vilken tid passar bäst?', 'frost-child')),
 						el('p', { className: 'frost-child-booking-calendar__selected-date' }, __('Visar tider för', 'frost-child') + ' ' + dateLabel),
-						el('p', { className: 'frost-child-booking-calendar__timezone' }, attributes.timezoneLabel || ''),
 						timeList.length
 							? el(
 								'div',
@@ -154,7 +145,6 @@
 				Object.assign({}, blockProps, {
 					'data-title': attributes.title || '',
 					'data-meeting-length': attributes.meetingLength || '',
-					'data-timezone-label': attributes.timezoneLabel || '',
 					'data-times': JSON.stringify(times),
 					'data-cta-text': attributes.ctaText || '',
 					'data-confirmation-text': attributes.confirmationText || '',

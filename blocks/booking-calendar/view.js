@@ -73,7 +73,6 @@
 
 		const title = block.dataset.title || 'Prata med Elektriker';
 		const meetingLength = block.dataset.meetingLength || '15 min';
-		const timezoneLabel = block.dataset.timezoneLabel || '';
 		const times = parseTimes(block.dataset.times);
 		const ctaText = block.dataset.ctaText || 'Boka möte';
 		const confirmationText = block.dataset.confirmationText || 'Tack! Din bokning är registrerad.';
@@ -107,10 +106,6 @@
 			const selectedDateEl = document.createElement('p');
 			selectedDateEl.className = 'frost-child-booking-calendar__selected-date';
 			selectedDateEl.textContent = 'Visar tider för ' + toLongDate(selectedDate);
-
-			const timezoneEl = document.createElement('p');
-			timezoneEl.className = 'frost-child-booking-calendar__timezone';
-			timezoneEl.textContent = timezoneLabel;
 
 			const list = document.createElement('div');
 			list.className = 'frost-child-booking-calendar__time-list';
@@ -165,7 +160,6 @@
 			timesRoot.appendChild(meeting);
 			timesRoot.appendChild(titleEl);
 			timesRoot.appendChild(selectedDateEl);
-			timesRoot.appendChild(timezoneEl);
 			timesRoot.appendChild(list);
 			timesRoot.appendChild(cta);
 			timesRoot.appendChild(confirmation);
