@@ -1,12 +1,14 @@
 (function (blocks, element, blockEditor, components, i18n) {
 	var el = element.createElement;
 	var Fragment = element.Fragment;
+	var useState = element.useState;
 	var __ = i18n.__;
 	var useBlockProps = blockEditor.useBlockProps;
 	var InspectorControls = blockEditor.InspectorControls;
 	var PanelBody = components.PanelBody;
 	var TextControl = components.TextControl;
 	var TextareaControl = components.TextareaControl;
+	var Button = components.Button;
 	var Notice = components.Notice;
 
 	function timesToText(times) {
@@ -23,6 +25,24 @@
 				return row.trim();
 			})
 			.filter(Boolean);
+	}
+
+	function normalizeTime(value) {
+		var input = String(value || '').trim();
+		var match = input.match(/^(\d{1,2}):(\d{2})$/);
+		if (!match) {
+			return '';
+		}
+
+		var hour = parseInt(match[1], 10);
+		var minute = parseInt(match[2], 10);
+		if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+			return '';
+		}
+
+		var hourText = String(hour).padStart(2, '0');
+		var minuteText = String(minute).padStart(2, '0');
+		return hourText + ':' + minuteText;
 	}
 
 	blocks.registerBlockType('frost-child/booking-calendar', {
@@ -49,8 +69,12 @@
 		edit: function (props) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
+			var newTimeState = useState('');
+			var newTime = newTimeState[0];
+			var setNewTime = newTimeState[1];
 			var blockProps = useBlockProps({ className: 'frost-child-booking-calendar is-editor-preview' });
 			var timeList = Array.isArray(attributes.times) ? attributes.times : [];
+			var normalizedNewTime = normalizeTime(newTime);
 			var firstDate = new Date();
 			var dateLabel = firstDate.toLocaleDateString('sv-SE', {
 				year: 'numeric',
@@ -96,6 +120,42 @@
 								setAttributes({ times: textToTimes(value) });
 							},
 						}),
+						el(TextControl, {
+							label: __('Lägg till tid (HH:MM)', 'frost-child'),
+							placeholder: '09:30',
+							value: newTime,
+							onChange: function (value) {
+								setNewTime(value);
+							},
+						}),
+						el(Button, {
+							variant: 'secondary',
+							disabled: !normalizedNewTime,
+							onClick: function () {
+								if (!normalizedNewTime) {
+									return;
+								}
+
+								var exists = timeList.some(function (time) {
+									return String(time).trim() === normalizedNewTime;
+								});
+								if (exists) {
+									setNewTime('');
+									return;
+								}
+
+								var nextTimes = timeList
+									.concat([normalizedNewTime])
+									.map(function (time) {
+										return String(time).trim();
+									})
+									.filter(Boolean)
+									.sort();
+
+								setAttributes({ times: nextTimes });
+								setNewTime('');
+							},
+						}, __('Lägg till tid', 'frost-child')),
 						el(TextControl, {
 							label: __('Knapptext', 'frost-child'),
 							value: attributes.ctaText,
