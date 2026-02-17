@@ -65,6 +65,123 @@
 		);
 	}
 
+	function startOfDay(date) {
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	}
+
+	function easterSunday(year) {
+		const a = year % 19;
+		const b = Math.floor(year / 100);
+		const c = year % 100;
+		const d = Math.floor(b / 4);
+		const e = b % 4;
+		const f = Math.floor((b + 8) / 25);
+		const g = Math.floor((b - f + 1) / 3);
+		const h = (19 * a + b - d - g + 15) % 30;
+		const i = Math.floor(c / 4);
+		const k = c % 4;
+		const l = (32 + 2 * e + 2 * i - h - k) % 7;
+		const m = Math.floor((a + 11 * h + 22 * l) / 451);
+		const month = Math.floor((h + l - 7 * m + 114) / 31);
+		const day = ((h + l - 7 * m + 114) % 31) + 1;
+		return new Date(year, month - 1, day);
+	}
+
+	function addDays(date, days) {
+		const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+		copy.setDate(copy.getDate() + days);
+		return copy;
+	}
+
+	function toDateKey(date) {
+		const y = date.getFullYear();
+		const m = String(date.getMonth() + 1).padStart(2, '0');
+		const d = String(date.getDate()).padStart(2, '0');
+		return `${y}-${m}-${d}`;
+	}
+
+	function swedishHolidayKeys(year) {
+		const easter = easterSunday(year);
+		const midsummerEve = (() => {
+			for (let day = 19; day <= 25; day += 1) {
+				const candidate = new Date(year, 5, day);
+				if (candidate.getDay() === 5) {
+					return candidate;
+				}
+			}
+			return new Date(year, 5, 20);
+		})();
+		const allSaintsDay = (() => {
+			for (let day = 31; day <= 37; day += 1) {
+				const candidate = new Date(year, 9, day);
+				if (candidate.getDay() === 6) {
+					return candidate;
+				}
+			}
+			return new Date(year, 10, 1);
+		})();
+
+		const holidays = [
+			new Date(year, 0, 1),
+			new Date(year, 0, 6),
+			addDays(easter, -2),
+			addDays(easter, -1),
+			easter,
+			addDays(easter, 1),
+			new Date(year, 4, 1),
+			addDays(easter, 39),
+			addDays(easter, 49),
+			new Date(year, 5, 6),
+			midsummerEve,
+			addDays(midsummerEve, 1),
+			allSaintsDay,
+			new Date(year, 11, 24),
+			new Date(year, 11, 25),
+			new Date(year, 11, 26),
+			new Date(year, 11, 31),
+		];
+
+		return new Set(holidays.map(toDateKey));
+	}
+
+	function isWeekend(date) {
+		const day = date.getDay();
+		return day === 0 || day === 6;
+	}
+
+	function isHoliday(date, cache) {
+		const year = date.getFullYear();
+		if (!cache[year]) {
+			cache[year] = swedishHolidayKeys(year);
+		}
+		return cache[year].has(toDateKey(date));
+	}
+
+	function isBlockedDate(date, today, holidayCache) {
+		const normalized = startOfDay(date);
+		if (normalized < today) {
+			return true;
+		}
+		if (isWeekend(normalized)) {
+			return true;
+		}
+		if (isHoliday(normalized, holidayCache)) {
+			return true;
+		}
+		return false;
+	}
+
+	function findNextAvailableDate(fromDate, today, holidayCache) {
+		let candidate = startOfDay(fromDate);
+		for (let i = 0; i < 400; i += 1) {
+			if (!isBlockedDate(candidate, today, holidayCache)) {
+				return candidate;
+			}
+			candidate = addDays(candidate, 1);
+		}
+		return startOfDay(today);
+	}
+
 	function initBlock(block) {
 		if (!block || block.dataset.bookingCalendarBound === '1') {
 			return;
@@ -83,9 +200,10 @@
 			return;
 		}
 
-		const today = new Date();
-		let visibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-		let selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+		const today = startOfDay(new Date());
+		const holidayCache = {};
+		let selectedDate = findNextAvailableDate(today, today, holidayCache);
+		let visibleMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
 		let selectedTime = '';
 
 		function renderTimesPanel() {
@@ -220,11 +338,19 @@
 				}
 
 				dayBtn.textContent = String(cellDate.getDate());
+				const blocked = isBlockedDate(cellDate, today, holidayCache);
+				if (blocked) {
+					dayBtn.disabled = true;
+					dayBtn.setAttribute('aria-disabled', 'true');
+				}
 				if (sameDate(cellDate, selectedDate)) {
 					dayBtn.classList.add('is-selected');
 				}
 
 				dayBtn.addEventListener('click', () => {
+					if (blocked) {
+						return;
+					}
 					selectedDate = new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate());
 					selectedTime = '';
 					renderCalendar();
