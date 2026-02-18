@@ -18,7 +18,6 @@
         {
           "label": "Elektriker",
           "url": "#",
-          "imageLinkUrl": "#",
           "imageUrl": "",
           "imageId": 0,
           "imageAlt": ""
@@ -26,7 +25,6 @@
         {
           "label": "Rörmokare",
           "url": "#",
-          "imageLinkUrl": "#",
           "imageUrl": "",
           "imageId": 0,
           "imageAlt": ""
@@ -34,7 +32,6 @@
         {
           "label": "Målare",
           "url": "#",
-          "imageLinkUrl": "#",
           "imageUrl": "",
           "imageId": 0,
           "imageAlt": ""

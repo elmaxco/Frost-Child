@@ -22,9 +22,9 @@
 			items: {
 				type: 'array',
 				default: [
-					{ label: 'Elektriker', url: '#', imageLinkUrl: '#', imageUrl: '', imageId: 0, imageAlt: '' },
-					{ label: 'Rörmokare', url: '#', imageLinkUrl: '#', imageUrl: '', imageId: 0, imageAlt: '' },
-					{ label: 'Målare', url: '#', imageLinkUrl: '#', imageUrl: '', imageId: 0, imageAlt: '' }
+					{ label: 'Elektriker', url: '#', imageUrl: '', imageId: 0, imageAlt: '' },
+					{ label: 'Rörmokare', url: '#', imageUrl: '', imageId: 0, imageAlt: '' },
+					{ label: 'Målare', url: '#', imageUrl: '', imageId: 0, imageAlt: '' }
 				],
 			},
 		},
@@ -66,10 +66,19 @@
 				setAttributes({ items: nextItems });
 			};
 
+			var updateImageUrl = function (index, value) {
+				var nextItems = items.slice();
+				nextItems[index] = Object.assign({}, nextItems[index], {
+					imageUrl: value,
+					imageId: 0
+				});
+				setAttributes({ items: nextItems });
+			};
+
 			var addItem = function () {
 				setAttributes({
 					items: items.concat([
-						{ label: __('Ny knapp', 'frost-child'), url: '#', imageLinkUrl: '#', imageUrl: '', imageId: 0, imageAlt: '' }
+						{ label: __('Ny knapp', 'frost-child'), url: '#', imageUrl: '', imageId: 0, imageAlt: '' }
 					])
 				});
 			};
@@ -121,10 +130,10 @@
 								placeholder: 'https://'
 							}),
 							createElement(TextControl, {
-								label: __('Bildlänk', 'frost-child'),
-								value: item.imageLinkUrl || '',
+								label: __('Bild-URL', 'frost-child'),
+								value: item.imageUrl || '',
 								onChange: function (value) {
-									updateItem(index, 'imageLinkUrl', value);
+									updateImageUrl(index, value);
 								},
 								placeholder: 'https://'
 							}),
@@ -190,27 +199,20 @@
 					{ className: 'frost-child-service-buttons__grid' },
 					items.map(function (item, index) {
 						var linkUrl = item.url && item.url.trim() ? item.url : '#';
-						var imageLinkUrl = item.imageLinkUrl && item.imageLinkUrl.trim() ? item.imageLinkUrl : linkUrl;
 						return createElement(
-							'div',
-							{ key: index, className: 'frost-child-service-buttons__card' },
+							'a',
+							{ key: index, className: 'frost-child-service-buttons__link', href: linkUrl },
 							createElement(
-								'a',
-								{ className: 'frost-child-service-buttons__media-link', href: imageLinkUrl },
-								createElement(
-									'span',
-									{ className: 'frost-child-service-buttons__media' },
+								'span',
+								{ className: 'frost-child-service-buttons__media' },
 								item.imageUrl
 									? createElement('img', {
 										src: item.imageUrl,
 										alt: item.imageAlt || item.label || ''
 									})
 									: null
-								)
 							),
-							createElement('a', { className: 'frost-child-service-buttons__label-link', href: linkUrl },
-								createElement('span', { className: 'frost-child-service-buttons__label' }, item.label || '')
-							)
+							createElement('span', { className: 'frost-child-service-buttons__label' }, item.label || '')
 						);
 					})
 				)
