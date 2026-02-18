@@ -37,7 +37,8 @@
 		edit: function (props) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
-			var cards = Array.isArray(attributes.cards) ? attributes.cards.map(normalizeCard) : [];
+			var sourceCards = Array.isArray(attributes.cards) ? attributes.cards : [];
+			var cards = sourceCards.map(normalizeCard);
 			var ctaTitle = typeof attributes.ctaTitle === 'string' ? attributes.ctaTitle : '';
 			var ctaButtonText = typeof attributes.ctaButtonText === 'string' ? attributes.ctaButtonText : '';
 			var ctaButtonUrl = typeof attributes.ctaButtonUrl === 'string' ? attributes.ctaButtonUrl : '#';
@@ -59,7 +60,8 @@
 			}
 
 			function addCard() {
-				setCards(cards.concat([createDefaultCard()]));
+				var nextCards = (Array.isArray(attributes.cards) ? attributes.cards.map(normalizeCard) : cards).concat([createDefaultCard()]);
+				setCards(nextCards);
 			}
 
 			function removeCard(index) {
@@ -75,6 +77,21 @@
 				createElement(
 					InspectorControls,
 					null,
+					createElement(
+						PanelBody,
+						{
+							title: __('Kort', 'frost-child'),
+							initialOpen: true,
+						},
+						createElement(
+							Button,
+							{
+								variant: 'primary',
+								onClick: addCard,
+							},
+							__('Lägg till kort', 'frost-child')
+						)
+					),
 					cards.map(function (card, index) {
 						return createElement(
 							PanelBody,
