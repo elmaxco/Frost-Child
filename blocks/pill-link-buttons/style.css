@@ -6,6 +6,9 @@
   --frost-pill-text: var(--wp--preset--color--contrast, #103747);
   --frost-pill-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
   width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .frost-child-pill-links__grid {
