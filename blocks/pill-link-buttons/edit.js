@@ -8,7 +8,7 @@
 
 	function createDefaultItem() {
 		return {
-			label: __('Ny knapp', 'frost-child'),
+			label: __('New button', 'frost-child'),
 			url: '#',
 		};
 	}
@@ -84,7 +84,7 @@
 								createElement(
 									'span',
 									{ className: 'frost-child-pill-links__label' },
-									item.label || __('Knapptext', 'frost-child')
+									item.label || __('Button text', 'frost-child')
 								),
 								createElement(
 									'span',
@@ -100,7 +100,7 @@
 								},
 							}),
 							createElement(TextControl, {
-								label: __('Länk', 'frost-child'),
+								label: __('Link', 'frost-child'),
 								value: item.url,
 								onChange: function (value) {
 									updateItem(index, 'url', value);
@@ -116,7 +116,7 @@
 										removeItem(index);
 									},
 								},
-								__('Ta bort knapp', 'frost-child')
+								__('Remove button', 'frost-child')
 							)
 						);
 					})
@@ -128,7 +128,7 @@
 						onClick: addItem,
 						className: 'frost-child-pill-links__add',
 					},
-					__('Lägg till knapp', 'frost-child')
+					__('Add button', 'frost-child')
 				)
 			);
 		},
