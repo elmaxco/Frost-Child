@@ -53,8 +53,8 @@
 
 .frost-child-service-buttons__media {
   display: inline-flex;
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -89,8 +89,8 @@
   }
 
   .frost-child-service-buttons__media {
-    width: 78px;
-    height: 78px;
+    width: 96px;
+    height: 96px;
   }
 }
 
