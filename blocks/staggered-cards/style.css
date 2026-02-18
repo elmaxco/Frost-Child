@@ -44,14 +44,14 @@
 .frost-child-staggered-cards__title,
 .frost-child-staggered-cards__cta-title {
   margin: 0;
-  font-size: clamp(1.95rem, 2.6vw, 2.9rem);
+  font-size: 32px;
   line-height: 1.12;
   font-weight: 700;
 }
 
 .frost-child-staggered-cards__text {
   margin: 12px 0 0;
-  font-size: clamp(1rem, 1.1vw, 1.28rem);
+  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -97,10 +97,10 @@
 
   .frost-child-staggered-cards__title,
   .frost-child-staggered-cards__cta-title {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+    font-size: 32px;
   }
 
   .frost-child-staggered-cards__text {
-    font-size: 0.98rem;
+    font-size: 16px;
   }
 }
