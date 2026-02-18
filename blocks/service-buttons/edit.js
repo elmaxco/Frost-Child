@@ -28,6 +28,15 @@
 		};
 	}
 
+	function resolveImageAlt(item) {
+		var explicitAlt = item && item.imageAlt && item.imageAlt.trim() ? item.imageAlt.trim() : '';
+		if (explicitAlt) {
+			return explicitAlt;
+		}
+
+		return item && item.label && item.label.trim() ? item.label.trim() : '';
+	}
+
 	registerBlockType('frost-child/service-buttons', {
 		title: __('Service Buttons', 'frost-child'),
 		icon: 'grid-view',
@@ -64,10 +73,13 @@
 					return;
 				}
 				var nextItems = items.slice();
+				var mediaAlt = media.alt && media.alt.trim() ? media.alt.trim() : '';
+				var currentAlt = nextItems[index].imageAlt && nextItems[index].imageAlt.trim() ? nextItems[index].imageAlt.trim() : '';
+				var fallbackAlt = nextItems[index].label && nextItems[index].label.trim() ? nextItems[index].label.trim() : '';
 				nextItems[index] = Object.assign({}, nextItems[index], {
 					imageId: media.id || 0,
 					imageUrl: media.url || '',
-					imageAlt: media.alt || nextItems[index].imageAlt || ''
+					imageAlt: mediaAlt || currentAlt || fallbackAlt
 				});
 				setItems(nextItems);
 			};
@@ -120,7 +132,7 @@
 									{ className: 'frost-child-service-buttons__media' },
 									item.imageUrl ? createElement('img', {
 										src: item.imageUrl,
-										alt: item.imageAlt || item.label || ''
+										alt: resolveImageAlt(item)
 									}) : null
 								),
 								createElement(
@@ -157,7 +169,8 @@
 								value: item.imageAlt,
 								onChange: function (value) {
 									updateItem(index, 'imageAlt', value);
-								}
+								},
+								help: __('Lämna tomt för att använda knapptext som alt-text.', 'frost-child')
 							}),
 							createElement(
 								'div',
@@ -241,7 +254,7 @@
 								{ className: 'frost-child-service-buttons__media' },
 								item.imageUrl ? createElement('img', {
 									src: item.imageUrl,
-									alt: item.imageAlt || item.label || ''
+									alt: resolveImageAlt(item)
 								}) : null
 							),
 							createElement(
