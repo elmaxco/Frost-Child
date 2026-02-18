@@ -1,5 +1,6 @@
 .frost-child-service-buttons {
   --frost-child-service-card-bg: var(--wp--preset--color--contrast-2, #123943);
+  --frost-child-service-card-hover-bg: var(--wp--preset--color--accent, #ee9542);
   --frost-child-service-text: var(--wp--preset--color--base, #ffffff);
 }
 
@@ -22,12 +23,12 @@
   text-decoration: none;
   background: var(--frost-child-service-card-bg);
   color: var(--frost-child-service-text);
-  transition: transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .frost-child-service-buttons__link:hover,
 .frost-child-service-buttons__link:focus-visible {
-  transform: translateY(-2px);
+  background: var(--frost-child-service-card-hover-bg);
   color: var(--frost-child-service-text);
 }
 
