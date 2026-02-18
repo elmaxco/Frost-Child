@@ -170,7 +170,7 @@
 								onChange: function (value) {
 									updateItem(index, 'imageAlt', value);
 								},
-								help: __('Lämna tomt för att använda knapptext som alt-text.', 'frost-child')
+								help: __('Leave empty to use the button text as alt text.', 'frost-child')
 							}),
 							createElement(
 								'div',
