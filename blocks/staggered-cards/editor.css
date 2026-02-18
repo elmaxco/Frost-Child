@@ -1,0 +1,12 @@
+.frost-child-staggered-cards.is-editor .frost-child-staggered-cards__card,
+.frost-child-staggered-cards.is-editor .frost-child-staggered-cards__cta {
+  position: relative;
+}
+
+.frost-child-staggered-cards.is-editor .frost-child-staggered-cards__text {
+  white-space: pre-line;
+}
+
+.frost-child-staggered-cards.is-editor .frost-child-staggered-cards__add {
+  margin-top: 14px;
+}

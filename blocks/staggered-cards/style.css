@@ -1,0 +1,104 @@
+.wp-block-frost-child-staggered-cards,
+.frost-child-staggered-cards {
+  --frost-stagger-card-bg: var(--wp--preset--color--accent, #efbe82);
+  --frost-stagger-cta-bg: var(--wp--preset--color--base, #ffffff);
+  --frost-stagger-text: var(--wp--preset--color--contrast, #123943);
+  --frost-stagger-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+.frost-child-staggered-cards__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.frost-child-staggered-cards__card,
+.frost-child-staggered-cards__cta {
+  width: min(100%, 860px);
+  border-radius: 16px;
+  padding: clamp(22px, 2.2vw, 36px) clamp(22px, 3vw, 46px);
+  box-shadow: var(--frost-stagger-shadow);
+  color: var(--frost-stagger-text);
+}
+
+.frost-child-staggered-cards__card {
+  background: var(--frost-stagger-card-bg);
+}
+
+.frost-child-staggered-cards__card:nth-child(3n + 1) {
+  margin-left: min(12%, 160px);
+}
+
+.frost-child-staggered-cards__card:nth-child(3n + 2) {
+  margin-left: min(24%, 320px);
+}
+
+.frost-child-staggered-cards__card:nth-child(3n + 3) {
+  margin-left: 0;
+}
+
+.frost-child-staggered-cards__title,
+.frost-child-staggered-cards__cta-title {
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 3.3rem);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.frost-child-staggered-cards__text {
+  margin: 16px 0 0;
+  font-size: clamp(1.1rem, 1.35vw, 1.7rem);
+  line-height: 1.45;
+}
+
+.frost-child-staggered-cards__cta {
+  background: var(--frost-stagger-cta-bg);
+  margin-left: min(12%, 160px);
+  text-align: center;
+}
+
+.frost-child-staggered-cards__cta-button {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--frost-stagger-card-bg);
+  color: var(--frost-stagger-text);
+  text-decoration: none;
+  font-size: clamp(1.2rem, 1.45vw, 1.9rem);
+  font-weight: 600;
+}
+
+.frost-child-staggered-cards__cta-button:hover,
+.frost-child-staggered-cards__cta-button:focus-visible {
+  filter: brightness(0.98);
+}
+
+@media (max-width: 960px) {
+  .frost-child-staggered-cards__card,
+  .frost-child-staggered-cards__cta,
+  .frost-child-staggered-cards__card:nth-child(3n + 1),
+  .frost-child-staggered-cards__card:nth-child(3n + 2),
+  .frost-child-staggered-cards__card:nth-child(3n + 3),
+  .frost-child-staggered-cards__cta {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .frost-child-staggered-cards__title,
+  .frost-child-staggered-cards__cta-title {
+    font-size: clamp(1.8rem, 6.5vw, 2.4rem);
+  }
+
+  .frost-child-staggered-cards__text {
+    font-size: 1.05rem;
+  }
+}

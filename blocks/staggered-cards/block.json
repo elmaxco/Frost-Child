@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/staggered-cards",
+  "version": "1.0.0",
+  "title": "Förskjutna Kort",
+  "category": "widgets",
+  "icon": "columns",
+  "description": "Sektion med förskjutna kort och avslutande CTA-kort.",
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "cards": {
+      "type": "array",
+      "default": [
+        {
+          "title": "Tryggt och Smidigt",
+          "text": "Med en tydlig offert till fast pris så kan du vara trygg med vad din renovering kommer att kosta. Projektet leds av en av våra erfarna projektledare så du är informerad om vad du kan förvänta dig under varje steg vi tar tillsammans."
+        },
+        {
+          "title": "Helhetsansvar",
+          "text": "Med alla yrkesgrupper under samma tak, med gemensamma processer, arbetssätt och vision så tar vi ett helhetsansvar för ditt projekt. Utan mellanhänder kan vi då leverera med hög kvalitet till ett bra pris."
+        },
+        {
+          "title": "Schysst och Hållbart",
+          "text": "Våra anställda har schyssta villkor med kollektivavtal. Engagerade medarbetare, positiv kultur och laganda."
+        }
+      ]
+    },
+    "ctaTitle": {
+      "type": "string",
+      "default": "Vill du veta mer?"
+    },
+    "ctaButtonText": {
+      "type": "string",
+      "default": "Kontakta oss"
+    },
+    "ctaButtonUrl": {
+      "type": "string",
+      "default": "#"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}
