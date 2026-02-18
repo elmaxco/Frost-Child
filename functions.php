@@ -151,6 +151,20 @@ function frost_child_register_simple_dropdown_block() {
 add_action( 'init', 'frost_child_register_simple_dropdown_block' );
 
 /**
+ * Register Service Buttons block (no build step).
+ */
+function frost_child_register_service_buttons_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/service-buttons';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_service_buttons_block' );
+
+/**
  * Register FAQ Dropdown block (no build step).
  */
 function frost_child_register_faq_dropdown_block() {
