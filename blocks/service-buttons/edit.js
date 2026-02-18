@@ -1,69 +1,75 @@
 (function (wp) {
 	var registerBlockType = wp.blocks.registerBlockType;
 	var createElement = wp.element.createElement;
-	var Fragment = wp.element.Fragment;
 	var __ = wp.i18n.__;
 	var useBlockProps = wp.blockEditor.useBlockProps;
 	var MediaUpload = wp.blockEditor.MediaUpload;
 	var MediaUploadCheck = wp.blockEditor.MediaUploadCheck;
 	var Button = wp.components.Button;
 	var TextControl = wp.components.TextControl;
-	var Placeholder = wp.components.Placeholder;
+
+	function createDefaultItem() {
+		return {
+			label: __('Ny tjänst', 'frost-child'),
+			url: '#',
+			imageUrl: '',
+			imageId: 0,
+			imageAlt: ''
+		};
+	}
+
+	function normalizeItem(item) {
+		return {
+			label: item && item.label ? item.label : '',
+			url: item && item.url ? item.url : '#',
+			imageUrl: item && item.imageUrl ? item.imageUrl : '',
+			imageId: item && item.imageId ? item.imageId : 0,
+			imageAlt: item && item.imageAlt ? item.imageAlt : ''
+		};
+	}
 
 	registerBlockType('frost-child/service-buttons', {
 		title: __('Service Buttons', 'frost-child'),
 		icon: 'grid-view',
 		category: 'widgets',
-		description: __('A row of image buttons with labels and links.', 'frost-child'),
+		description: __('Serviceknappar med bild, text och länk.', 'frost-child'),
 		supports: {
 			html: false,
-		},
-		attributes: {
-			items: {
-				type: 'array',
-				default: [
-					{ label: 'Elektriker', url: '#', imageUrl: '', imageId: 0, imageAlt: '' },
-					{ label: 'Rörmokare', url: '#', imageUrl: '', imageId: 0, imageAlt: '' },
-					{ label: 'Målare', url: '#', imageUrl: '', imageId: 0, imageAlt: '' }
-				],
-			},
+			align: true,
 		},
 
 		edit: function (props) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
-			var items = attributes.items || [];
 			var blockProps = useBlockProps({ className: 'frost-child-service-buttons is-editor' });
+			var items = Array.isArray(attributes.items) ? attributes.items.map(normalizeItem) : [];
 
-			var updateItem = function (index, key, value) {
-				var nextItems = items.slice();
-				nextItems[index] = Object.assign({}, nextItems[index], {});
-				nextItems[index][key] = value;
+			if (items.length === 0) {
+				items = [createDefaultItem()];
+			}
+
+			var setItems = function (nextItems) {
 				setAttributes({ items: nextItems });
 			};
 
-			var updateImage = function (index, media) {
+			var updateItem = function (index, field, value) {
+				var nextItems = items.slice();
+				nextItems[index] = Object.assign({}, nextItems[index]);
+				nextItems[index][field] = value;
+				setItems(nextItems);
+			};
+
+			var updateImageFromLibrary = function (index, media) {
 				if (!media) {
 					return;
 				}
-
 				var nextItems = items.slice();
 				nextItems[index] = Object.assign({}, nextItems[index], {
 					imageId: media.id || 0,
 					imageUrl: media.url || '',
-					imageAlt: media.alt || ''
+					imageAlt: media.alt || nextItems[index].imageAlt || ''
 				});
-				setAttributes({ items: nextItems });
-			};
-
-			var removeImage = function (index) {
-				var nextItems = items.slice();
-				nextItems[index] = Object.assign({}, nextItems[index], {
-					imageId: 0,
-					imageUrl: '',
-					imageAlt: ''
-				});
-				setAttributes({ items: nextItems });
+				setItems(nextItems);
 			};
 
 			var updateImageUrl = function (index, value) {
@@ -72,22 +78,28 @@
 					imageUrl: value,
 					imageId: 0
 				});
-				setAttributes({ items: nextItems });
+				setItems(nextItems);
+			};
+
+			var removeImage = function (index) {
+				var nextItems = items.slice();
+				nextItems[index] = Object.assign({}, nextItems[index], {
+					imageUrl: '',
+					imageId: 0,
+					imageAlt: ''
+				});
+				setItems(nextItems);
 			};
 
 			var addItem = function () {
-				setAttributes({
-					items: items.concat([
-						{ label: __('Ny knapp', 'frost-child'), url: '#', imageUrl: '', imageId: 0, imageAlt: '' }
-					])
-				});
+				setItems(items.concat([createDefaultItem()]));
 			};
 
 			var removeItem = function (index) {
 				var nextItems = items.filter(function (_item, itemIndex) {
 					return itemIndex !== index;
 				});
-				setAttributes({ items: nextItems });
+				setItems(nextItems.length ? nextItems : [createDefaultItem()]);
 			};
 
 			return createElement(
@@ -103,27 +115,30 @@
 							createElement(
 								'div',
 								{ className: 'frost-child-service-buttons__preview' },
-								item.imageUrl
-									? createElement('img', {
+								createElement(
+									'span',
+									{ className: 'frost-child-service-buttons__media' },
+									item.imageUrl ? createElement('img', {
 										src: item.imageUrl,
 										alt: item.imageAlt || item.label || ''
-									})
-									: createElement(Placeholder, {
-										label: __('Ingen bild vald', 'frost-child'),
-										instructions: __('Välj en bild för knappen.', 'frost-child')
-									}),
-								createElement('p', { className: 'frost-child-service-buttons__title' }, item.label || __('Knapptext', 'frost-child'))
+									}) : null
+								),
+								createElement(
+									'span',
+									{ className: 'frost-child-service-buttons__label' },
+									item.label || __('Knapptext', 'frost-child')
+								)
 							),
 							createElement(TextControl, {
 								label: __('Text', 'frost-child'),
-								value: item.label || '',
+								value: item.label,
 								onChange: function (value) {
 									updateItem(index, 'label', value);
 								}
 							}),
 							createElement(TextControl, {
 								label: __('Länk', 'frost-child'),
-								value: item.url || '',
+								value: item.url,
 								onChange: function (value) {
 									updateItem(index, 'url', value);
 								},
@@ -131,45 +146,65 @@
 							}),
 							createElement(TextControl, {
 								label: __('Bild-URL', 'frost-child'),
-								value: item.imageUrl || '',
+								value: item.imageUrl,
 								onChange: function (value) {
 									updateImageUrl(index, value);
 								},
 								placeholder: 'https://'
 							}),
+							createElement(TextControl, {
+								label: __('Bild alt-text', 'frost-child'),
+								value: item.imageAlt,
+								onChange: function (value) {
+									updateItem(index, 'imageAlt', value);
+								}
+							}),
 							createElement(
 								'div',
 								{ className: 'frost-child-service-buttons__actions' },
-								createElement(MediaUploadCheck, {},
+								createElement(
+									MediaUploadCheck,
+									null,
 									createElement(MediaUpload, {
 										onSelect: function (media) {
-											updateImage(index, media);
+											updateImageFromLibrary(index, media);
 										},
 										allowedTypes: ['image'],
-										value: item.imageId || 0,
+										value: item.imageId,
 										render: function (mediaProps) {
-											return createElement(Button, {
-												variant: 'secondary',
-												onClick: mediaProps.open
-											}, item.imageUrl ? __('Byt bild', 'frost-child') : __('Välj bild', 'frost-child'));
+											return createElement(
+												Button,
+												{
+													variant: 'secondary',
+													onClick: mediaProps.open
+												},
+												item.imageUrl ? __('Byt bild', 'frost-child') : __('Välj bild', 'frost-child')
+											);
 										}
 									})
 								),
-								item.imageUrl
-									? createElement(Button, {
+								createElement(
+									Button,
+									{
 										variant: 'tertiary',
 										onClick: function () {
 											removeImage(index);
+										},
+										disabled: !item.imageUrl
+									},
+									__('Ta bort bild', 'frost-child')
+								),
+								createElement(
+									Button,
+									{
+										variant: 'link',
+										isDestructive: true,
+										onClick: function () {
+											removeItem(index);
 										}
-									}, __('Ta bort bild', 'frost-child'))
-									: null,
-								createElement(Button, {
-									variant: 'link',
-									isDestructive: true,
-									onClick: function () {
-										removeItem(index);
-									}
-								}, __('Ta bort knapp', 'frost-child'))
+									},
+									__('Ta bort knapp', 'frost-child')
+								)
 							)
 						);
 					})
@@ -187,8 +222,7 @@
 		},
 
 		save: function (props) {
-			var attributes = props.attributes;
-			var items = attributes.items || [];
+			var items = Array.isArray(props.attributes.items) ? props.attributes.items.map(normalizeItem) : [];
 			var blockProps = wp.blockEditor.useBlockProps.save({ className: 'frost-child-service-buttons' });
 
 			return createElement(
@@ -198,21 +232,23 @@
 					'div',
 					{ className: 'frost-child-service-buttons__grid' },
 					items.map(function (item, index) {
-						var linkUrl = item.url && item.url.trim() ? item.url : '#';
+						var href = item.url && item.url.trim() ? item.url : '#';
 						return createElement(
 							'a',
-							{ key: index, className: 'frost-child-service-buttons__link', href: linkUrl },
+							{ key: index, className: 'frost-child-service-buttons__link', href: href },
 							createElement(
 								'span',
 								{ className: 'frost-child-service-buttons__media' },
-								item.imageUrl
-									? createElement('img', {
-										src: item.imageUrl,
-										alt: item.imageAlt || item.label || ''
-									})
-									: null
+								item.imageUrl ? createElement('img', {
+									src: item.imageUrl,
+									alt: item.imageAlt || item.label || ''
+								}) : null
 							),
-							createElement('span', { className: 'frost-child-service-buttons__label' }, item.label || '')
+							createElement(
+								'span',
+								{ className: 'frost-child-service-buttons__label' },
+								item.label
+							)
 						);
 					})
 				)

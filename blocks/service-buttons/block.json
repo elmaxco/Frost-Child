@@ -2,11 +2,11 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "frost-child/service-buttons",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "title": "Service Buttons",
   "category": "widgets",
   "icon": "grid-view",
-  "description": "A row of image buttons with labels and links.",
+  "description": "Serviceknappar med bild, text och länk.",
   "textdomain": "frost-child",
   "editorScript": "file:./edit.js",
   "style": "file:./style.css",
@@ -41,6 +41,10 @@
   },
   "supports": {
     "html": false,
-    "align": ["wide", "full"]
+    "align": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
   }
 }

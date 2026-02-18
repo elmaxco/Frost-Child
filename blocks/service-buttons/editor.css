@@ -1,10 +1,12 @@
 .frost-child-service-buttons.is-editor .frost-child-service-buttons__grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .frost-child-service-buttons__item {
   border: 1px solid #dcdcde;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 14px;
   background: #ffffff;
 }
@@ -15,24 +17,27 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 140px;
+  min-height: 150px;
   margin-bottom: 12px;
   padding: 12px;
   border-radius: 8px;
-  background: #123943;
+  background: var(--wp--preset--color--contrast-2, #123943);
 }
 
-.frost-child-service-buttons__preview img {
-  max-width: 68px;
-  max-height: 68px;
+.frost-child-service-buttons__preview .frost-child-service-buttons__media {
+  width: 68px;
+  height: 68px;
+}
+
+.frost-child-service-buttons__preview .frost-child-service-buttons__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.frost-child-service-buttons__title {
-  margin: 0;
-  font-weight: 700;
-  color: #ffffff;
-  text-align: center;
+.frost-child-service-buttons__preview .frost-child-service-buttons__label {
+  color: var(--wp--preset--color--base, #ffffff);
 }
 
 .frost-child-service-buttons__actions {
