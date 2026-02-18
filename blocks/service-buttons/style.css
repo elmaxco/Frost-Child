@@ -4,7 +4,9 @@
   --frost-child-service-card-hover-bg: var(--wp--preset--color--accent, #ee9542);
   --frost-child-service-text: var(--wp--preset--color--base, #ffffff);
   width: 100%;
-  max-width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .is-layout-flex > .wp-block-frost-child-service-buttons:not(.alignleft):not(.alignright):not(.aligncenter) {
@@ -21,13 +23,14 @@
 
 .frost-child-service-buttons__grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 22px;
   align-items: stretch;
 }
 
 .frost-child-service-buttons__link {
   min-width: 0;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,21 +73,9 @@
   line-height: 1.25;
 }
 
-@media (max-width: 1100px) {
-  .frost-child-service-buttons__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 900px) {
-  .frost-child-service-buttons__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 640px) {
   .frost-child-service-buttons__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(130px, 1fr));
     gap: 14px;
   }
 
