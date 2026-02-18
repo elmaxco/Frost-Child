@@ -6,7 +6,7 @@
   "title": "Service Buttons",
   "category": "widgets",
   "icon": "grid-view",
-  "description": "Serviceknappar med bild, text och länk.",
+  "description": "Service buttons with image, text, and link.",
   "textdomain": "frost-child",
   "editorScript": "file:./edit.js",
   "style": "file:./style.css",

@@ -10,7 +10,7 @@
 
 	function createDefaultItem() {
 		return {
-			label: __('Ny tjänst', 'frost-child'),
+			label: __('New service', 'frost-child'),
 			url: '#',
 			imageUrl: '',
 			imageId: 0,
@@ -32,7 +32,7 @@
 		title: __('Service Buttons', 'frost-child'),
 		icon: 'grid-view',
 		category: 'widgets',
-		description: __('Serviceknappar med bild, text och länk.', 'frost-child'),
+		description: __('Service buttons with image, text, and link.', 'frost-child'),
 		supports: {
 			html: false,
 			align: true,
@@ -126,7 +126,7 @@
 								createElement(
 									'span',
 									{ className: 'frost-child-service-buttons__label' },
-									item.label || __('Knapptext', 'frost-child')
+									item.label || __('Button text', 'frost-child')
 								)
 							),
 							createElement(TextControl, {
@@ -137,7 +137,7 @@
 								}
 							}),
 							createElement(TextControl, {
-								label: __('Länk', 'frost-child'),
+								label: __('Link', 'frost-child'),
 								value: item.url,
 								onChange: function (value) {
 									updateItem(index, 'url', value);
@@ -145,7 +145,7 @@
 								placeholder: 'https://'
 							}),
 							createElement(TextControl, {
-								label: __('Bild-URL', 'frost-child'),
+								label: __('Image URL', 'frost-child'),
 								value: item.imageUrl,
 								onChange: function (value) {
 									updateImageUrl(index, value);
@@ -153,7 +153,7 @@
 								placeholder: 'https://'
 							}),
 							createElement(TextControl, {
-								label: __('Bild alt-text', 'frost-child'),
+								label: __('Image alt text', 'frost-child'),
 								value: item.imageAlt,
 								onChange: function (value) {
 									updateItem(index, 'imageAlt', value);
@@ -178,7 +178,7 @@
 													variant: 'secondary',
 													onClick: mediaProps.open
 												},
-												item.imageUrl ? __('Byt bild', 'frost-child') : __('Välj bild', 'frost-child')
+												item.imageUrl ? __('Change image', 'frost-child') : __('Select image', 'frost-child')
 											);
 										}
 									})
@@ -192,7 +192,7 @@
 										},
 										disabled: !item.imageUrl
 									},
-									__('Ta bort bild', 'frost-child')
+									__('Remove image', 'frost-child')
 								),
 								createElement(
 									Button,
@@ -203,7 +203,7 @@
 											removeItem(index);
 										}
 									},
-									__('Ta bort knapp', 'frost-child')
+									__('Remove button', 'frost-child')
 								)
 							)
 						);
@@ -216,7 +216,7 @@
 						onClick: addItem,
 						className: 'frost-child-service-buttons__add'
 					},
-					__('Lägg till knapp', 'frost-child')
+					__('Add button', 'frost-child')
 				)
 			);
 		},
