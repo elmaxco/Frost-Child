@@ -10,7 +10,7 @@
   align-items: stretch;
 }
 
-.frost-child-service-buttons__link {
+.frost-child-service-buttons__card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -19,16 +19,25 @@
   min-height: 170px;
   padding: 20px 12px 16px;
   border-radius: 8px;
-  text-decoration: none;
   background: var(--frost-child-service-card-bg);
   color: var(--frost-child-service-text);
-  transition: transform 0.2s ease;
 }
 
-.frost-child-service-buttons__link:hover,
-.frost-child-service-buttons__link:focus-visible {
+.frost-child-service-buttons__card:hover,
+.frost-child-service-buttons__card:focus-within {
   transform: translateY(-2px);
+}
+
+.frost-child-service-buttons__media-link,
+.frost-child-service-buttons__label-link {
   color: var(--frost-child-service-text);
+  text-decoration: none;
+}
+
+.frost-child-service-buttons__media-link:focus-visible,
+.frost-child-service-buttons__label-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 
 .frost-child-service-buttons__media {
