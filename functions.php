@@ -165,6 +165,20 @@ function frost_child_register_service_buttons_block() {
 add_action( 'init', 'frost_child_register_service_buttons_block' );
 
 /**
+ * Register Pill Link Buttons block (no build step).
+ */
+function frost_child_register_pill_link_buttons_block() {
+	$block_dir  = get_stylesheet_directory() . '/blocks/pill-link-buttons';
+
+	if ( ! file_exists( $block_dir . '/block.json' ) ) {
+		return;
+	}
+
+	register_block_type( $block_dir );
+}
+add_action( 'init', 'frost_child_register_pill_link_buttons_block' );
+
+/**
  * Register FAQ Dropdown block (no build step).
  */
 function frost_child_register_faq_dropdown_block() {

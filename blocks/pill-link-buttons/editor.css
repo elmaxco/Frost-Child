@@ -1,0 +1,18 @@
+.frost-child-pill-links.is-editor .frost-child-pill-links__grid {
+  grid-template-columns: 1fr;
+}
+
+.frost-child-pill-links__item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  background: #fff;
+}
+
+.frost-child-pill-links__item .components-base-control {
+  margin-top: 10px;
+}
+
+.frost-child-pill-links__add {
+  margin-top: 12px;
+}

@@ -1,0 +1,78 @@
+.wp-block-frost-child-pill-link-buttons,
+.frost-child-pill-links {
+  --frost-pill-bg: var(--wp--preset--color--base, #ffffff);
+  --frost-pill-bg-hover: var(--wp--preset--color--accent, #efbe82);
+  --frost-pill-border: var(--wp--preset--color--accent, #efbe82);
+  --frost-pill-text: var(--wp--preset--color--contrast, #103747);
+  --frost-pill-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+  width: 100%;
+}
+
+.frost-child-pill-links__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+}
+
+.frost-child-pill-links__link,
+.frost-child-pill-links__preview {
+  min-height: 82px;
+  border: 1.5px solid var(--frost-pill-border);
+  border-radius: 999px;
+  padding: 18px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-decoration: none;
+  background: var(--frost-pill-bg);
+  color: var(--frost-pill-text);
+  font-size: clamp(1.2rem, 1.55vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.frost-child-pill-links__link:hover,
+.frost-child-pill-links__link:focus-visible {
+  background: var(--frost-pill-bg-hover);
+  box-shadow: var(--frost-pill-shadow);
+  color: var(--frost-pill-text);
+}
+
+.frost-child-pill-links__link:focus-visible {
+  outline: 2px solid var(--frost-pill-border);
+  outline-offset: 2px;
+}
+
+.frost-child-pill-links__label {
+  min-width: 0;
+}
+
+.frost-child-pill-links__arrow {
+  flex: 0 0 auto;
+  font-size: 1.75rem;
+  line-height: 1;
+  transform: translateX(0);
+  transition: transform 0.25s ease;
+}
+
+.frost-child-pill-links__link:hover .frost-child-pill-links__arrow,
+.frost-child-pill-links__link:focus-visible .frost-child-pill-links__arrow,
+.frost-child-pill-links__preview:hover .frost-child-pill-links__arrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 1100px) {
+  .frost-child-pill-links__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .frost-child-pill-links__link,
+  .frost-child-pill-links__preview {
+    min-height: 74px;
+    padding: 16px 26px;
+  }
+}

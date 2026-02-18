@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "frost-child/pill-link-buttons",
+  "version": "1.0.0",
+  "title": "Knapprad (Pill)",
+  "category": "widgets",
+  "icon": "button",
+  "description": "Responsiv knapprad med redigerbar text och länk.",
+  "keywords": [
+    "knapp",
+    "knappar",
+    "länk",
+    "pill"
+  ],
+  "textdomain": "frost-child",
+  "editorScript": "file:./edit.js",
+  "style": "file:./style.css",
+  "editorStyle": "file:./editor.css",
+  "attributes": {
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "label": "Badrum",
+          "url": "#"
+        },
+        {
+          "label": "Kakel i kök",
+          "url": "#"
+        },
+        {
+          "label": "Klinker på golv",
+          "url": "#"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}
