@@ -2,7 +2,13 @@
 
 WordPress child theme for Frost with custom Gutenberg blocks and vanilla JS/CSS (no build step).
 
-## What’s New (Feb 17, 2026)
+## What’s New (Feb 19, 2026)
+
+- Added a new Service Buttons block: `frost-child/service-buttons`
+- Added a new Pill Link Buttons block: `frost-child/pill-link-buttons`
+- Added a new Staggered Cards block: `frost-child/staggered-cards`
+
+## Earlier Updates (Feb 17, 2026)
 
 - Added a new Booking Calendar block: `frost-child/booking-calendar`
 - Added a new Company Google Map block: `frost-child/company-map`
@@ -29,6 +35,9 @@ WordPress child theme for Frost with custom Gutenberg blocks and vanilla JS/CSS 
 - FAQ Dropdown block
 - Flexible Navigation block
 - Flexible Nav Link block
+- Service Buttons block
+- Pill Link Buttons block
+- Staggered Cards block
 - Customer Reviews carousel block
 - Image Carousel block
 - Booking Calendar block
@@ -52,9 +61,12 @@ Frost-Child/
 │   ├── flexible-nav-link/
 │   ├── flexible-navigation/
 │   ├── image-carousel/
+│   ├── pill-link-buttons/
 │   ├── review-carousel/
+│   ├── service-buttons/
 │   ├── simple-dropdown/
-│   └── slide-image/         # Legacy carousel block
+│   ├── slide-image/         # Legacy carousel block
+│   └── staggered-cards/
 ├── parts/
 │   ├── footer.html
 │   └── header.html
@@ -82,6 +94,14 @@ Frost-Child/
 ### Flexible Nav Link
 - Block: `frost-child/flexible-nav-link`
 - Link/button block intended for Flexible Navigation
+
+### Service Buttons
+- Block: `frost-child/service-buttons`
+- Features: buttons with image, label, and link
+
+### Pill Link Buttons
+- Block: `frost-child/pill-link-buttons`
+- Features: responsive pill-style link button row with editable items
 
 ### Customer Reviews (Review Carousel)
 - Block: `frost-child/customer-reviews`
@@ -123,11 +143,15 @@ Frost-Child/
 - REST endpoint: `frost-child/v1/alphabet-filter`
 - Features: search input + letter filtering (A–Ö) against published content
 
+### Staggered Cards
+- Block: `frost-child/staggered-cards`
+- Features: staggered content cards plus configurable CTA card
+
 ## Registration & Loading
 
 - Theme setup and block registration are in `functions.php`
 - Most blocks use `register_block_type()` with block.json metadata
-- Booking Calendar, Company Map, and Alphabet Filter are registered via block.json in `functions.php`
+- Booking Calendar, Company Map, Alphabet Filter, Service Buttons, Pill Link Buttons, and Staggered Cards are registered via block.json in `functions.php`
 - Image Carousel is explicitly registered with:
   - editor script/style
   - frontend style
@@ -153,4 +177,4 @@ Frost-Child/
 ---
 
 Theme Version: 1.0.0  
-Last Updated: February 17, 2026
+Last Updated: February 19, 2026
